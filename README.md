@@ -1,0 +1,2 @@
+# FinancialManagementUI_v2
+A second version of the FinancialManagementUI, but this time made from scratch to ease on the learning process of react.js basis. Application that allows personal financial management. This app was developed in order to better understand personal financial status and ease financial decisions. The main focus is to develop a data visualization tool and statistical information.
