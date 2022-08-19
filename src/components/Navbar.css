@@ -2,18 +2,20 @@ nav {
   margin: 10px;
   height: 50px;
   display: flex;
+  margin-left: 130px;
+  margin-right: 20px;
+  padding-left: 20px;
 }
 
-.nav--logo {
-  height: 60%;
+.nav--icon {
+  display: flex;
+  height: 80%;
   max-width: 100px;
+  margin-top: 20px;
 }
 
 .nav--title {
   display: flex;
-  gap: 5px;
-  font-size: 8px;
-  align-items: center;
-  color: #f96d00;
-  width: 50px;
+  font-size: 28px;
+  color: black;
 }

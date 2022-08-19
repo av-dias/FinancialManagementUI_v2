@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import CardText from "./components/Cardtext";
 import Sidebar from "./components/Sidebar";
+import LChart from "./components/LChart";
 
 import stats from "./images/stats.jpg";
 import graph from "./images/graph.jpg";
@@ -16,6 +17,8 @@ const statsData = [
   { id: 3, value: 30, img: graph, price: "30€" },
   { id: 4, value: 200, img: stats, price: "75€" },
 ];
+
+const statsByType = [{ id: 1, value: 100, img: graph, price: "4€" }];
 
 function App() {
   const showStats = statsData.map((stat) => {
@@ -37,19 +40,30 @@ function App() {
       <>
         <CardText key={"mspend"} text="Month Spends: " value={100} />
         <CardText key={"msaving"} text="Month Balance: " value={100} />
-        <CardText key={"month"} icon={date} date={new Date().getMonth()} />
+        <div className="align--right">
+          <CardText key={"month"} icon={date} date={new Date().getMonth()} />
+        </div>
       </>
     );
   };
+
+  const showStatsByType = () => {
+    return (
+      <>
+        <LChart />
+      </>
+    );
+  };
+
   return (
     <div className="background-page">
-      <Navbar title="FINANCIAL MANAGER" />
+      <Navbar />
       <div>
         <Sidebar />
         <div className="blur">
-          <section className="cards-list">{showStatsHeader()}</section>
+          <section className="cardstext-list">{showStatsHeader()}</section>
           <section className="cards-list">{showStats}</section>
-          <section className="cards-list">{showStats}</section>
+          <section className="cards-list">{showStatsByType()}</section>
         </div>
       </div>
     </div>

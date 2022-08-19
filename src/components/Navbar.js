@@ -1,14 +1,13 @@
 import React from "react";
 import "./Navbar.css";
-import navLogo from "../images/logo.png";
+import loginIcon from "../images/login.png";
+import userIcon from "../images/user.png";
 
 export default function Navbar(props) {
   return (
     <nav>
-      <div className="nav--title">
-        <img src={navLogo} alt="logo" className="nav--logo" />
-        <h1>{props.title}</h1>
-      </div>
+      <h1 className="nav--title">{props.Title || "Dashboard"}</h1>
+      <img className="align--right nav--icon" src={userIcon} alt="Login"></img>
     </nav>
   );
 }

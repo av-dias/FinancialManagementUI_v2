@@ -1,12 +1,15 @@
 import React from "react";
 import "./Sidebar.css";
+import navLogo from "../images/logo.png";
 
 export default function Sidebar(props) {
   return (
     <div className="sidebar">
-      <h3>Home</h3>
-      <h3>Moviments</h3>
-      <h3>Split</h3>
+      <img src={navLogo} alt="logo" className="sidebar--logo" />
+      <hr />
+      <p className="sidebar--button hover">Dashboard</p>
+      <p className="sidebar--button hover">Moviments</p>
+      <p className="sidebar--button hover">Splits</p>
     </div>
   );
 }

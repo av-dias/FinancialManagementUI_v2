@@ -26,6 +26,13 @@ section {
   flex-wrap: nowrap;
   gap: 20px;
   align-items: center;
+  justify-content: center;
+}
+
+.cardstext-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
 }
 
 .align--bottom {
@@ -35,13 +42,17 @@ section {
   width: 1px;
 }
 
+.align--right {
+  margin-left: auto;
+}
+
 .blur {
-  background: rgba(243, 243, 243, 0.137);
+  background: rgba(151, 151, 151, 0.116);
   backdrop-filter: saturate(180%) blur(10px);
   margin: 20px;
   border-radius: 9px;
   /* Same as the width of the sidebar */
-  margin-left: 120px;
+  margin-left: 150px;
   position: relative;
 }
 
@@ -49,7 +60,7 @@ section {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: #222831;
+  background-color: rgb(227, 227, 227);
 }
 
 .gray {
@@ -58,4 +69,10 @@ section {
 
 .bold {
   font-weight: bold;
+}
+
+hr {
+  border: 2px solid;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
 }

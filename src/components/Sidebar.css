@@ -1,12 +1,13 @@
 .sidebar {
   height: 100%;
   /* Full-height: remove this if you want "auto" height */
-  width: auto;
+  width: 120px;
   /* Set the width of the sidebar */
   position: fixed;
   /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1;
-  /* Stay at the top */
+  /* Stay at the top and left */
+  top: 0;
   left: 0;
   /* Black */
   overflow-x: hidden;
@@ -14,4 +15,25 @@
   padding: 10px;
   color: white;
   font-size: 12px;
+  background: rgb(32, 32, 32);
+  background: linear-gradient(
+    0deg,
+    rgba(32, 32, 32, 1) 0%,
+    rgba(40, 40, 40, 1) 100%
+  );
+  border: 1px solid grey;
+  text-align: center;
+  align-items: center;
+}
+
+.sidebar--logo {
+  width: auto;
+  max-width: 50px;
+  margin: 10px;
+  margin-bottom: 5px;
+}
+
+.sidebar--button {
+  padding: 10px;
+  font-size: 15px;
 }
