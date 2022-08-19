@@ -1,9 +1,13 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
+import CardText from "./components/Cardtext";
+import Sidebar from "./components/Sidebar";
+
 import stats from "./images/stats.jpg";
 import graph from "./images/graph.jpg";
 import arrow from "./images/arrow.png";
+import date from "./images/date.jpg";
 
 // [totalSpendings, totalSavings, monthSpendings,monthSavings]
 const statsData = [
@@ -28,10 +32,26 @@ function App() {
       />
     );
   });
+  const showStatsHeader = () => {
+    return (
+      <>
+        <CardText key={"mspend"} text="Month Spends: " value={100} />
+        <CardText key={"msaving"} text="Month Balance: " value={100} />
+        <CardText key={"month"} icon={date} date={new Date().getMonth()} />
+      </>
+    );
+  };
   return (
-    <div>
-      <Navbar title="Financial Management" />
-      <section className="cards-list">{showStats}</section>
+    <div className="background-page">
+      <Navbar title="FINANCIAL MANAGER" />
+      <div>
+        <Sidebar />
+        <div className="blur">
+          <section className="cards-list">{showStatsHeader()}</section>
+          <section className="cards-list">{showStats}</section>
+          <section className="cards-list">{showStats}</section>
+        </div>
+      </div>
     </div>
   );
 }

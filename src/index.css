@@ -3,6 +3,7 @@
 }
 
 body {
+  height: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -16,60 +17,15 @@ code {
     monospace;
 }
 
-nav {
-  height: 70px;
-  display: flex;
-  padding: 5px 20px;
-  box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
-}
-
 section {
-  padding: 20px;
-}
-
-.gray {
-  color: grey;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.nav--logo {
-  height: 70%;
-  max-width: 100px;
-}
-
-.nav--title {
-  display: flex;
-  gap: 5px;
-  font-size: 20px;
-  align-items: center;
+  padding: 10px;
 }
 
 .cards-list {
   display: flex;
   flex-wrap: nowrap;
   gap: 20px;
-  overflow-x: auto;
   align-items: center;
-}
-
-.card {
-  padding: 5px;
-  width: 175px;
-  height: 230px;
-  border-radius: 9px;
-  font-size: 12px;
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.card--image {
-  width: 100%;
-  max-height: 115px;
-  border-radius: 9px;
 }
 
 .align--bottom {
@@ -79,11 +35,27 @@ section {
   width: 1px;
 }
 
-.card--stats {
-  display: flex;
-  align-items: center;
+.blur {
+  background: rgba(243, 243, 243, 0.137);
+  backdrop-filter: saturate(180%) blur(10px);
+  margin: 20px;
+  border-radius: 9px;
+  /* Same as the width of the sidebar */
+  margin-left: 120px;
+  position: relative;
 }
 
-.card--icon {
-  height: 15px;
+.background-page {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #222831;
+}
+
+.gray {
+  color: grey;
+}
+
+.bold {
+  font-weight: bold;
 }

@@ -1,0 +1,19 @@
+nav {
+  margin: 10px;
+  height: 50px;
+  display: flex;
+}
+
+.nav--logo {
+  height: 60%;
+  max-width: 100px;
+}
+
+.nav--title {
+  display: flex;
+  gap: 5px;
+  font-size: 8px;
+  align-items: center;
+  color: #f96d00;
+  width: 50px;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import "./Navbar.css";
 import navLogo from "../images/logo.png";
 
 export default function Navbar(props) {
