@@ -18,16 +18,21 @@ const monthNames = [
 
 export default function Card(props) {
   return (
-    <div className="card-text">
-      <div className="card--stats">
+    <div className="cardtext">
+      <div className="align-center">
         {props.icon && (
           <img src={props.icon} alt="logo" className="cardtext--icon" />
         )}
-        <span>{props.text}</span>
         {props.date && (
-          <span className="gray bold">{monthNames[props.date]}</span>
+          <span className="bold m-text">{monthNames[props.date]}</span>
         )}
-        {props.value && <span className="gray bold">{props.value + "€"}</span>}
+        {props.text && (
+          <span>
+            <span className="s-text"> {props.text}</span>
+            <br />
+            <span className="bold m-text">{props.value + "€"}</span>
+          </span>
+        )}
       </div>
     </div>
   );

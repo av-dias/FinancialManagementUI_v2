@@ -47,20 +47,22 @@ section {
 }
 
 .blur {
-  background: rgba(151, 151, 151, 0.116);
+  background: #e3f2fd;
   backdrop-filter: saturate(180%) blur(10px);
   margin: 20px;
+  padding: 20px;
   border-radius: 9px;
   /* Same as the width of the sidebar */
   margin-left: 150px;
   position: relative;
+  height: 93vh;
 }
 
 .background-page {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: rgb(227, 227, 227);
+  background-color: rgb(27, 34, 57);
 }
 
 .gray {
