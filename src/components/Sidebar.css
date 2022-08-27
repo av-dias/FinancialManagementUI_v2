@@ -20,6 +20,14 @@
   align-items: center;
 }
 
+.sidebar a {
+  padding: 10px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+}
+
 .sidebar--logo {
   width: auto;
   max-width: 100px;
@@ -36,15 +44,19 @@
 
 .end {
   position: absolute;
-  bottom: 0px;
+  bottom: 15px;
   left: 50px;
 }
-
 .active {
-  color: black;
   font-weight: bold;
   background-color: #e3f2fd;
-  margin: -10px;
   margin-top: auto;
   border-radius: 50px 0px 0px 50px;
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
+.sidebar-icon {
+  margin-top: 3px;
+  margin-left: -5px;
 }
