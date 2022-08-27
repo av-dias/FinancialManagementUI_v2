@@ -38,7 +38,7 @@ function BarChart(props) {
     labels,
     datasets: [
       {
-        type: "line",
+        type: "bar",
         label: props.chartData.label,
         data: props.chartData.data,
         borderColor: "red",
@@ -48,7 +48,7 @@ function BarChart(props) {
   };
 
   return (
-    <div className="chart">
+    <div className="chart-bar">
       <Chart type="line" options={options} data={data} />
     </div>
   );
