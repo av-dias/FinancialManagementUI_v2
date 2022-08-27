@@ -1,20 +1,21 @@
 import "./App.css";
 import React from "react";
-import Sidebar from "./components/Sidebar";
+import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
 
-import { showChart, showStatsHeader } from "./combos/dashboard";
+import Dashboard from "./pages/Dashboard";
+import Moviments from "./pages/Moviments";
+import Splits from "./pages/Splits";
 
 function App() {
   return (
-    <div className="background-page">
-      <div>
-        <Sidebar />
-        <div className="blur">
-          <section className="cardstext-list">{showStatsHeader()}</section>
-          {<section className="cards-list">{showChart()}</section>}
-        </div>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Moviments" element={<Moviments />} />
+        <Route path="/Splits" element={<Splits />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
