@@ -78,3 +78,21 @@ hr {
   background: rgb(255, 255, 255);
   border-radius: 5px;
 }
+
+.horizontal-header {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.align-list {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-left: -10px;
+}
