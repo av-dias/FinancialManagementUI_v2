@@ -1,10 +1,5 @@
 import Sidebar from "../components/Sidebar";
-import {
-  showChartGeneral,
-  showStatsHeader,
-  showChartSpecs,
-  showSelectionButtons,
-} from "../combos/dashboard";
+import { showSelectionButtons } from "../combos/dashboard";
 
 export default function dashboard() {
   return (
