@@ -21,6 +21,29 @@ section {
   padding: 10px;
 }
 
+input {
+  display: block;
+  font-size: large;
+  height: auto;
+  width: 100%;
+  padding: 0;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+form {
+  background-color: #886dbe;
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
+}
+
+button {
+  margin-top: 15px;
+  font-size: large;
+  border-radius: 5px;
+}
+
 .cards-list {
   display: flex;
   flex-wrap: nowrap;
@@ -107,4 +130,16 @@ hr {
 
 .top-margin {
   margin-top: 10px;
+}
+
+.box {
+  margin-top: 0;
+  background-color: black;
+  font-size: x-large;
+  text-align: center;
+  gap: 20px;
+}
+
+.bg {
+  font-size: 20px;
 }

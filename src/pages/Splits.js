@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import { showSelectionButtons } from "../combos/dashboard";
 
-export default function dashboard() {
+export default function Splits() {
   return (
     <div className="background-page">
       <Sidebar />

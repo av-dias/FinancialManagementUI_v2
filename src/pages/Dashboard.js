@@ -6,7 +6,7 @@ import {
   showSelectionButtons,
 } from "../combos/dashboard";
 
-export default function dashboard() {
+export default function Dashboard() {
   return (
     <div className="background-page">
       <Sidebar />
