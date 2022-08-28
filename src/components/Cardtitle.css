@@ -1,0 +1,30 @@
+.cardtitle {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #5e35b1;
+  width: 100%;
+  height: auto;
+  font-size: 30px;
+  color: white;
+  padding: auto;
+  margin-bottom: 5px;
+  border-radius: 9px;
+}
+
+.align-center {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.s-text {
+  font-size: 20px;
+}
+
+.m-text {
+  font-size: 30px;
+}

@@ -1,0 +1,28 @@
+tr:hover {
+  background-color: #d6eeee;
+}
+
+.table {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.table-left {
+  width: 60%;
+  height: 100%;
+}
+
+.table-right {
+  width: 40%;
+  height: 100%;
+}
+
+.align-tables {
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}

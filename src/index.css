@@ -89,10 +89,22 @@ hr {
   gap: 20px;
 }
 
+.horizontal-button-left {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: left;
+  justify-content: left;
+  gap: 20px;
+}
+
 .align-list {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   margin-left: -10px;
+}
+
+.top-margin {
+  margin-top: 10px;
 }

@@ -6,13 +6,14 @@ import { useLocation } from "react-router-dom";
 
 export default function Sidebar(props) {
   const location = useLocation().pathname;
+  //console.log(location);
   return (
     <div className="sidebar">
       <img src={navLogo} alt="logo" className="sidebar--logo" />
       <a
         href="/Dashboard"
         className={
-          location === "/Dashboard"
+          location === "/Dashboard" || location === "/"
             ? "sidebar--button hover active"
             : "sidebar--button hover"
         }
