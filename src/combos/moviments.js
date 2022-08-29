@@ -1,19 +1,27 @@
+import Grid from "@mui/material/Grid";
+
 import Table from "../components/Table";
 import CardTitle from "../components/Cardtitle";
+import ButtonOutline from "../components/Button";
+
 import "../components/Table.css";
 
 export const showMainTables = () => {
   return (
-    <div className="align-tables">
-      <div className="table-left">
+    <Grid container spacing={1}>
+      <Grid item xs={7} sm={7} md={7}>
         <CardTitle key={"msaving"} text="Moviments" />
-        <Table size="bg" />
-      </div>
-      <div className="table-right">
+      </Grid>
+      <Grid item xs={5} sm={5} md={5}>
         <CardTitle key={"msaving"} text="Home" />
+      </Grid>
+      <Grid item xs={7} sm={7} md={7}>
+        <Table size="bg" />
+      </Grid>
+      <Grid item xs={5} sm={5} md={5}>
         <Table size="sm" />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 
@@ -77,4 +85,17 @@ export const showPopup = (isPopup) => {
         </div>
       );
   }
+};
+
+export const showSelectionButtons = () => {
+  return (
+    <>
+      <Grid item xs={1} sm={1} md={1}>
+        <ButtonOutline type="outlined" text="Total" />
+      </Grid>
+      <Grid item xs={1} sm={1} md={1}>
+        <ButtonOutline type="outlined" text="iShare" />
+      </Grid>
+    </>
+  );
 };

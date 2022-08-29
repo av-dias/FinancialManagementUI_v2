@@ -4,10 +4,14 @@ import "./Button.css";
 
 export default function ButtonOutline(props) {
   return (
-    <div className="button">
-      <Button variant="outlined" size="small" onClick={props.onClick}>
-        {props.text}
-      </Button>
-    </div>
+    <Button
+      variant={props.type}
+      size="small"
+      onClick={props.onClick}
+      fullWidth
+      style={{ "box-shadow": "0 3px 3px rgba(0,0,0,0.2)" }}
+    >
+      {props.text}
+    </Button>
   );
 }

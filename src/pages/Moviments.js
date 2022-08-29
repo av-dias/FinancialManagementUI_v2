@@ -1,11 +1,15 @@
 import React from "react";
+import Grid from "@mui/material/Grid";
 
 import Sidebar from "../components/Sidebar";
-import Button from "../components/Button";
 import Popup from "../components/Popup";
+import Button from "../components/Button";
 
-import { showSelectionButtons } from "../combos/dashboard";
-import { showMainTables, showPopup } from "../combos/moviments";
+import {
+  showMainTables,
+  showPopup,
+  showSelectionButtons,
+} from "../combos/moviments";
 import STATUS from "../utility/status";
 
 export default function Moviment() {
@@ -27,22 +31,33 @@ export default function Moviment() {
     <div className="background-page">
       <Sidebar />
       <div className="blur">
-        <section className="horizontal-header">
+        <Grid container spacing={{ xs: 1, sm: 1, md: 1 }}>
           {showSelectionButtons()}
-          <Button
-            text="+Purchase"
-            onClick={() => {
-              togglePopup("Purchase");
-            }}
-          />
-          <Button
-            text="+Income"
-            onClick={() => {
-              togglePopup("Income");
-            }}
-          />
-        </section>
-        <section className="top-margin">{showMainTables()}</section>
+          <Grid item xs={8} sm={8} md={8}></Grid>
+          <Grid item xs={1} sm={1} md={1}>
+            <Button
+              type="contained"
+              text="Purchase"
+              onClick={() => {
+                togglePopup("Purchase");
+              }}
+            />
+          </Grid>
+          <Grid item xs={1} sm={1} md={1}>
+            <Button
+              type="contained"
+              text="Income"
+              onClick={() => {
+                togglePopup("Income");
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} />
+          <Grid item xs={12} sm={12} md={12} />
+          <Grid item xs={12} sm={12} md={12}>
+            {showMainTables()}
+          </Grid>
+        </Grid>
       </div>
       {isOpen && (
         <>

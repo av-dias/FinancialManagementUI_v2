@@ -1,4 +1,4 @@
-.cardtext {
+.carddate {
   background-color: #f4db7d;
   color: rgb(0, 0, 0);
   width: 100%;
@@ -8,24 +8,24 @@
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  padding-left: 15px;
+  padding-left: 5px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-.cardtext--icon {
+.carddate--icon {
   height: 40px;
+  margin-top: -5px;
   padding-right: 10px;
 }
 
-.cardtext-align {
-  text-align: left;
+.carddate-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   height: 100%;
 }
 
-.cardtext-s-text {
+.carddate-s-text {
   font-size: 15px;
-}
-
-.m-text {
-  font-size: 30px;
 }

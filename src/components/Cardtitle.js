@@ -4,7 +4,7 @@ import "./Cardtitle.css";
 export default function Card(props) {
   return (
     <div className="cardtitle">
-      <div className="align-center">
+      <div className="cardtitle-align">
         <span className="bold">{props.text}</span>
       </div>
     </div>

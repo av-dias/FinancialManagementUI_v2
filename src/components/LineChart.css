@@ -1,9 +1,6 @@
 .chart-line {
-  border-radius: 9px;
-  background-color: #ffffff8c;
-  width: 24%;
-}
-
-.bg {
-  width: 50%;
+  border-radius: 2px;
+  background-color: #ffffffbc;
+  width: 100%;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 }

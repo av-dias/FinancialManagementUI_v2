@@ -14,8 +14,8 @@ export default function Sidebar(props) {
         href="/Dashboard"
         className={
           location === "/Dashboard" || location === "/"
-            ? "sidebar--button hover active"
-            : "sidebar--button hover"
+            ? "sidebar--button active"
+            : "sidebar--button"
         }
       >
         Dashboard
@@ -24,8 +24,8 @@ export default function Sidebar(props) {
         href="/Moviments"
         className={
           location === "/Moviments"
-            ? "sidebar--button hover active"
-            : "sidebar--button hover"
+            ? "sidebar--button active"
+            : "sidebar--button"
         }
       >
         Moviments
@@ -33,15 +33,13 @@ export default function Sidebar(props) {
       <a
         href="/Splits"
         className={
-          location === "/Splits"
-            ? "sidebar--button hover active"
-            : "sidebar--button hover"
+          location === "/Splits" ? "sidebar--button active" : "sidebar--button"
         }
       >
         Splits
       </a>
-      <div className="end align-list">
-        <a href="/Login" className="sidebar--button hover">
+      <div className="end sidebar-login">
+        <a href="/Login" className="sidebar--button">
           Login
         </a>
         <AiOutlineLogout size={20} color="gray" className="sidebar-icon" />

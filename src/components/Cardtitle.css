@@ -1,24 +1,24 @@
 .cardtitle {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  background-color: #5e35b1;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 2px;
   width: 100%;
   height: auto;
   font-size: 30px;
-  color: white;
-  padding: auto;
-  margin-bottom: 5px;
-  border-radius: 9px;
+  color: rgb(0, 0, 0);
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+  margin-bottom: 2px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-.align-center {
-  text-align: center;
+.cardtitle-align {
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
   padding-bottom: 10px;
+  padding-left: 10px;
 }
 
 .s-text {

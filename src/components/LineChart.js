@@ -41,14 +41,14 @@ function LineChart(props) {
         type: "line",
         label: props.chartData.label,
         data: props.chartData.data,
-        borderColor: "red",
+        borderColor: "#FF6A3D",
         borderWidth: 2,
       },
     ],
   };
 
   return (
-    <div className={props.size === "bg" ? "chart-line bg" : "chart-line"}>
+    <div className="chart-line">
       <Chart type="line" options={options} data={data} />
     </div>
   );

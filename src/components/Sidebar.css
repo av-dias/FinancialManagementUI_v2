@@ -13,50 +13,47 @@
   overflow-x: hidden;
   /* Disable horizontal scroll */
   padding: 10px;
-  color: white;
-  font-size: 12px;
-  background: rgb(27, 34, 57);
-  text-align: center;
+  background: #1a2238;
+  text-align: left;
   align-items: center;
 }
 
 .sidebar a {
   padding: 10px;
   text-decoration: none;
-  font-size: 20px;
-  color: #818181;
+  color: #ffffff;
   display: block;
 }
 
 .sidebar--logo {
   width: auto;
-  max-width: 100px;
+  max-width: 40px;
   margin: 10px;
-  margin-top: 20px;
   margin-bottom: 50px;
-  padding: 20px;
 }
 
 .sidebar--button {
   padding: 10px;
-  font-size: 15px;
 }
 
 .end {
   position: absolute;
   bottom: 15px;
-  left: 50px;
 }
 .active {
   font-weight: bold;
-  background-color: #e3f2fd;
   margin-top: auto;
-  border-radius: 50px 0px 0px 50px;
-  margin-right: -10px;
-  margin-left: -10px;
+  color: #bde0f9 !important;
 }
 
 .sidebar-icon {
   margin-top: 3px;
   margin-left: -5px;
+}
+
+.sidebar-login {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: left;
 }

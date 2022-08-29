@@ -5,9 +5,7 @@
 body {
   height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -47,15 +45,15 @@ button {
 .cards-list {
   display: flex;
   flex-wrap: nowrap;
-  gap: 20px;
   align-items: center;
-  justify-content: center;
+  gap: 15px;
 }
 
 .cardstext-list {
   display: flex;
   flex-wrap: nowrap;
   gap: 20px;
+  margin: 0px !important;
 }
 
 .align--bottom {
@@ -72,13 +70,12 @@ button {
 .blur {
   background: #e3f2fd;
   backdrop-filter: saturate(180%) blur(10px);
-  margin: 20px;
+  margin: 0px;
   padding: 20px;
-  border-radius: 9px;
   /* Same as the width of the sidebar */
   margin-left: 150px;
   position: relative;
-  height: 93vh;
+  height: 100%;
 }
 
 .background-page {
@@ -106,10 +103,11 @@ hr {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   margin: 0;
-  padding: 0;
-  gap: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  gap: 10px;
 }
 
 .horizontal-button-left {

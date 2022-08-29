@@ -41,7 +41,7 @@ function BarChart(props) {
         type: "bar",
         label: props.chartData.label,
         data: props.chartData.data,
-        borderColor: "red",
+        borderColor: "#FF6A3D",
         borderWidth: 2,
       },
     ],
