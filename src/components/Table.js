@@ -44,7 +44,7 @@ function createData(name, code, population, size) {
   return { name, code, population, size, density };
 }
 
-const rows = [
+let rows = [
   createData("India", "IN", 1324171354, 3287263),
   createData("China", "CN", 1403500365, 9596961),
   createData("Italy", "IT", 60483973, 301340),
@@ -64,8 +64,14 @@ const rows = [
 
 export default function StickyHeadTable(props) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(30);
   let columns = props.size === "bg" ? columns_bg : columns_sm;
+  if (props.columns) {
+    columns = props.columns;
+  }
+  if (props.rows) {
+    rows = props.rows;
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -119,15 +125,6 @@ export default function StickyHeadTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
     </Paper>
   );
 }

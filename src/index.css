@@ -30,10 +30,11 @@ input {
 }
 
 form {
-  background-color: #886dbe;
+  background-color: #1a2238;
   padding: 20px;
   border-radius: 5px;
   color: white;
+  box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.25);
 }
 
 button {
@@ -140,4 +141,10 @@ hr {
 
 .bg {
   font-size: 20px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

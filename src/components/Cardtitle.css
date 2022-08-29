@@ -2,15 +2,29 @@
   background-color: rgba(255, 255, 255, 1);
   border-radius: 2px;
   width: 100%;
-  height: auto;
+  height: 100%;
   font-size: 30px;
   color: rgb(0, 0, 0);
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  padding-top: 5px;
   margin-bottom: 2px;
+  padding-top: 10px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.cardtitle-white {
+  display: flex;
+  align-items: center;
+  background-color: white !important;
+  margin-bottom: 15px;
+}
+
+.cardtitle-yellow {
+  display: flex;
+  align-items: center;
+  background-color: #f4db7d !important;
+  margin-bottom: 15px;
 }
 
 .cardtitle-align {
