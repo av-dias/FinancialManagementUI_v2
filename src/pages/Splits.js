@@ -7,8 +7,6 @@ import LineChart from "../components/LineChart";
 import CardTitle from "../components/Cardtitle";
 import CardInfo from "../components/CardInfo";
 
-import { showSelectionButtons } from "../combos/dashboard";
-
 const options = { maintainAspectRatio: false, responsive: false };
 
 const ROWS = [

@@ -148,3 +148,17 @@ hr {
   align-items: center;
   justify-content: center;
 }
+
+.login--logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.padding {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
