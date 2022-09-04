@@ -41,34 +41,42 @@ export const showChartGeneral = () => {
   );
 };
 
-export const showChartSpecs = () => {
+export const showChartSpecs = (data) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={6}>
         <BarChart
           options={options}
-          chartData={{ label: "AAA", data: [10, 20, 30] }}
+          chartData={{ label: "Spendings by Type", data: data }}
         />
       </Grid>
       <Grid item xs={6}>
         <LineChart
           size="bg"
           options={options}
-          chartData={{ label: "CCC", data: [10, 10, 5] }}
+          chartData={{ label: "FFF", data: [10, 10, 5] }}
         />
       </Grid>
     </Grid>
   );
 };
 
-export const showStatsHeader = () => {
+export const showStatsHeader = (data) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={3} sm={3} md={3}>
-        <CardText key={"msaving"} text="Month Balance" value={1000} />
+        <CardText
+          key={"msaving"}
+          text="Month Balance"
+          value={data.month_savings}
+        />
       </Grid>
       <Grid item xs={3} sm={3} md={3}>
-        <CardText key={"mspend"} text="Month Spendings" value={1000} />
+        <CardText
+          key={"mspend"}
+          text="Month Spendings"
+          value={data.month_spendings}
+        />
       </Grid>
       <Grid item xs={3} sm={3} md={3}></Grid>
       <Grid item xs={3} sm={3} md={3}>
