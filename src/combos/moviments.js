@@ -6,7 +6,7 @@ import ButtonOutline from "../components/Button";
 
 import "../components/Table.css";
 
-export const showMainTables = () => {
+export const showMainTables = (data) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={7} sm={7} md={7}>
@@ -16,11 +16,13 @@ export const showMainTables = () => {
         <CardTitle key={"msaving"} text="Home" />
       </Grid>
       <Grid item xs={7} sm={7} md={7}>
-        <Table size="bg" />
+        <Table size="bg" rows={data} />
       </Grid>
-      <Grid item xs={5} sm={5} md={5}>
-        <Table size="sm" />
-      </Grid>
+      {
+        <Grid item xs={5} sm={5} md={5}>
+          <Table size="sm" />
+        </Grid>
+      }
     </Grid>
   );
 };

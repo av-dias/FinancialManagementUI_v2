@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 
 import Sidebar from "../components/Sidebar";
@@ -10,6 +10,9 @@ import {
   showPopup,
   showSelectionButtons,
 } from "../combos/moviments";
+
+import { rowsData, sortArray, truncateMax } from "../api/moviment.api";
+
 import STATUS from "../utility/status";
 
 export default function Moviment() {
@@ -17,6 +20,7 @@ export default function Moviment() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [lastItem, setlastItem] = React.useState();
   const [lastItemPos, setLastItemPos] = React.useState({ x: 0, y: 0 });
+  const [rows, setRows] = React.useState([]);
 
   const togglePopup = (type, item, mouseEvent) => {
     setIsOpen(!isOpen);
@@ -26,6 +30,13 @@ export default function Moviment() {
       setLastItemPos({ x: mouseEvent.clientX, y: mouseEvent.clientY });
     }
   };
+
+  useEffect(() => {
+    rowsData().then((data) => {
+      data = sortArray(data);
+      setRows(data);
+    });
+  }, []);
 
   return (
     <div className="background-page">
@@ -55,7 +66,7 @@ export default function Moviment() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showMainTables()}
+            {showMainTables(rows)}
           </Grid>
         </Grid>
       </div>
