@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 
 import navLogo from "../images/logo.png";
-import { loginHandle, incorrectLoginHandle } from "../api/login";
+import { loginHandle, incorrectLoginHandle } from "../api/login.api";
 import { useNavigate } from "react-router-dom";
 
 export default function Splits() {
