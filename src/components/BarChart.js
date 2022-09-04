@@ -32,7 +32,7 @@ function BarChart(props) {
     },
   };
 
-  const labels = ["January", "February", "March"];
+  const labels = props.labels || [];
 
   const data = {
     labels,
