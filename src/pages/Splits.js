@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+
 import Grid from "@mui/material/Grid";
 
 import Sidebar from "../components/Sidebar";
@@ -7,12 +9,9 @@ import LineChart from "../components/LineChart";
 import CardTitle from "../components/Cardtitle";
 import CardInfo from "../components/CardInfo";
 
-const options = { maintainAspectRatio: false, responsive: false };
+import { loadData } from "../api/split.api";
 
-const ROWS = [
-  { Name: "Ana", Total: "100", iShare: "100", yShare: "300" },
-  { Name: "Álison", Total: "200", iShare: "200", yShare: "300" },
-];
+const options = { maintainAspectRatio: false, responsive: false };
 
 const COLUMNS = [
   { id: "Name", label: "Name", minWidth: 100, align: "center" },
@@ -21,14 +20,89 @@ const COLUMNS = [
   { id: "yShare", label: "yShare", minWidth: 100, align: "center" },
 ];
 
-const COLUMNS_RESULT = [
-  { id: "res_label", label: "Total", minWidth: 100, align: "center" },
-  { id: "res_total", label: "300", minWidth: 100, align: "center" },
-  { id: "res_iShare", label: "300", minWidth: 100, align: "center" },
-  { id: "res_yShare", label: "600", minWidth: 100, align: "center" },
-];
-
 export default function Splits() {
+  const [rows, setRows] = React.useState([
+    { Name: "NA", Total: "NA", iShare: "NA", yShare: "NA" },
+    { Name: "NA", Total: "NA", iShare: "NA", yShare: "NA" },
+  ]);
+
+  const [columns, setColumns] = React.useState([
+    { id: "res_label", label: "NA", minWidth: 100, align: "center" },
+    { id: "res_total", label: "NA", minWidth: 100, align: "center" },
+    { id: "res_iShare", label: "NA", minWidth: 100, align: "center" },
+    { id: "res_yShare", label: "NA", minWidth: 100, align: "center" },
+  ]);
+
+  const [nameDept, setNameDept] = React.useState("NA");
+  const [valueDept, setValueDept] = React.useState("NA");
+
+  function checkDept(json) {
+    let result = {
+      name: "NA",
+      value: "NA",
+    };
+    if (json && json.Given && json.Self) {
+      if (json.Self.yShare > json.Given.iShare) {
+        result = {
+          name: json.Given.name,
+          value: parseFloat(json.Self.yShare - json.Given.iShare).toFixed(2),
+        };
+      } else
+        result = {
+          name: json.Self.name,
+          value: parseFloat(json.Given.iShare - json.Self.yShare).toFixed(2),
+        };
+    }
+    return result;
+  }
+
+  function setTableData(data) {
+    setRows([
+      {
+        Name: data.Self.name,
+        Total: parseFloat(data.Self.total).toFixed(2),
+        iShare: parseFloat(data.Self.iShare).toFixed(2),
+        yShare: parseFloat(data.Self.yShare).toFixed(2),
+      },
+      {
+        Name: data.Given.name,
+        Total: parseFloat(data.Given.total).toFixed(2),
+        iShare: parseFloat(data.Given.iShare).toFixed(2),
+        yShare: parseFloat(data.Given.yShare).toFixed(2),
+      },
+    ]);
+    setColumns([
+      { id: "res_label", label: "TOTAL", minWidth: 100, align: "center" },
+      {
+        id: "res_total",
+        label: parseFloat(data.Self.total + data.Given.total).toFixed(2),
+        minWidth: 100,
+        align: "center",
+      },
+      {
+        id: "res_iShare",
+        label: parseFloat(data.Self.iShare + data.Given.iShare).toFixed(2),
+        minWidth: 100,
+        align: "center",
+      },
+      {
+        id: "res_yShare",
+        label: parseFloat(data.Self.yShare + data.Given.yShare).toFixed(2),
+        minWidth: 100,
+        align: "center",
+      },
+    ]);
+  }
+
+  useEffect(() => {
+    loadData().then((data) => {
+      setTableData(data);
+      const result = checkDept(data);
+      setNameDept(result.name);
+      setValueDept(result.value);
+    });
+  }, []);
+
   return (
     <div className="background-page">
       <Sidebar />
@@ -37,29 +111,34 @@ export default function Splits() {
           <Grid item xs={12} sm={12} md={12}>
             <CardTitle
               color="cardtitle-white"
-              key={"title_purchase"}
+              key={"title_purchase" + Math.random()}
               text="Split with Ana Rebelo"
             />
           </Grid>
           <Grid item xs={8} sm={8} md={8}>
-            <Table rows={ROWS} columns={COLUMNS}></Table>
+            <Table
+              static="true"
+              key={Math.random()}
+              rows={rows}
+              columns={COLUMNS}
+            ></Table>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
             <CardInfo
               color="cardtitle-yellow"
-              key={"title_purchase"}
-              text="Person in Dept"
-              description="Ana Rebelo"
+              key={"title_purchase" + Math.random()}
+              text="Dept"
+              description={nameDept}
             />
           </Grid>
           <Grid item xs={8} sm={8} md={8}>
-            <Table rows={[]} columns={COLUMNS_RESULT}></Table>
+            <Table rows={[]} columns={columns}></Table>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
             <CardInfo
               color="cardtitle-yellow"
-              key={"title_purchase"}
-              text="Value of 300"
+              key={"title_purchase" + Math.random()}
+              text={"Value of " + valueDept}
             />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
@@ -71,7 +150,7 @@ export default function Splits() {
           <Grid item xs={6} sm={6} md={6}>
             <LineChart
               options={options}
-              chartData={{ label: "AAA", data: [10, 20, 30] }}
+              chartData={{ label: "BBB", data: [10, 20, 30] }}
             ></LineChart>
           </Grid>
         </Grid>

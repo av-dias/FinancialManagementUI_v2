@@ -11,5 +11,11 @@ module.exports = {
     NO_SPLIT: 2,
     GIVEN: 3,
   },
-  NAME_MAX_LENGTH: 20,
+  COLORS: {
+    INCOME: "#03C04A",
+    SPLITALL: "lightblue",
+    SPLITNONE: "tomato",
+    NORMAL: "",
+  },
+  NAME_MAX_LENGTH: 13,
 };
