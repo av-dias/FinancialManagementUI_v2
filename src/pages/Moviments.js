@@ -11,16 +11,24 @@ import {
   showSelectionButtons,
 } from "../combos/moviments.combos";
 
-import { rowsData, sortArray, truncateMax } from "../api/moviment.api";
-
-import STATUS from "../utility/status";
+import {
+  usePopUp,
+  useOpen,
+  useItem,
+  useItemPos,
+  useDate,
+  useRows,
+} from "../hooks/moviments.hook";
+import { rowsData, sortArray /* , truncateMax */ } from "../api/moviment.api";
+//import STATUS from "../utility/status";
 
 export default function Moviment() {
-  const [isPopup, setIsPopup] = React.useState(0);
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [lastItem, setlastItem] = React.useState();
-  const [lastItemPos, setLastItemPos] = React.useState({ x: 0, y: 0 });
-  const [rows, setRows] = React.useState([]);
+  const [isPopup, setIsPopup] = usePopUp();
+  const [isOpen, setIsOpen] = useOpen();
+  const [lastItem, setlastItem] = useItem();
+  const [lastItemPos, setLastItemPos] = useItemPos();
+  const [date, setDate] = useDate();
+  const [rows, setRows] = useRows();
 
   const togglePopup = (type, item, mouseEvent) => {
     setIsOpen(!isOpen);
@@ -36,6 +44,7 @@ export default function Moviment() {
       data = sortArray(data);
       setRows(data);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -72,7 +81,10 @@ export default function Moviment() {
       </div>
       {isOpen && (
         <>
-          <Popup content={showPopup(isPopup)} handleClose={togglePopup} />
+          <Popup
+            content={showPopup(isPopup, date, setRows, setDate)}
+            handleClose={togglePopup}
+          />
         </>
       )}
     </div>

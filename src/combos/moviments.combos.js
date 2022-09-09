@@ -5,6 +5,17 @@ import CardTitle from "../components/Cardtitle";
 import ButtonOutline from "../components/Button";
 
 import "../components/Table.css";
+import ADDRESS from "../utility/address";
+
+import {
+  /* usePopUp,
+  useOpen,
+  useItem,
+  useItemPos, */
+  useDate,
+  useRows,
+} from "../hooks/moviments.hook";
+import { rowsData, sortArray } from "../api/moviment.api";
 
 export const showMainTables = (data) => {
   return (
@@ -27,27 +38,155 @@ export const showMainTables = (data) => {
   );
 };
 
-export const showPopup = (isPopup) => {
-  console.log(isPopup);
+const incomeHandle = async (e, incomeDate) => {
+  e.preventDefault();
+
+  let _type = document.getElementById("income_type").value;
+  let _subtype = document.getElementById("income_subType").value;
+  let _value = document.getElementById("income_value").value;
+  let _date = new Date(incomeDate);
+  let _doi = new Date(_date.setTime(_date.getTime() + 1 * 60 * 60 * 1000));
+  //let _dop = purchaseDate;
+
+  let user_id = window.sessionStorage.getItem("user_id");
+
+  let Income = { value: _value, type: _type, subType: _subtype, doi: _doi };
+  try {
+    await fetch(`http://${ADDRESS.BACKEND}/api/v1/income/user/${user_id}`, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+      body: JSON.stringify(Income),
+    });
+    document.getElementById("income_type").value = "";
+    document.getElementById("income_subType").value = "";
+    document.getElementById("income_value").value = "";
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const handlePurchase = async (e, purchaseDate) => {
+  e.preventDefault();
+
+  let _name = document.getElementById("product_service_name").value;
+  let _value = document.getElementById("product_service_price").value;
+  let _type = document.getElementById("product_service_subtype").value;
+  let date = new Date(purchaseDate);
+  let _dop = new Date(date.setTime(date.getTime() + 1 * 60 * 60 * 1000));
+
+  let user_id = window.sessionStorage.getItem("user_id");
+  let Purchase = { value: _value, name: _name, type: _type, dop: _dop };
+
+  if (
+    _name === undefined ||
+    _name === "" ||
+    _value === undefined ||
+    _value === "" ||
+    _type === undefined ||
+    _type === "" ||
+    _dop === undefined ||
+    _dop === "" ||
+    user_id === undefined ||
+    user_id === ""
+  )
+    return null;
+
+  try {
+    await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/user/${user_id}`, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+      body: JSON.stringify(Purchase),
+    });
+    document.getElementById("product_service_name").value = "";
+    document.getElementById("product_service_price").value = "";
+    document.getElementById("product_service_subtype").value = "";
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const todayDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month =
+    today.getMonth() < 10 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
+  const day = today.getDay() < 10 ? "0" + today.getDay() : today.getDay();
+  return year + "-" + month + "-" + day;
+};
+
+const updateDate = (id) => {
+  console.log(document.getElementById(id).value);
+  return document.getElementById(id).value;
+};
+
+const handleUpdate = (setRows) => {
+  rowsData().then((data) => {
+    data = sortArray(data);
+    setRows(data);
+  });
+};
+
+export const showPopup = (isPopup, date, setRows, setDate) => {
   switch (isPopup) {
     case "Purchase":
       return (
         <div className="horizontal-header box">
-          <form>
+          <form
+            onSubmit={async (e) => {
+              await handlePurchase(e, date);
+              handleUpdate(setRows);
+            }}
+          >
             <CardTitle
               color="cardtitle-yellow"
               key={"title_purchase"}
               text="Purchase"
             />
             <label htmlFor="pname">Product Name</label>
-            <input type="text" id="pname" name="pname"></input>
+            <input
+              type="text"
+              id="product_service_name"
+              name="pname"
+              placeholder="Ikea"
+            ></input>
             <label htmlFor="tname">Product Type</label>
-            <input type="text" id="tname" name="tname"></input>
+            <input
+              type="text"
+              id="product_service_subtype"
+              name="tname"
+              placeholder="Home"
+            ></input>
             <label htmlFor="pprice">Product Price</label>
-            <input type="number" id="pprice" name="pprice"></input>
+            <input
+              type="number"
+              id="product_service_price"
+              name="pprice"
+              placeholder="0"
+            ></input>
             <label htmlFor="pprice">Purchase Date</label>
-            <input class="center" type="date" id="pdate" name="pdate"></input>
-            <button type="submit" name="save" value="Saveeeee">
+            <input
+              className="center"
+              type="date"
+              id="pdate"
+              name="pdate"
+              defaultValue={todayDate()}
+              onChange={() => {
+                date = updateDate("pdate");
+              }}
+            ></input>
+            <button type="submit" name="purchase" value="purchase">
               Add Purchase
             </button>
           </form>
@@ -56,26 +195,56 @@ export const showPopup = (isPopup) => {
     case "Income":
       return (
         <div className="horizontal-header box">
-          <form>
+          <form
+            onSubmit={async (e) => {
+              await incomeHandle(e, date);
+              handleUpdate(setRows);
+            }}
+          >
             <CardTitle
               color="cardtitle-yellow"
               key={"title_income"}
               text="Income"
             />
-            <label htmlFor="pname">Income Name</label>
-            <input type="text" id="iname" name="iname"></input>
-            <label htmlFor="tname">Income Type</label>
-            <input type="text" id="iname" name="iname"></input>
+            <label htmlFor="pname">Income Type</label>
+            <input
+              type="text"
+              id="income_type"
+              name="iname"
+              placeholder="Salary"
+            ></input>
+            <label htmlFor="tname">Income Origin</label>
+            <input
+              type="text"
+              id="income_subType"
+              name="iname"
+              placeholder="Primark"
+            ></input>
             <label htmlFor="pprice">Income Value</label>
-            <input type="number" id="ivalue" name="ivalue"></input>
+            <input
+              type="number"
+              id="income_value"
+              name="ivalue"
+              placeholder="0"
+            ></input>
             <label htmlFor="pprice">Income Date</label>
-            <input type="date" id="idate" name="idate"></input>
+            <input
+              type="date"
+              id="idate"
+              name="idate"
+              defaultValue={todayDate()}
+              onChange={() => {
+                date = updateDate("idate");
+              }}
+            ></input>
             <button type="submit" name="save" value="save">
               Add Income
             </button>
           </form>
         </div>
       );
+    default:
+      return <></>;
   }
 };
 
