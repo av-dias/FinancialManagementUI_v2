@@ -9,7 +9,7 @@ import {
   showMainTables,
   showPopup,
   showSelectionButtons,
-} from "../combos/moviments";
+} from "../combos/moviments.combos";
 
 import { rowsData, sortArray, truncateMax } from "../api/moviment.api";
 

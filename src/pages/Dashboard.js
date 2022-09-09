@@ -6,7 +6,7 @@ import {
   showStatsHeader,
   showChartSpecs,
   showSelectionButtons,
-} from "../combos/dashboard";
+} from "../combos/dashboard.combos";
 import Grid from "@mui/material/Grid";
 
 import { loadData } from "../api/dashboard.api";
