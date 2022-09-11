@@ -141,11 +141,26 @@ export default function StickyHeadTable(props) {
                         }
                       >
                         {column.id === "options" &&
-                        row.status != STATUS.PURCHASE.INCOME ? (
-                          <>
-                            <IoIosCreate />
-                            <IoIosGitBranch />
-                          </>
+                        row.status !== STATUS.PURCHASE.INCOME ? (
+                          <div className="options-icon">
+                            <IoIosCreate
+                              onClick={() => {
+                                props.function("Edit");
+                              }}
+                            />
+                            <IoIosGitBranch
+                              onClick={() => {
+                                props.function("Split");
+                              }}
+                            />
+                          </div>
+                        ) : column.id === "options" &&
+                          row.status === STATUS.PURCHASE.INCOME ? (
+                          <IoIosCreate
+                            onClick={() => {
+                              props.function("Edit");
+                            }}
+                          />
                         ) : column.format && typeof value === "number" ? (
                           column.format(value)
                         ) : (

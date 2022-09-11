@@ -29,3 +29,8 @@ export function useRows() {
   const [rows, setRows] = React.useState([]);
   return [rows, setRows];
 }
+
+export function useSlider() {
+  const [slider, setSlider] = React.useState(10);
+  return [slider, setSlider];
+}

@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Table from "../components/Table";
 import CardTitle from "../components/Cardtitle";
 import ButtonOutline from "../components/Button";
+import Slider from "react-input-slider";
 
 import "../components/Table.css";
 import ADDRESS from "../utility/address";
@@ -17,7 +18,7 @@ import {
 } from "../hooks/moviments.hook";
 import { rowsData, sortArray } from "../api/moviment.api";
 
-export const showMainTables = (data) => {
+export const showMainTables = (data, togglePopup) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={7} sm={7} md={7}>
@@ -27,7 +28,7 @@ export const showMainTables = (data) => {
         <CardTitle key={"msaving"} text="Home" />
       </Grid>
       <Grid item xs={7} sm={7} md={7}>
-        <Table size="bg" rows={data} />
+        <Table size="bg" rows={data} function={togglePopup} />
       </Grid>
       <Grid item xs={5} sm={5} md={5}>
         <Table size="sm" />
@@ -136,7 +137,14 @@ const handleUpdate = (setRows) => {
   });
 };
 
-export const showPopup = (isPopup, date, setRows, setDate) => {
+export const showPopup = (
+  isPopup,
+  date,
+  setRows,
+  setDate,
+  slider,
+  setSlider
+) => {
   switch (isPopup) {
     case "Purchase":
       return (
@@ -240,6 +248,20 @@ export const showPopup = (isPopup, date, setRows, setDate) => {
             </button>
           </form>
         </div>
+      );
+    case "Edit":
+      return <></>;
+    case "Split":
+      return (
+        <>
+          <Slider
+            axis="x"
+            x={slider}
+            onChange={(newValue) => {
+              setSlider(newValue.x);
+            }}
+          />
+        </>
       );
     default:
       return <></>;

@@ -162,3 +162,9 @@ hr {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+.options-icon {
+  display: flex;
+  gap: 15%;
+  justify-content: center;
+}

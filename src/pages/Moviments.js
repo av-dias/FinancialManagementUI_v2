@@ -18,6 +18,7 @@ import {
   useItemPos,
   useDate,
   useRows,
+  useSlider,
 } from "../hooks/moviments.hook";
 import { rowsData, sortArray /* , truncateMax */ } from "../api/moviment.api";
 //import STATUS from "../utility/status";
@@ -29,6 +30,7 @@ export default function Moviment() {
   const [lastItemPos, setLastItemPos] = useItemPos();
   const [date, setDate] = useDate();
   const [rows, setRows] = useRows();
+  const [slider, setSlider] = useSlider();
 
   const togglePopup = (type, item, mouseEvent) => {
     setIsOpen(!isOpen);
@@ -75,14 +77,21 @@ export default function Moviment() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showMainTables(rows)}
+            {showMainTables(rows, togglePopup)}
           </Grid>
         </Grid>
       </div>
       {isOpen && (
         <>
           <Popup
-            content={showPopup(isPopup, date, setRows, setDate)}
+            content={showPopup(
+              isPopup,
+              date,
+              setRows,
+              setDate,
+              slider,
+              setSlider
+            )}
             handleClose={togglePopup}
           />
         </>
