@@ -253,7 +253,8 @@ export const showPopup = (
       return <></>;
     case "Split":
       return (
-        <>
+        <div className="">
+          <h1>{slider}%</h1>
           <Slider
             axis="x"
             x={slider}
@@ -261,7 +262,9 @@ export const showPopup = (
               setSlider(newValue.x);
             }}
           />
-        </>
+          <h2>iShare {slider * 1}</h2>
+          <h2>yShare {100 - slider * 1}</h2>
+        </div>
       );
     default:
       return <></>;
