@@ -11,6 +11,8 @@ import TableRow from "@mui/material/TableRow";
 import { rowsData, sortArray, truncateMax } from "../api/moviment.api";
 import STATUS from "../utility/status";
 
+import { IoIosCreate, IoIosGitBranch } from "react-icons/io";
+
 const columns_bg = [
   { id: "name", label: "Name", minWidth: 50, align: "center" },
   {
@@ -23,7 +25,7 @@ const columns_bg = [
   { id: "dop", label: "Date", minWidth: 50, align: "center" },
   {
     id: "options",
-    label: "options",
+    label: "Options",
     minWidth: 50,
     align: "center",
     format: (value) => value.toLocaleString("en-US"),
@@ -47,11 +49,11 @@ function createData(name, code, value, size) {
 }
 
 function getColValue(row, column) {
-  if (row.status == STATUS.PURCHASE.INCOME && column.id == "dop") {
+  if (row.status === STATUS.PURCHASE.INCOME && column.id === "dop") {
     return row["doi"];
   } else {
     let value = row[column.id];
-    if (column.id == "name") {
+    if (column.id === "name") {
       return truncateMax(value);
     }
     return value;
@@ -62,7 +64,7 @@ function defineNaming(row) {
   if (row.status === STATUS.PURCHASE.NO_SPLIT) {
     return "ns";
   } else if (row.status === STATUS.PURCHASE.INCOME) {
-    return "iiii";
+    return "in";
   } else if (row.status === STATUS.PURCHASE.WITH_SPLIT) {
     return "ws";
   } else if (row.status === STATUS.PURCHASE.FROM_SPLIT) {
@@ -112,7 +114,7 @@ export default function StickyHeadTable(props) {
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody key={Math.random()}>
             {rows.map((row) => {
               return (
                 <TableRow
@@ -129,18 +131,26 @@ export default function StickyHeadTable(props) {
                         align={column.align}
                         size="small"
                         bgcolor={
-                          row.status == STATUS.PURCHASE.INCOME
+                          row.status === STATUS.PURCHASE.INCOME
                             ? STATUS.COLORS.INCOME
-                            : row.weight == 0
+                            : row.weight === 0
                             ? STATUS.COLORS.SPLITALL
-                            : row.weight == 100
+                            : row.weight === 100
                             ? STATUS.COLORS.SPLITNONE
                             : STATUS.COLORS.NORMAL
                         }
                       >
-                        {column.format && typeof value === "number"
-                          ? column.format(value)
-                          : value}
+                        {column.id === "options" &&
+                        row.status != STATUS.PURCHASE.INCOME ? (
+                          <>
+                            <IoIosCreate />
+                            <IoIosGitBranch />
+                          </>
+                        ) : column.format && typeof value === "number" ? (
+                          column.format(value)
+                        ) : (
+                          value
+                        )}
                       </TableCell>
                     );
                   })}

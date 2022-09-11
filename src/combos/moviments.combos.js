@@ -29,11 +29,9 @@ export const showMainTables = (data) => {
       <Grid item xs={7} sm={7} md={7}>
         <Table size="bg" rows={data} />
       </Grid>
-      {
-        <Grid item xs={5} sm={5} md={5}>
-          <Table size="sm" />
-        </Grid>
-      }
+      <Grid item xs={5} sm={5} md={5}>
+        <Table size="sm" />
+      </Grid>
     </Grid>
   );
 };
@@ -122,7 +120,7 @@ const todayDate = () => {
   const year = today.getFullYear();
   const month =
     today.getMonth() < 10 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
-  const day = today.getDay() < 10 ? "0" + today.getDay() : today.getDay();
+  const day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
   return year + "-" + month + "-" + day;
 };
 
