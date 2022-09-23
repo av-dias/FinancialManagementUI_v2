@@ -15,7 +15,7 @@ import {
   usePopUp,
   useOpen,
   useItem,
-  useItemPos,
+  /* useItemPos, */
   useDate,
   useRows,
   useSlider,
@@ -24,21 +24,16 @@ import { rowsData, sortArray /* , truncateMax */ } from "../api/moviment.api";
 //import STATUS from "../utility/status";
 
 export default function Moviment() {
-  const [isPopup, setIsPopup] = usePopUp();
-  const [isOpen, setIsOpen] = useOpen();
-  const [lastItem, setlastItem] = useItem();
-  const [lastItemPos, setLastItemPos] = useItemPos();
-  const [date, setDate] = useDate();
-  const [rows, setRows] = useRows();
-  const [slider, setSlider] = useSlider();
+  const [isPopup, setIsPopup] = usePopUp(); // Popup type
+  const [isOpen, setIsOpen] = useOpen(); // Popup is showing or not
+  const [lastItem, setlastItem] = useItem(); // Last clicked row data
+  const [date, setDate] = useDate(); // Last date
+  const [rows, setRows] = useRows(); // Rows with table data
+  const [slider, setSlider] = useSlider(); // Slider value
 
-  const togglePopup = (type, item, mouseEvent) => {
+  const togglePopup = (type) => {
     setIsOpen(!isOpen);
     setIsPopup(type);
-    if (item) {
-      setlastItem(item);
-      setLastItemPos({ x: mouseEvent.clientX, y: mouseEvent.clientY });
-    }
   };
 
   useEffect(() => {
@@ -77,7 +72,7 @@ export default function Moviment() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showMainTables(rows, togglePopup)}
+            {showMainTables(rows, togglePopup, setSlider, setlastItem)}
           </Grid>
         </Grid>
       </div>
@@ -90,7 +85,8 @@ export default function Moviment() {
               setRows,
               setDate,
               slider,
-              setSlider
+              setSlider,
+              lastItem
             )}
             handleClose={togglePopup}
           />

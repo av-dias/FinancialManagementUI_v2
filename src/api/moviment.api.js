@@ -71,6 +71,7 @@ export async function rowsData() {
       if (element.split == null) {
         element.status = STATUS.PURCHASE.NO_SPLIT;
         element.iShare = element.value;
+        element.split = { weight: 0 };
       } else {
         element.status = STATUS.PURCHASE.WITH_SPLIT;
         element.iShare = (
@@ -90,6 +91,7 @@ export async function rowsData() {
         2
       );
       element.weight = element.split.weight;
+      element.myWeight = 100 - element.weight;
     }
 
     return [...data_purchase, ...data_income, ...data_split];

@@ -8,17 +8,9 @@ import Slider from "react-input-slider";
 import "../components/Table.css";
 import ADDRESS from "../utility/address";
 
-import {
-  /* usePopUp,
-  useOpen,
-  useItem,
-  useItemPos, */
-  useDate,
-  useRows,
-} from "../hooks/moviments.hook";
 import { rowsData, sortArray } from "../api/moviment.api";
 
-export const showMainTables = (data, togglePopup) => {
+export const showMainTables = (data, togglePopup, setSlider, setlastItem) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={7} sm={7} md={7}>
@@ -28,7 +20,13 @@ export const showMainTables = (data, togglePopup) => {
         <CardTitle key={"msaving"} text="Home" />
       </Grid>
       <Grid item xs={7} sm={7} md={7}>
-        <Table size="bg" rows={data} function={togglePopup} />
+        <Table
+          size="bg"
+          rows={data}
+          togglePopup={togglePopup}
+          setSlider={setSlider}
+          setlastItem={setlastItem}
+        />
       </Grid>
       <Grid item xs={5} sm={5} md={5}>
         <Table size="sm" />
@@ -67,6 +65,43 @@ const incomeHandle = async (e, incomeDate) => {
     document.getElementById("income_value").value = "";
   } catch (err) {
     console.log(err);
+  }
+};
+
+const splitHandle = async (event, lastItem, slider) => {
+  event.preventDefault();
+  let purchase_id = lastItem.id;
+
+  let user_id = window.sessionStorage.getItem("user_id");
+  const w = slider;
+  const u = document.getElementById("email" + purchase_id);
+  let split = {
+    weight: w.toString(),
+    userEmail: u.value,
+  };
+
+  console.log(user_id, split);
+  try {
+    await fetch(
+      `http://${ADDRESS.BACKEND}/api/v1/split/user/${user_id}/purchase/${purchase_id}`,
+      {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + window.sessionStorage.getItem("access_token"),
+        },
+        body: JSON.stringify(split),
+      }
+    );
+    /* rowsData().then((data) => {
+      sortArray(data);
+      setRows(data);
+    }); */
+  } catch (e) {
+    console.log(e);
   }
 };
 
@@ -126,7 +161,6 @@ const todayDate = () => {
 };
 
 const updateDate = (id) => {
-  console.log(document.getElementById(id).value);
   return document.getElementById(id).value;
 };
 
@@ -143,7 +177,8 @@ export const showPopup = (
   setRows,
   setDate,
   slider,
-  setSlider
+  setSlider,
+  lastItem
 ) => {
   switch (isPopup) {
     case "Purchase":
@@ -253,17 +288,53 @@ export const showPopup = (
       return <></>;
     case "Split":
       return (
-        <div className="">
-          <h1>{slider}%</h1>
-          <Slider
-            axis="x"
-            x={slider}
-            onChange={(newValue) => {
-              setSlider(newValue.x);
+        <div className="horizontal-header box">
+          <form
+            onSubmit={async (e) => {
+              await splitHandle(e, lastItem, slider);
+              handleUpdate(setRows);
             }}
-          />
-          <h2>iShare {slider * 1}</h2>
-          <h2>yShare {100 - slider * 1}</h2>
+          >
+            <CardTitle
+              color="cardtitle-yellow"
+              key={"title_split"}
+              text="Split"
+            />
+            {window.sessionStorage.getItem("user_id") === 1 ? (
+              <select id={"email" + lastItem.id} name="split_userEmail">
+                <option value="anacatarinarebelo98@gmail.com">
+                  Ana Catarina
+                </option>
+              </select>
+            ) : (
+              <select id={"email" + lastItem.id} name="split_userEmail">
+                <option value="anacatarinarebelo98@gmail.com">
+                  Ana Catarina
+                </option>
+              </select>
+            )}
+
+            <div className="">
+              <h1>{slider}%</h1>
+              <Slider
+                axis="x"
+                x={slider}
+                onChange={(newValue) => {
+                  setSlider(newValue.x);
+                }}
+              />
+              <h2>
+                iShare:{" "}
+                {Math.abs(lastItem.value * (slider / 100 - 1)).toFixed(2)}€
+              </h2>
+              <h2>
+                yShare: {Math.abs((lastItem.value * slider) / 100).toFixed(2)}€
+              </h2>
+            </div>
+            <button type="submit" name="save" value="save">
+              Add Split
+            </button>
+          </form>
         </div>
       );
     default:

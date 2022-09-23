@@ -5,10 +5,9 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-import { rowsData, sortArray, truncateMax } from "../api/moviment.api";
+import { truncateMax } from "../api/moviment.api";
 import STATUS from "../utility/status";
 
 import { IoIosCreate, IoIosGitBranch } from "react-icons/io";
@@ -74,9 +73,6 @@ function defineNaming(row) {
 }
 
 export default function StickyHeadTable(props) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(30);
-
   let columns = props.size === "bg" ? columns_bg : columns_sm;
   if (props.columns) {
     columns = props.columns;
@@ -141,26 +137,32 @@ export default function StickyHeadTable(props) {
                         }
                       >
                         {column.id === "options" &&
-                        row.status !== STATUS.PURCHASE.INCOME ? (
+                        row.status === STATUS.PURCHASE.NO_SPLIT ? (
                           <div className="options-icon">
                             <IoIosCreate
                               onClick={() => {
-                                props.function("Edit");
+                                props.setlastItem(row);
+                                props.togglePopup("Edit");
                               }}
                             />
                             <IoIosGitBranch
                               onClick={() => {
-                                props.function("Split");
+                                props.setlastItem(row);
+                                props.setSlider(row.split.weight);
+                                props.togglePopup("Split");
                               }}
                             />
                           </div>
                         ) : column.id === "options" &&
-                          row.status === STATUS.PURCHASE.INCOME ? (
-                          <IoIosCreate
-                            onClick={() => {
-                              props.function("Edit");
-                            }}
-                          />
+                          row.status !== STATUS.PURCHASE.NO_SPLIT ? (
+                          <div className="options-icon">
+                            <IoIosCreate
+                              onClick={() => {
+                                props.setlastItem(row);
+                                props.togglePopup("Edit");
+                              }}
+                            />
+                          </div>
                         ) : column.format && typeof value === "number" ? (
                           column.format(value)
                         ) : (
