@@ -321,7 +321,7 @@ export const showPopup = (
               }}
             />
             <div className="">
-              <h1>{slider}%</h1>
+              <p>{slider}%</p>
               <Slider
                 axis="x"
                 x={slider}
@@ -329,13 +329,13 @@ export const showPopup = (
                   setSlider(newValue.x);
                 }}
               />
-              <h2>
+              <h3>
                 iShare:{" "}
                 {Math.abs(lastItem.value * (slider / 100 - 1)).toFixed(2)}€
-              </h2>
-              <h2>
+              </h3>
+              <h3>
                 yShare: {Math.abs((lastItem.value * slider) / 100).toFixed(2)}€
-              </h2>
+              </h3>
             </div>
             <button type="submit" name="save" value="save">
               Add Split
