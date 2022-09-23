@@ -6,6 +6,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import ButtonOutline from "../components/Button";
 
 import { truncateMax } from "../api/moviment.api";
 import STATUS from "../utility/status";
@@ -162,6 +163,7 @@ export default function StickyHeadTable(props) {
                                 props.togglePopup("Edit");
                               }}
                             />
+                            <span>{row.weight}</span>
                           </div>
                         ) : column.format && typeof value === "number" ? (
                           column.format(value)

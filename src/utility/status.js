@@ -13,8 +13,8 @@ module.exports = {
   },
   COLORS: {
     INCOME: "#03C04A",
-    SPLITALL: "lightblue",
-    SPLITNONE: "tomato",
+    SPLITALL: "tomato",
+    SPLITNONE: "lightblue",
     NORMAL: "",
   },
   NAME_MAX_LENGTH: 13,

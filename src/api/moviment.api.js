@@ -78,7 +78,7 @@ export async function rowsData() {
           ((100 - element.split.weight) / 100) *
           element.value
         ).toFixed(2);
-        element.weight = 100 - element.split.weight;
+        element.weight = element.split.weight;
       }
     }
     for (const element of data_income) {
@@ -90,8 +90,7 @@ export async function rowsData() {
       element.iShare = ((element.split.weight / 100) * element.value).toFixed(
         2
       );
-      element.weight = element.split.weight;
-      element.myWeight = 100 - element.weight;
+      element.weight = 100 - element.split.weight;
     }
 
     return [...data_purchase, ...data_income, ...data_split];
