@@ -313,7 +313,13 @@ export const showPopup = (
                 </option>
               </select>
             )}
-
+            <ButtonOutline
+              type="outlined"
+              text="Split 50-50"
+              onClick={() => {
+                setSlider(50);
+              }}
+            />
             <div className="">
               <h1>{slider}%</h1>
               <Slider
