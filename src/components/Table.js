@@ -163,7 +163,7 @@ export default function StickyHeadTable(props) {
                                 props.togglePopup("Edit");
                               }}
                             />
-                            <span>{row.weight}</span>
+                            <span>{row.weight}%</span>
                           </div>
                         ) : column.format && typeof value === "number" ? (
                           column.format(value)
