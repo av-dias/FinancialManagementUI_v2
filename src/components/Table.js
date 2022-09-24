@@ -10,7 +10,11 @@ import TableRow from "@mui/material/TableRow";
 import { truncateMax } from "../api/moviment.api";
 import STATUS from "../utility/status";
 
-import { IoIosCreate, IoIosGitBranch } from "react-icons/io";
+import {
+  IoIosCreate,
+  IoIosGitBranch,
+  IoIosGitPullRequest,
+} from "react-icons/io";
 
 const columns_bg = [
   { id: "name", label: "Name", minWidth: 50, align: "center" },
@@ -163,6 +167,11 @@ export default function StickyHeadTable(props) {
                               }}
                             />
                             <span>{row.weight}%</span>
+                            {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
+                              <IoIosGitPullRequest color="red" />
+                            ) : (
+                              ""
+                            )}
                           </div>
                         ) : column.format && typeof value === "number" ? (
                           column.format(value)
