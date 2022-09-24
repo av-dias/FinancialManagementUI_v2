@@ -16,25 +16,25 @@ export const showChartGeneral = () => {
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "AAA", data: [10, 20, 30] }}
+          chartData={{ label: "Monthly Balance", data: [10, 20, 30] }}
         />
       </Grid>
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "BBB", data: [10, 50, 30] }}
+          chartData={{ label: "Monthly Spendings", data: [10, 50, 30] }}
         />
       </Grid>
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "CCC", data: [10, 10, 5] }}
+          chartData={{ label: "Total Balance", data: [10, 10, 5] }}
         />
       </Grid>
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "CCC", data: [10, 10, 5] }}
+          chartData={{ label: "Spendings Variation", data: [10, 10, 5] }}
         />
       </Grid>
     </Grid>
@@ -54,7 +54,7 @@ export const showChartSpecs = (data) => {
         <LineChart
           size="bg"
           options={options}
-          chartData={{ label: "FFF", data: [10, 10, 5] }}
+          chartData={{ label: "Variation of Spendings by Type", data: [10, 10, 5] }}
         />
       </Grid>
     </Grid>
