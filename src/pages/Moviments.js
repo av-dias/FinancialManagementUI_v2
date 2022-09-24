@@ -81,6 +81,7 @@ export default function Moviment() {
           <Popup
             content={showPopup(
               isPopup,
+              setIsOpen,
               date,
               setRows,
               setDate,

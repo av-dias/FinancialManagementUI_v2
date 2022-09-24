@@ -68,7 +68,7 @@ const incomeHandle = async (e, incomeDate) => {
   }
 };
 
-const splitHandle = async (event, lastItem, slider) => {
+const splitHandle = async (event, lastItem, slider, setIsOpen) => {
   event.preventDefault();
   let purchase_id = lastItem.id;
 
@@ -96,10 +96,7 @@ const splitHandle = async (event, lastItem, slider) => {
         body: JSON.stringify(split),
       }
     );
-    /* rowsData().then((data) => {
-      sortArray(data);
-      setRows(data);
-    }); */
+    setIsOpen(false);
   } catch (e) {
     console.log(e);
   }
@@ -174,6 +171,7 @@ const handleUpdate = (setRows) => {
 
 export const showPopup = (
   isPopup,
+  setIsOpen,
   date,
   setRows,
   setDate,
@@ -293,7 +291,7 @@ export const showPopup = (
         <div className="horizontal-header box">
           <form
             onSubmit={async (e) => {
-              await splitHandle(e, lastItem, slider);
+              await splitHandle(e, lastItem, slider, setIsOpen);
               handleUpdate(setRows);
             }}
           >
