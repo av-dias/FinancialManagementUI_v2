@@ -105,7 +105,7 @@ const splitHandle = async (event, lastItem, slider) => {
   }
 };
 
-const handlePurchase = async (e, purchaseDate) => {
+const handlePurchase = async (e, purchaseDate, setDate) => {
   e.preventDefault();
 
   let _name = document.getElementById("product_service_name").value;
@@ -146,6 +146,7 @@ const handlePurchase = async (e, purchaseDate) => {
     document.getElementById("product_service_name").value = "";
     document.getElementById("product_service_price").value = "";
     document.getElementById("product_service_subtype").value = "";
+    setDate(date);
   } catch (err) {
     console.log(err);
   }
@@ -186,7 +187,7 @@ export const showPopup = (
         <div className="horizontal-header box">
           <form
             onSubmit={async (e) => {
-              await handlePurchase(e, date);
+              await handlePurchase(e, date, setDate);
               handleUpdate(setRows);
             }}
           >
@@ -215,6 +216,7 @@ export const showPopup = (
               id="product_service_price"
               name="pprice"
               placeholder="0"
+              step=".01"
             ></input>
             <label htmlFor="pprice">Purchase Date</label>
             <input
