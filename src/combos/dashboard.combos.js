@@ -54,7 +54,10 @@ export const showChartSpecs = (data) => {
         <LineChart
           size="bg"
           options={options}
-          chartData={{ label: "Variation of Spendings by Type", data: [10, 10, 5] }}
+          chartData={{
+            label: "Variation of Spendings by Type",
+            data: [10, 10, 5],
+          }}
         />
       </Grid>
     </Grid>
@@ -68,14 +71,14 @@ export const showStatsHeader = (data) => {
         <CardText
           key={"msaving"}
           text="Month Balance"
-          value={data.month_savings}
+          value={data.month_savings.toFixed(2)}
         />
       </Grid>
       <Grid item xs={3} sm={3} md={3}>
         <CardText
           key={"mspend"}
           text="Month Spendings"
-          value={data.month_spendings}
+          value={data.month_spendings.toFixed(2)}
         />
       </Grid>
       <Grid item xs={3} sm={3} md={3}></Grid>
