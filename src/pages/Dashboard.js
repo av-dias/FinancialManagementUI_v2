@@ -19,6 +19,7 @@ export default function Dashboard() {
     month_savings: 0,
   });
   let [chartData, setchartData] = React.useState({});
+  let [month, setMonth] = React.useState(new Date().getMonth());
 
   useEffect(() => {
     loadData().then((data) => {
@@ -34,10 +35,14 @@ export default function Dashboard() {
       <div className="blur">
         <Grid container spacing={{ xs: 1, md: 1 }}>
           <Grid item xs={12} sm={12} md={12}>
-            {showStatsHeader({
-              month_savings: dashboardData.month_savings,
-              month_spendings: dashboardData.month_spendings,
-            })}
+            {showStatsHeader(
+              {
+                month_savings: dashboardData.month_savings,
+                month_spendings: dashboardData.month_spendings,
+              },
+              month,
+              setMonth
+            )}
           </Grid>
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
@@ -49,7 +54,7 @@ export default function Dashboard() {
             {showChartGeneral()}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {showChartSpecs(chartData)}
+            {showChartSpecs(chartData, month)}
           </Grid>
         </Grid>
       </div>

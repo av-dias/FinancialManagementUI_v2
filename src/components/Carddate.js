@@ -25,20 +25,20 @@ export default function Card(props) {
           <>
             <IoIosArrowBack
               onClick={() => {
-                alert("Previous Month");
+                props.setMonth(props.month - 1);
               }}
             />
             <img src={props.icon} alt="logo" className="carddate--icon" />
           </>
         )}
-        {props.date && (
-          <span className="bold m-text">{monthNames[props.date]}</span>
+        {props.month && (
+          <span className="bold m-text">{monthNames[props.month]}</span>
         )}
         {props.icon && (
           <>
             <IoIosArrowForward
               onClick={() => {
-                alert("Next Month");
+                props.setMonth(props.month + 1);
               }}
             />
           </>

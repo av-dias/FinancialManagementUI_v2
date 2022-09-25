@@ -64,7 +64,7 @@ export const showChartSpecs = (data) => {
   );
 };
 
-export const showStatsHeader = (data) => {
+export const showStatsHeader = (data, month, setMonth) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={3} sm={3} md={3}>
@@ -83,7 +83,7 @@ export const showStatsHeader = (data) => {
       </Grid>
       <Grid item xs={3} sm={3} md={3}></Grid>
       <Grid item xs={3} sm={3} md={3}>
-        <CardDate key={"month"} icon={date} date={new Date().getMonth()} />
+        <CardDate key={"month"} icon={date} month={month} setMonth = {setMonth} />
       </Grid>
     </Grid>
   );
