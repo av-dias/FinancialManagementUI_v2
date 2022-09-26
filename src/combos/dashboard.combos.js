@@ -10,19 +10,60 @@ import date from "../images/date.png";
 
 const options = { maintainAspectRatio: false, responsive: false };
 
-export const showChartGeneral = () => {
+function nonZeroMonths(data) {
+  let startIndex = 0,
+    endIndex = 0,
+    foundFirst = false,
+    foundLast = 0;
+  for (let i = 0; i < 12; i++) {
+    if (!data || data[i] === "undefined") {
+      return [];
+    }
+
+    if (data[i] === 0 && !foundFirst) {
+      startIndex++;
+    } else if (data[i] !== 0 && !foundFirst) {
+      foundFirst = true;
+    } else if (foundLast !== 2 && foundFirst) {
+      if (data[i] === 0) {
+        foundLast++;
+        if (foundLast === 2) {
+          endIndex = i - 1;
+          break;
+        }
+      }
+    } else {
+      endIndex = i - foundLast;
+      break;
+    }
+    endIndex = i;
+  }
+
+  return {
+    months: Object.keys(data).slice(startIndex, endIndex),
+    values: Object.values(data).slice(startIndex, endIndex),
+  };
+}
+
+export const showChartGeneral = (dashboardData) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "Monthly Balance", data: [10, 20, 30] }}
+          chartData={{
+            label: "Monthly Balance",
+            data: nonZeroMonths(dashboardData.savings_by_month),
+          }}
         />
       </Grid>
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "Monthly Spendings", data: [10, 50, 30] }}
+          chartData={{
+            label: "Monthly Spendings",
+            data: nonZeroMonths(dashboardData.purchases_by_month),
+          }}
         />
       </Grid>
       <Grid item xs={3}>
@@ -83,7 +124,7 @@ export const showStatsHeader = (data, month, setMonth) => {
       </Grid>
       <Grid item xs={3} sm={3} md={3}></Grid>
       <Grid item xs={3} sm={3} md={3}>
-        <CardDate key={"month"} icon={date} month={month} setMonth = {setMonth} />
+        <CardDate key={"month"} icon={date} month={month} setMonth={setMonth} />
       </Grid>
     </Grid>
   );

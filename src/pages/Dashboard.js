@@ -17,6 +17,8 @@ export default function Dashboard() {
     total_savings: 0,
     month_spendings: 0,
     month_savings: 0,
+    purchases_by_month: {},
+    savings_by_month: {},
   });
   let [chartData, setchartData] = React.useState({});
   let [month, setMonth] = React.useState(new Date().getMonth());
@@ -51,7 +53,7 @@ export default function Dashboard() {
             {showSelectionButtons()}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {showChartGeneral()}
+            {showChartGeneral(dashboardData)}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             {showChartSpecs(chartData, month)}

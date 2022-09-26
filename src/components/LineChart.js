@@ -23,6 +23,26 @@ ChartJS.register(
   Tooltip
 );
 
+var Months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+function getMonths(names) {
+  if (names === null || names === undefined || names === []) return [];
+  return Months.slice(names[0] - 1, names[names.length - 1]);
+}
+
 function LineChart(props) {
   const options = {
     scales: {
@@ -32,7 +52,11 @@ function LineChart(props) {
     },
   };
 
-  const labels = ["January", "February", "March"];
+  const labels = getMonths(props.chartData.data.months) || [
+    "January",
+    "February",
+    "March",
+  ];
 
   const data = {
     labels,
@@ -40,7 +64,7 @@ function LineChart(props) {
       {
         type: "line",
         label: props.chartData.label,
-        data: props.chartData.data,
+        data: props.chartData.data.values,
         borderColor: "#FF6A3D",
         borderWidth: 2,
       },
