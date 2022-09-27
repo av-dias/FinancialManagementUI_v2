@@ -45,6 +45,32 @@ function nonZeroMonths(data) {
   };
 }
 
+function cumulatesMonths(data) {
+  let newData = nonZeroMonths(data);
+  if (!newData) return [];
+  let cumulative = 0;
+  for (let i = 0; i < newData.values.length; i++) {
+    cumulative += newData.values[i];
+    newData.values[i] = cumulative;
+    //console.log(cumulative);
+  }
+  //console.log(newData);
+  return newData;
+}
+
+function deviationMonths(data) {
+  let newData = nonZeroMonths(data);
+  if (!newData) return [];
+  const sum = newData.values.reduce((partialSum, a) => partialSum + a, 0);
+  const average = sum / newData.months.length;
+
+  for (let i = 0; i < newData.values.length; i++) {
+    newData.values[i] -= average;
+  }
+
+  return newData;
+}
+
 export const showChartGeneral = (dashboardData) => {
   return (
     <Grid container spacing={1}>
@@ -69,13 +95,19 @@ export const showChartGeneral = (dashboardData) => {
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "Total Balance", data: [10, 10, 5] }}
+          chartData={{
+            label: "Total Balance",
+            data: cumulatesMonths(dashboardData.savings_by_month),
+          }}
         />
       </Grid>
       <Grid item xs={3}>
         <LineChart
           options={options}
-          chartData={{ label: "Spendings Variation", data: [10, 10, 5] }}
+          chartData={{
+            label: "Spendings Deviation",
+            data: deviationMonths(dashboardData.purchases_by_month),
+          }}
         />
       </Grid>
     </Grid>
