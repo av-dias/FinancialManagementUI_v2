@@ -38,11 +38,10 @@ function BarChart(props) {
     labels,
     datasets: [
       {
+        backgroundColor: "rgba(40, 67, 135, 0.5)",
         type: "bar",
         label: props.chartData.label,
         data: props.chartData.data,
-        borderColor: "#FF6A3D",
-        borderWidth: 2,
       },
     ],
   };

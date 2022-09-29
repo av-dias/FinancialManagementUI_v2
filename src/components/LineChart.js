@@ -45,6 +45,7 @@ function getMonths(names) {
 
 function LineChart(props) {
   const options = {
+    responsive: true,
     scales: {
       y: {
         beginAtZero: true,
@@ -65,8 +66,8 @@ function LineChart(props) {
         type: "line",
         label: props.chartData.label,
         data: props.chartData.data.values,
-        borderColor: "#FF6A3D",
-        borderWidth: 2,
+        borderColor: "rgb(40, 67, 135, 0.5)",
+        backgroundColor: "rgba(40, 67, 135, 0.7)",
       },
     ],
   };
