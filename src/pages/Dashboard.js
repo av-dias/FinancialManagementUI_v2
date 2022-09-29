@@ -21,7 +21,7 @@ export default function Dashboard() {
     savings_by_month: {},
   });
   let [chartData, setchartData] = React.useState({});
-  let [month, setMonth] = React.useState(new Date().getMonth());
+  let [month, setMonth] = React.useState(new Date().getMonth() + 1);
 
   useEffect(() => {
     loadData().then((data) => {

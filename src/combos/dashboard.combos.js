@@ -128,7 +128,7 @@ export const showChartSpecs = (data) => {
           size="bg"
           options={options}
           chartData={{
-            label: "Variation of Spendings by Type",
+            label: "Average of Spendings by Type",
             data: data.average,
           }}
         />

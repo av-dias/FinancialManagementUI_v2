@@ -3,6 +3,7 @@ import "./Carddate.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const monthNames = [
+  "None",
   "January",
   "February",
   "March",
@@ -17,6 +18,16 @@ const monthNames = [
   "December",
 ];
 
+function increaseMonth(month) {
+  if (month === 12) return 12;
+  else return month + 1;
+}
+
+function decreaseMonth(month) {
+  if (month === 1) return 1;
+  else return month - 1;
+}
+
 export default function Card(props) {
   return (
     <div className="carddate">
@@ -25,7 +36,7 @@ export default function Card(props) {
           <>
             <IoIosArrowBack
               onClick={() => {
-                props.setMonth(props.month - 1);
+                props.setMonth(decreaseMonth(props.month));
               }}
             />
             <img src={props.icon} alt="logo" className="carddate--icon" />
@@ -38,7 +49,7 @@ export default function Card(props) {
           <>
             <IoIosArrowForward
               onClick={() => {
-                props.setMonth(props.month + 1);
+                props.setMonth(increaseMonth(props.month));
               }}
             />
           </>
