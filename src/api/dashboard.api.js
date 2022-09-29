@@ -1,11 +1,11 @@
 import ADDRESS from "../utility/address";
 
-export async function loadData() {
+export async function loadData(month) {
   try {
     let user_id = window.sessionStorage.getItem("user_id");
 
     let response = await fetch(
-      `http://${ADDRESS.BACKEND}/api/v1/user/${user_id}/purchase/statistics`,
+      `http://${ADDRESS.BACKEND}/api/v1/user/${user_id}/purchase/statistics/month/${month}`,
       {
         method: "GET",
         headers: {

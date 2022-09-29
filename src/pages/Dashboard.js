@@ -24,15 +24,14 @@ export default function Dashboard() {
   let [month, setMonth] = React.useState(new Date().getMonth() + 1);
 
   useEffect(() => {
-    loadData().then((data) => {
-      console.log(data);
+    loadData(month).then((data) => {
       setdashboardData(data);
       setchartData({
         current: data.purchases_by_type,
         average: data.av_purchases_by_type,
       });
     });
-  }, []);
+  }, [month]);
 
   return (
     <div className="background-page">

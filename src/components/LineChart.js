@@ -45,6 +45,9 @@ function getMonths(names) {
 
 function LineChart(props) {
   const options = {
+    animation: {
+      duration: 0,
+    },
     responsive: true,
     scales: {
       y: {

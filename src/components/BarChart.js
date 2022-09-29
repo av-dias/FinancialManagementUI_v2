@@ -25,6 +25,9 @@ ChartJS.register(
 
 function BarChart(props) {
   const options = {
+    animation: {
+      duration: 0,
+    },
     scales: {
       y: {
         beginAtZero: true,
@@ -33,6 +36,10 @@ function BarChart(props) {
   };
 
   const labels = props.labels || [];
+  console.log(props.chartData.data);
+  if (props.chartData.data && Object.keys(props.chartData.data).length === 0) {
+    props.chartData.data = { Restaurant: 0, Supermarket: 0, Clothes: 0 };
+  }
 
   const data = {
     labels,
