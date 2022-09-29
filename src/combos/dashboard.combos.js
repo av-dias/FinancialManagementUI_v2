@@ -120,16 +120,16 @@ export const showChartSpecs = (data) => {
       <Grid item xs={6}>
         <BarChart
           options={options}
-          chartData={{ label: "Spendings by Type", data: data }}
+          chartData={{ label: "Spendings by Type", data: data.current }}
         />
       </Grid>
       <Grid item xs={6}>
-        <LineChart
+        <BarChart
           size="bg"
           options={options}
           chartData={{
             label: "Variation of Spendings by Type",
-            data: [10, 10, 5],
+            data: data.average,
           }}
         />
       </Grid>

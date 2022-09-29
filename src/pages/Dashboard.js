@@ -27,7 +27,10 @@ export default function Dashboard() {
     loadData().then((data) => {
       console.log(data);
       setdashboardData(data);
-      setchartData(data.purchases_by_type);
+      setchartData({
+        current: data.purchases_by_type,
+        average: data.av_purchases_by_type,
+      });
     });
   }, []);
 
@@ -56,7 +59,7 @@ export default function Dashboard() {
             {showChartGeneral(dashboardData)}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {showChartSpecs(chartData, month)}
+            {showChartSpecs(chartData)}
           </Grid>
         </Grid>
       </div>
