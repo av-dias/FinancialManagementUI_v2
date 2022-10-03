@@ -162,14 +162,32 @@ export const showStatsHeader = (data, month, setMonth) => {
   );
 };
 
-export const showSelectionButtons = () => {
+export const showSelectionButtons = (dashboardData, setchartData) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={1} sm={1} md={1}>
-        <ButtonOutline type="outlined" text="Total" />
+        <ButtonOutline
+          type="outlined"
+          text="Total"
+          onClick={() => {
+            setchartData({
+              current: dashboardData.Total,
+              average: dashboardData.av_purchases_by_type,
+            });
+          }}
+        />
       </Grid>
       <Grid item xs={1} sm={1} md={1}>
-        <ButtonOutline type="outlined" text="iShare" />
+        <ButtonOutline
+          type="outlined"
+          text="Mine"
+          onClick={() => {
+            setchartData({
+              current: dashboardData.purchases_by_type,
+              average: dashboardData.av_purchases_by_type,
+            });
+          }}
+        />
       </Grid>
     </Grid>
   );
