@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Splits() {
   const navigate = useNavigate();
+  window.sessionStorage.clear();
+
   return (
     <div className="background-page">
       <Grid container spacing={{ xs: 2, sm: 2, md: 2 }}>
