@@ -4,15 +4,14 @@ import Grid from "@mui/material/Grid";
 
 import Sidebar from "../components/Sidebar";
 import Table from "../components/Table";
-import BarChart from "../components/BarChart";
+//import BarChart from "../components/BarChart";
 //import LineChart from "../components/LineChart";
 import PolarChart from "../components/PolarChart";
+import StackedChart from "../components/StackedChart";
 import CardTitle from "../components/Cardtitle";
 import CardInfo from "../components/CardInfo";
 
 import { loadData } from "../api/split.api";
-
-const options = { maintainAspectRatio: false, responsive: false };
 
 const COLUMNS = [
   { id: "Name", label: "Name", minWidth: 100, align: "center" },
@@ -144,10 +143,13 @@ export default function Splits() {
             />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
-            <PolarChart data={rows} />
+            <StackedChart
+              data={rows}
+              title={"Total spendings and corresponding split"}
+            />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
-            <PolarChart data={rows} />
+            <PolarChart data={rows} title={"Dept chart in € from each"} />
           </Grid>
         </Grid>
       </div>

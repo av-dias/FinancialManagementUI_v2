@@ -9,7 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import faker from "faker";
+import "./StackedChart.css";
 
 ChartJS.register(
   CategoryScale,
@@ -20,51 +20,52 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  plugins: {
-    title: {
-      display: true,
-      text: "Chart.js Bar Chart - Stacked",
+function StackedChart(props) {
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: "Total spendings and corresponding split",
+      },
     },
-  },
-  responsive: true,
-  scales: {
-    x: {
-      stacked: true,
+    responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
     },
-    y: {
-      stacked: true,
-    },
-  },
-};
+  };
+  console.log(props.data);
+  const labels = [props.data[0].Name, props.data[1].Name] || ["User1", "User2"];
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "iShare",
+        data: [props.data[0].iShare, props.data[1].iShare],
+        backgroundColor: "rgba(204, 85, 0, 0.5)",
+        borderColor: "rgba(204, 85, 0, 1)",
+        borderWidth: 1,
+      },
+      {
+        label: "yShare",
+        data: [props.data[0].yShare, props.data[1].yShare],
+        backgroundColor: "rgba(75, 192, 192, 0.5)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      backgroundColor: "rgb(255, 99, 132)",
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      backgroundColor: "rgb(75, 192, 192)",
-    },
-    {
-      label: "Dataset 3",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      backgroundColor: "rgb(53, 162, 235)",
-    },
-  ],
-};
-
-export function App() {
   return (
     <div className="chart-stacked">
       <Bar options={options} data={data} />
     </div>
   );
 }
+
+export default StackedChart;

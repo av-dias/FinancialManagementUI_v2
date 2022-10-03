@@ -12,22 +12,21 @@ if (window.sessionStorage.getItem("user_id") === 1) {
   chartLabel = ["Ana Rebelo", "Álison Dias"];
 }
 
-export const options = {
-  aspectRatio: "2",
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Dept chart in € from each",
-    },
-  },
-};
-
 function PolarChart(props) {
-  console.log(props.data);
+  const options = {
+    aspectRatio: "2",
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: props.title,
+      },
+    },
+  };
+
   const data = {
     labels: chartLabel,
     datasets: [
