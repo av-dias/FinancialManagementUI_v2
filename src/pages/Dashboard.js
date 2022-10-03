@@ -8,6 +8,7 @@ import {
   showSelectionButtons,
 } from "../combos/dashboard.combos";
 import Grid from "@mui/material/Grid";
+import STATUS from "../utility/status";
 
 import { loadData } from "../api/dashboard.api";
 
@@ -22,15 +23,28 @@ export default function Dashboard() {
   });
   let [chartData, setchartData] = React.useState({});
   let [month, setMonth] = React.useState(new Date().getMonth() + 1);
+  let [mode, setMode] = React.useState(1);
 
   useEffect(() => {
     loadData(month).then((data) => {
       console.log(data);
       setdashboardData(data);
-      setchartData({
-        current: data.purchases_by_type,
-        average: data.av_purchases_by_type,
-      });
+      switch (mode) {
+        case STATUS.MODE.TOTAL:
+          setchartData({
+            current: data.Total,
+            average: data.av_purchases_by_type,
+          });
+          break;
+        case STATUS.MODE.MINE:
+          setchartData({
+            current: data.purchases_by_type,
+            average: data.av_purchases_by_type,
+          });
+          break;
+        default:
+          break;
+      }
     });
   }, [month]);
 
@@ -56,7 +70,7 @@ export default function Dashboard() {
             {showChartGeneral(dashboardData)}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {showSelectionButtons(dashboardData, setchartData)}
+            {showSelectionButtons(dashboardData, setchartData, setMode, mode)}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             {showChartSpecs(chartData)}

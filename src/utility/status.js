@@ -18,4 +18,8 @@ module.exports = {
     NORMAL: "",
   },
   NAME_MAX_LENGTH: 13,
+  MODE: {
+    TOTAL: 0,
+    MINE: 1,
+  },
 };

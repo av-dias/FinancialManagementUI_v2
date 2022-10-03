@@ -7,6 +7,7 @@ import CardDate from "../components/Carddate";
 import ButtonOutline from "../components/Button";
 
 import date from "../images/date.png";
+import STATUS from "../utility/status";
 
 const options = { maintainAspectRatio: false, responsive: false };
 
@@ -162,14 +163,20 @@ export const showStatsHeader = (data, month, setMonth) => {
   );
 };
 
-export const showSelectionButtons = (dashboardData, setchartData) => {
+export const showSelectionButtons = (
+  dashboardData,
+  setchartData,
+  setMode,
+  mode
+) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={1} sm={1} md={1}>
         <ButtonOutline
-          type="outlined"
+          type={mode == STATUS.MODE.TOTAL ? "contained" : "outlined"}
           text="Total"
           onClick={() => {
+            setMode(STATUS.MODE.TOTAL);
             setchartData({
               current: dashboardData.Total,
               average: dashboardData.av_purchases_by_type,
@@ -179,9 +186,10 @@ export const showSelectionButtons = (dashboardData, setchartData) => {
       </Grid>
       <Grid item xs={1} sm={1} md={1}>
         <ButtonOutline
-          type="outlined"
+          type={mode == STATUS.MODE.MINE ? "contained" : "outlined"}
           text="Mine"
           onClick={() => {
+            setMode(STATUS.MODE.MINE);
             setchartData({
               current: dashboardData.purchases_by_type,
               average: dashboardData.av_purchases_by_type,
