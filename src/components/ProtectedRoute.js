@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-export default function ProtectedRoute(children) {
+export default function ProtectedRoute({ children }) {
   if (
     window.sessionStorage.getItem("user_id") &&
     window.sessionStorage.getItem("user_name") &&
