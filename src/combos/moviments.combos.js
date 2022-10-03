@@ -300,7 +300,7 @@ export const showPopup = (
               key={"title_split"}
               text="Split"
             />
-            {window.sessionStorage.getItem("user_id") === 1 ? (
+            {window.sessionStorage.getItem("user_id") === "1" ? (
               <select id={"email" + lastItem.id} name="split_userEmail">
                 <option value="anacatarinarebelo98@gmail.com">
                   Ana Catarina
