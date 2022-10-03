@@ -6,8 +6,7 @@ import { useLocation } from "react-router-dom";
 
 export default function Sidebar(props) {
   const location = useLocation().pathname;
-  //console.log(location);
-  return (
+    return (
     <div className="sidebar">
       <img src={navLogo} alt="logo" className="sidebar--logo" />
       <a
@@ -39,12 +38,14 @@ export default function Sidebar(props) {
         Splits
       </a>
       <div className="end sidebar-login">
-        <a href="/Login" className="sidebar--button">
+        <span className="sidebar--button grey">
           {window.sessionStorage.getItem("user_id") === "1"
             ? "Alison Dias"
             : "Ana Catarina"}
+        </span>
+        <a href="/">
+          <AiOutlineLogout size={20} color="gray" className="sidebar-icon" />
         </a>
-        <AiOutlineLogout size={20} color="gray" className="sidebar-icon" />
       </div>
     </div>
   );
