@@ -95,11 +95,13 @@ export default function StickyHeadTable(props) {
     createData("---", " ", "0", "0"),
     createData("---", " ", "0", "0"),
     createData("---", " ", "0", "0"),
+    createData("---", " ", "0", "0"),
+    createData("---", " ", "0", "0"),
   ];
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: "75vh" }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
