@@ -40,7 +40,9 @@ export default function Sidebar(props) {
       </a>
       <div className="end sidebar-login">
         <a href="/Login" className="sidebar--button">
-          Login
+          {window.sessionStorage.getItem("user_id") === "1"
+            ? "Alison Dias"
+            : "Ana Catarina"}
         </a>
         <AiOutlineLogout size={20} color="gray" className="sidebar-icon" />
       </div>
