@@ -308,9 +308,7 @@ export const showPopup = (
               </select>
             ) : (
               <select id={"email" + lastItem.id} name="split_userEmail">
-                <option value="anacatarinarebelo98@gmail.com">
-                  Ana Catarina
-                </option>
+                <option value="al.vrdias@gmail.com">Álison Dias</option>
               </select>
             )}
             <ButtonOutline

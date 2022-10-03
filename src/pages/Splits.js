@@ -5,7 +5,8 @@ import Grid from "@mui/material/Grid";
 import Sidebar from "../components/Sidebar";
 import Table from "../components/Table";
 import BarChart from "../components/BarChart";
-import LineChart from "../components/LineChart";
+//import LineChart from "../components/LineChart";
+import PolarChart from "../components/PolarChart";
 import CardTitle from "../components/Cardtitle";
 import CardInfo from "../components/CardInfo";
 
@@ -21,6 +22,7 @@ const COLUMNS = [
 ];
 
 export default function Splits() {
+  // [0]: Self, [1]:Given
   const [rows, setRows] = React.useState([
     { Name: "NA", Total: "NA", iShare: "NA", yShare: "NA" },
     { Name: "NA", Total: "NA", iShare: "NA", yShare: "NA" },
@@ -142,16 +144,10 @@ export default function Splits() {
             />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
-            <BarChart
-              options={options}
-              chartData={{ label: "AAA", data: [10, 20, 30] }}
-            ></BarChart>
+            <PolarChart data={rows} />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
-            <LineChart
-              options={options}
-              chartData={{ label: "BBB", data: [10, 20, 30] }}
-            ></LineChart>
+            <PolarChart data={rows} />
           </Grid>
         </Grid>
       </div>
