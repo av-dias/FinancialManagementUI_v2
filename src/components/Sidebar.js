@@ -6,9 +6,11 @@ import { useLocation } from "react-router-dom";
 
 export default function Sidebar(props) {
   const location = useLocation().pathname;
-    return (
+  return (
     <div className="sidebar">
-      <img src={navLogo} alt="logo" className="sidebar--logo" />
+      <div className="logo-center">
+        <img src={navLogo} alt="logo" className="sidebar--logo" />
+      </div>
       <a
         href="/Dashboard"
         className={

@@ -25,10 +25,14 @@
   display: block;
 }
 
+.logo-center {
+  display: flex;
+  justify-content: center;
+}
+
 .sidebar--logo {
-  width: auto;
-  max-width: 40px;
-  margin: 10px;
+  max-width: 8vh;
+  margin-top: 10px;
   margin-bottom: 50px;
 }
 
