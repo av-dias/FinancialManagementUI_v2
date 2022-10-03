@@ -32,8 +32,8 @@ export default function Dashboard() {
       switch (mode) {
         case STATUS.MODE.TOTAL:
           setchartData({
-            current: data.Total,
-            average: data.av_purchases_by_type,
+            current: data.total.current,
+            average: data.total.average,
           });
           break;
         case STATUS.MODE.MINE:

@@ -178,8 +178,8 @@ export const showSelectionButtons = (
           onClick={() => {
             setMode(STATUS.MODE.TOTAL);
             setchartData({
-              current: dashboardData.Total,
-              average: dashboardData.av_purchases_by_type,
+              current: dashboardData.total.current,
+              average: dashboardData.total.average,
             });
           }}
         />
