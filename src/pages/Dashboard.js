@@ -25,6 +25,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     loadData(month).then((data) => {
+      console.log(data);
       setdashboardData(data);
       setchartData({
         current: data.purchases_by_type,
@@ -52,10 +53,10 @@ export default function Dashboard() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showSelectionButtons()}
+            {showChartGeneral(dashboardData)}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {showChartGeneral(dashboardData)}
+            {showSelectionButtons()}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             {showChartSpecs(chartData)}

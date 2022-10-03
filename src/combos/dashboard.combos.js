@@ -105,7 +105,7 @@ export const showChartGeneral = (dashboardData) => {
         <LineChart
           options={options}
           chartData={{
-            label: "Spendings Deviation",
+            label: "Av. Spendings Deviation",
             data: deviationMonths(dashboardData.purchases_by_month),
           }}
         />
