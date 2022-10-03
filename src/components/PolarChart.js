@@ -6,7 +6,7 @@ import "./PolarChart.css";
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 let chartLabel;
 
-if (window.sessionStorage.getItem("user_id") === 1) {
+if (window.sessionStorage.getItem("user_id") === "1") {
   chartLabel = ["Álison Dias", "Ana Rebelo"];
 } else {
   chartLabel = ["Ana Rebelo", "Álison Dias"];
@@ -32,7 +32,7 @@ function PolarChart(props) {
     datasets: [
       {
         label: "# of Votes",
-        data: [props.data[1].iShare, props.data[0].yShare],
+        data: [props.data[0].yShare, props.data[1].iShare],
         backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
         borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
         borderWidth: 1,
