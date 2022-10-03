@@ -47,8 +47,8 @@ function StackedChart(props) {
       {
         label: "iShare",
         data: [props.data[0].iShare, props.data[1].iShare],
-        backgroundColor: "rgba(204, 85, 0, 0.5)",
-        borderColor: "rgba(204, 85, 0, 1)",
+        backgroundColor: "rgba(240, 128, 0, 0.5)",
+        borderColor: "rgba(240, 128, 0, 1)",
         borderWidth: 1,
       },
       {
