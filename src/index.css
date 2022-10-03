@@ -179,3 +179,7 @@ hr {
   gap: 15%;
   justify-content: center;
 }
+
+.grey {
+  color: gray;
+}
