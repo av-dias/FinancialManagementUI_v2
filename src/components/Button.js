@@ -6,9 +6,10 @@ export default function ButtonOutline(props) {
   return (
     <Button
       sx={{
-        boxShadow: 2,
+        boxShadow: props.shadow || 2,
+        fontSize: props.textSize || "small",
       }}
-      variant={props.type}
+      variant={props.type || "text"}
       size="small"
       onClick={props.onClick}
       fullWidth

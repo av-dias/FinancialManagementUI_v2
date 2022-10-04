@@ -4,6 +4,7 @@ import Table from "../components/Table";
 import CardTitle from "../components/Cardtitle";
 import ButtonOutline from "../components/Button";
 import Slider from "react-input-slider";
+import Button from "../components/Button";
 
 import "../components/Table.css";
 import ADDRESS from "../utility/address";
@@ -13,12 +14,41 @@ import { rowsData, sortArray } from "../api/moviment.api";
 export const showMainTables = (data, togglePopup, setSlider, setlastItem) => {
   return (
     <Grid container spacing={1}>
-      <Grid item xs={7} sm={7} md={7}>
-        <CardTitle key={"msaving"} text="Moviments" />
+      <Grid item xs={12} sm={12} md={12}>
+        <CardTitle key={"msaving"} text="Moviments">
+          <Button
+            key={Math.random()}
+            textSize={10}
+            shadow={1}
+            text={"Overall"}
+          ></Button>
+          <Button
+            key={Math.random()}
+            textSize={10}
+            shadow={1}
+            text={"Supermarket"}
+          ></Button>
+          <Button
+            key={Math.random()}
+            textSize={10}
+            shadow={1}
+            text={"Entertainment"}
+          ></Button>
+          <Button
+            key={Math.random()}
+            textSize={10}
+            shadow={1}
+            text={"Clothes"}
+          ></Button>
+          <Button
+            key={Math.random()}
+            textSize={10}
+            shadow={1}
+            text={"Gadgets"}
+          ></Button>
+        </CardTitle>
       </Grid>
-      <Grid item xs={5} sm={5} md={5}>
-        <CardTitle key={"msaving"} text="Home" />
-      </Grid>
+
       <Grid item xs={7} sm={7} md={7}>
         <Table
           size="bg"

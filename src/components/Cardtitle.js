@@ -1,11 +1,25 @@
 import React from "react";
 import "./Cardtitle.css";
 
+import Grid from "@mui/material/Grid";
+
 export default function Card(props) {
   return (
     <div className={"cardtitle " + props.color}>
       <div className="cardtitle-align">
-        <span className="bold">{props.text}</span>
+        <Grid container spacing={1}>
+          <Grid item xs={5} sm={4} md={2} lg={2}>
+            <span className="bold">{props.text}</span>
+          </Grid>
+          {props.children &&
+            [...props.children].map(function (elem) {
+              return (
+                <Grid key={Math.random()} item xs={2} sm={2} md={2} lg={1}>
+                  {elem}
+                </Grid>
+              );
+            })}
+        </Grid>
       </div>
       {props.description && (
         <div className="cardtitle-align">
