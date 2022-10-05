@@ -20,7 +20,7 @@ export default function Card(props) {
                   {elem}
                 </Grid>
               ) : (
-                <>{elem}</>
+                <React.Fragment key={Math.random()}>{elem}</React.Fragment>
               );
             })}
         </Grid>
