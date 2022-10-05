@@ -18,7 +18,7 @@ export const showMainTables = (data, togglePopup, setSlider, setlastItem) => {
       <Grid item xs={12} sm={12} md={12}>
         <CardTitle key={"msaving"} text="Moviments">
           <div className="arrow-icon">
-            <IoIosArrowBack key={Math.random()} />
+            <IoIosArrowBack key={Math.random()} className="cursor-pointer" />
           </div>
           <Button
             key={Math.random()}
@@ -45,7 +45,7 @@ export const showMainTables = (data, togglePopup, setSlider, setlastItem) => {
             text={"Gadgets"}
           ></Button>
           <div className="arrow-icon">
-            <IoIosArrowForward key={Math.random()} />
+            <IoIosArrowForward key={Math.random()} className="cursor-pointer" />
           </div>
         </CardTitle>
       </Grid>

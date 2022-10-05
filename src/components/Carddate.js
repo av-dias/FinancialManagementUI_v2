@@ -35,6 +35,7 @@ export default function Card(props) {
         {props.icon && (
           <>
             <IoIosArrowBack
+              className="cursor-pointer"
               onClick={() => {
                 props.setMonth(decreaseMonth(props.month));
               }}
@@ -48,6 +49,7 @@ export default function Card(props) {
         {props.icon && (
           <>
             <IoIosArrowForward
+              className="cursor-pointer"
               onClick={() => {
                 props.setMonth(increaseMonth(props.month));
               }}
