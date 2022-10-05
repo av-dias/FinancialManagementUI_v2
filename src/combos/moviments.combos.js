@@ -5,6 +5,7 @@ import CardTitle from "../components/Cardtitle";
 import ButtonOutline from "../components/Button";
 import Slider from "react-input-slider";
 import Button from "../components/Button";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 import "../components/Table.css";
 import ADDRESS from "../utility/address";
@@ -16,6 +17,9 @@ export const showMainTables = (data, togglePopup, setSlider, setlastItem) => {
     <Grid container spacing={1}>
       <Grid item xs={12} sm={12} md={12}>
         <CardTitle key={"msaving"} text="Moviments">
+          <div className="arrow-icon">
+            <IoIosArrowBack key={Math.random()} />
+          </div>
           <Button
             key={Math.random()}
             textSize={10}
@@ -38,14 +42,11 @@ export const showMainTables = (data, togglePopup, setSlider, setlastItem) => {
             key={Math.random()}
             textSize={10}
             shadow={1}
-            text={"Clothes"}
-          ></Button>
-          <Button
-            key={Math.random()}
-            textSize={10}
-            shadow={1}
             text={"Gadgets"}
           ></Button>
+          <div className="arrow-icon">
+            <IoIosArrowForward key={Math.random()} />
+          </div>
         </CardTitle>
       </Grid>
 

@@ -183,3 +183,12 @@ hr {
 .grey {
   color: gray;
 }
+
+.arrow-icon {
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+  padding-top: 2vh;
+}
