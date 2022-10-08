@@ -4,7 +4,6 @@ import "./Cardtitle.css";
 import Grid from "@mui/material/Grid";
 
 export default function Card(props) {
-  console.log(props.children);
   return (
     <div className={"cardtitle " + props.color}>
       <div className="cardtitle-align">

@@ -173,7 +173,7 @@ export const showSelectionButtons = (
     <Grid container spacing={1}>
       <Grid item xs={1} sm={1} md={1}>
         <ButtonOutline
-          type={mode == STATUS.MODE.TOTAL ? "contained" : "outlined"}
+          type={mode === STATUS.MODE.TOTAL ? "contained" : "outlined"}
           text="Total"
           onClick={() => {
             setMode(STATUS.MODE.TOTAL);
@@ -186,7 +186,7 @@ export const showSelectionButtons = (
       </Grid>
       <Grid item xs={1} sm={1} md={1}>
         <ButtonOutline
-          type={mode == STATUS.MODE.MINE ? "contained" : "outlined"}
+          type={mode === STATUS.MODE.MINE ? "contained" : "outlined"}
           text="Mine"
           onClick={() => {
             setMode(STATUS.MODE.MINE);
