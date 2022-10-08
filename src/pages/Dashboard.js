@@ -46,7 +46,7 @@ export default function Dashboard() {
           break;
       }
     });
-  }, [month]);
+  }, [month, mode]);
 
   return (
     <div className="background-page">
