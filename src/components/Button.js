@@ -13,6 +13,7 @@ export default function ButtonOutline(props) {
       size="small"
       onClick={props.onClick}
       fullWidth
+      color={props.color || "primary"}
     >
       {props.text}
     </Button>
