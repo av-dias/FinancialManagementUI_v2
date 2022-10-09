@@ -412,7 +412,9 @@ export const showPopup = (
               handleUpdate(setRows);
             }}
           >
-            <Card color="Card-yellow" key={"title_split"} text="Split" />
+            <Card color="card-yellow" key={"title_split"}>
+              {"Split"}
+            </Card>
             {window.sessionStorage.getItem("user_id") === "1" ? (
               <select id={"email" + lastItem.id} name="split_userEmail">
                 <option value="anacatarinarebelo98@gmail.com">
