@@ -4,24 +4,30 @@ import "./Cardtitle.css";
 import Grid from "@mui/material/Grid";
 
 export default function Card(props) {
+  console.log(props.children);
   return (
     <div className={"cardtitle " + props.color}>
       <div className="cardtitle-align">
         <Grid container spacing={1}>
-          <Grid item xs={5} sm={4} md={3} lg={4}>
+          <Grid item xs={5} sm={4} md={3} lg={3}>
             <span className="bold">{props.text}</span>
           </Grid>
-          {props.children &&
-            [...props.children].map(function (elem) {
-              //console.log(elem.props.className);
-              return elem.props.className !== "arrow-icon" ? (
-                <Grid key={Math.random()} item xs={2} sm={2} md={2} lg={1}>
-                  {elem}
-                </Grid>
-              ) : (
-                <React.Fragment key={Math.random()}>{elem}</React.Fragment>
-              );
-            })}
+          {props.children[0].key === "fixed_button" ? (
+            <>
+              <Grid key={Math.random()} item xs={1} sm={1} md={1} lg={1}>
+                {props.children[0]}
+              </Grid>
+              <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
+                {props.children[1]}
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
+                {props.children}
+              </Grid>
+            </>
+          )}
         </Grid>
       </div>
       {props.description && (

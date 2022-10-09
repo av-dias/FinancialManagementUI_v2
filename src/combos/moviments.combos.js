@@ -1,3 +1,4 @@
+import React from "react";
 import Grid from "@mui/material/Grid";
 
 import Table from "../components/Table";
@@ -7,46 +8,118 @@ import Slider from "react-input-slider";
 import Button from "../components/Button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 import "../components/Table.css";
 import ADDRESS from "../utility/address";
 
 import { rowsData, sortArray } from "../api/moviment.api";
 
-export const showMainTables = (data, togglePopup, setSlider, setlastItem) => {
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 6,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 5,
+    partialVisibilityGutter: 40, // this is optional if you are not using partialVisible props
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    partialVisibilityGutter: 30, // this is optional if you are not using partialVisible props
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    partialVisibilityGutter: 30, // this is optional if you are not using partialVisible props
+  },
+};
+
+const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
+  const {
+    carouselState: { currentSlide },
+  } = rest;
+  return (
+    <>
+      <div
+        className={
+          currentSlide === 0
+            ? "carousel-button-left item-hidden"
+            : "carousel-button-left"
+        }
+      >
+        <IoIosArrowBack onClick={() => previous()} />
+      </div>
+      <div className="carousel-button-right">
+        <IoIosArrowForward onClick={() => next()} />
+      </div>
+    </>
+  );
+};
+
+export const showMainTables = (
+  data,
+  togglePopup,
+  setSlider,
+  setlastItem,
+  purchaseType
+) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={12} md={12}>
         <CardTitle key={"msaving"} text="Moviments">
-          <div className="arrow-icon">
-            <IoIosArrowBack key={Math.random()} className="cursor-pointer" />
-          </div>
           <Button
-            key={Math.random()}
+            key={"fixed_button"}
             textSize={10}
             shadow={1}
             text={"Overall"}
           ></Button>
-          <Button
+          <Carousel
             key={Math.random()}
-            textSize={10}
-            shadow={1}
-            text={"Supermarket"}
-          ></Button>
-          <Button
-            key={Math.random()}
-            textSize={10}
-            shadow={1}
-            text={"Entertainment"}
-          ></Button>
-          <Button
-            key={Math.random()}
-            textSize={10}
-            shadow={1}
-            text={"Gadgets"}
-          ></Button>
-          <div className="arrow-icon">
-            <IoIosArrowForward key={Math.random()} className="cursor-pointer" />
-          </div>
+            responsive={responsive}
+            customButtonGroup={<ButtonGroup />}
+            arrows={false}
+          >
+            <Button
+              key={Math.random()}
+              textSize={10}
+              shadow={1}
+              text={"Supermaket"}
+            ></Button>
+            <Button
+              key={Math.random()}
+              textSize={10}
+              shadow={1}
+              text={"Clothes"}
+            ></Button>
+            <Button
+              key={Math.random()}
+              textSize={10}
+              shadow={1}
+              text={"Restaurant"}
+            ></Button>
+            <Button
+              key={Math.random()}
+              textSize={10}
+              shadow={1}
+              text={"Gadget"}
+            ></Button>
+            <Button
+              key={Math.random()}
+              textSize={10}
+              shadow={1}
+              text={"Entertainment"}
+            ></Button>
+            <Button
+              key={Math.random()}
+              textSize={10}
+              shadow={1}
+              text={"Coffee"}
+            ></Button>
+          </Carousel>
         </CardTitle>
       </Grid>
 

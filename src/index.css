@@ -196,3 +196,19 @@ hr {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.carousel-button-right {
+  position: absolute;
+  right: 0;
+  padding-top: 10px;
+}
+
+.carousel-button-left {
+  position: absolute;
+  left: 0;
+  padding-top: 10px;
+}
+
+.item-hidden {
+  visibility: hidden;
+}
