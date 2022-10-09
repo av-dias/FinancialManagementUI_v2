@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 
 import Table from "../components/Table";
-import CardTitle from "../components/Cardtitle";
+import Card from "../components/Card";
 import ButtonOutline from "../components/Button";
 import Slider from "react-input-slider";
 import Button from "../components/Button";
@@ -84,7 +84,7 @@ export const showMainTables = (
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={12} md={12}>
-        <CardTitle key={"msaving"}>
+        <Card key={"msaving"}>
           <>
             <Grid item xs={5} sm={4} md={3} lg={3}>
               <span className="bold">{"Moviments"}</span>
@@ -136,7 +136,7 @@ export const showMainTables = (
               </Carousel>
             </Grid>
           </>
-        </CardTitle>
+        </Card>
       </Grid>
 
       <Grid item xs={7} sm={7} md={7}>
@@ -310,11 +310,9 @@ export const showPopup = (
               handleUpdate(setRows);
             }}
           >
-            <CardTitle
-              color="cardtitle-yellow"
-              key={"title_purchase"}
-              text="Purchase"
-            />
+            <Card color="card-yellow" key={"title_purchase"}>
+              {"Purchase"}
+            </Card>
             <label htmlFor="pname">Product Name</label>
             <input
               type="text"
@@ -363,11 +361,9 @@ export const showPopup = (
               handleUpdate(setRows);
             }}
           >
-            <CardTitle
-              color="cardtitle-yellow"
-              key={"title_income"}
-              text="Income"
-            />
+            <Card color="card-yellow" key={"title_income"}>
+              {"Income"}
+            </Card>
             <label htmlFor="pname">Income Type</label>
             <input
               type="text"
@@ -416,11 +412,7 @@ export const showPopup = (
               handleUpdate(setRows);
             }}
           >
-            <CardTitle
-              color="cardtitle-yellow"
-              key={"title_split"}
-              text="Split"
-            />
+            <Card color="Card-yellow" key={"title_split"} text="Split" />
             {window.sessionStorage.getItem("user_id") === "1" ? (
               <select id={"email" + lastItem.id} name="split_userEmail">
                 <option value="anacatarinarebelo98@gmail.com">

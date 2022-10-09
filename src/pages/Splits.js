@@ -8,7 +8,7 @@ import Table from "../components/Table";
 //import LineChart from "../components/LineChart";
 import PolarChart from "../components/PolarChart";
 import StackedChart from "../components/StackedChart";
-import CardTitle from "../components/Cardtitle";
+import Card from "../components/Card";
 import CardInfo from "../components/CardInfo";
 
 import { loadData } from "../api/split.api";
@@ -110,14 +110,11 @@ export default function Splits() {
       <div className="blur">
         <Grid container spacing={{ xs: 2, sm: 2, md: 2 }}>
           <Grid item xs={12} sm={12} md={12}>
-            <CardTitle
-              color="cardtitle-white"
-              key={"title_purchase" + Math.random()}
-            >
+            <Card color="Card-white" key={"title_purchase" + Math.random()}>
               <Grid item xs={12} sm={12} md={12} lg={12}>
-                <span className="bold">{"Split with Ana Rebelo"}</span>
+                <span className="bold center">{"Split with Ana Rebelo"}</span>
               </Grid>
-            </CardTitle>
+            </Card>
           </Grid>
           <Grid item xs={8} sm={8} md={8}>
             <Table
@@ -129,7 +126,7 @@ export default function Splits() {
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
             <CardInfo
-              color="cardtitle-yellow"
+              color="Card-yellow"
               key={"title_purchase" + Math.random()}
               text="Dept"
               description={nameDept}
@@ -140,7 +137,7 @@ export default function Splits() {
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
             <CardInfo
-              color="cardtitle-yellow"
+              color="Card-yellow"
               key={"title_purchase" + Math.random()}
               text={"Value of " + valueDept}
             />

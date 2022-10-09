@@ -1,4 +1,4 @@
-.cardtitle {
+.card {
   background-color: rgba(255, 255, 255, 1);
   border-radius: 2px;
   width: 100%;
@@ -13,21 +13,24 @@
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-.cardtitle-white {
+.card-white {
   display: flex;
   align-items: center;
   background-color: white !important;
   margin-bottom: 15px;
 }
 
-.cardtitle-yellow {
+.card-yellow {
   display: flex;
+  justify-content: center;
   align-items: center;
   background-color: #f4db7d !important;
   margin-bottom: 15px;
+  padding-right: 10px;
+  padding-top: 15px;
 }
 
-.cardtitle-align {
+.card-align {
   height: 100%;
   display: flex;
   justify-content: left;
