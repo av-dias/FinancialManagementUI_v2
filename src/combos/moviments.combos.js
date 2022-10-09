@@ -39,6 +39,7 @@ const responsive = {
 };
 
 const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
+  goToSlide(rest.filterSlide); // set current selected slide
   const {
     carouselState: { currentSlide },
   } = rest;
@@ -51,10 +52,22 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
             : "carousel-button-left"
         }
       >
-        <IoIosArrowBack onClick={() => previous()} />
+        <IoIosArrowBack
+          className="cursor-pointer"
+          onClick={() => {
+            previous();
+            //rest.setFilterSlide(currentSlide + 1);
+          }}
+        />
       </div>
       <div className="carousel-button-right">
-        <IoIosArrowForward onClick={() => next()} />
+        <IoIosArrowForward
+          className="cursor-pointer"
+          onClick={() => {
+            next();
+            //rest.setFilterSlide(currentSlide + 1);
+          }}
+        />
       </div>
     </>
   );
@@ -65,7 +78,11 @@ export const showMainTables = (
   togglePopup,
   setSlider,
   setlastItem,
-  purchaseType
+  purchaseType,
+  filter,
+  setFilter,
+  filterSlide,
+  setFilterSlide
 ) => {
   return (
     <Grid container spacing={1}>
@@ -76,49 +93,34 @@ export const showMainTables = (
             textSize={10}
             shadow={1}
             text={"Overall"}
+            color={filter === "overall" ? "secondary" : null}
           ></Button>
           <Carousel
             key={Math.random()}
             responsive={responsive}
-            customButtonGroup={<ButtonGroup />}
+            customButtonGroup={
+              <ButtonGroup
+                filterSlide={filterSlide}
+                setFilterSlide={setFilterSlide}
+              />
+            }
             arrows={false}
           >
-            <Button
-              key={Math.random()}
-              textSize={10}
-              shadow={1}
-              text={"Supermaket"}
-            ></Button>
-            <Button
-              key={Math.random()}
-              textSize={10}
-              shadow={1}
-              text={"Clothes"}
-            ></Button>
-            <Button
-              key={Math.random()}
-              textSize={10}
-              shadow={1}
-              text={"Restaurant"}
-            ></Button>
-            <Button
-              key={Math.random()}
-              textSize={10}
-              shadow={1}
-              text={"Gadget"}
-            ></Button>
-            <Button
-              key={Math.random()}
-              textSize={10}
-              shadow={1}
-              text={"Entertainment"}
-            ></Button>
-            <Button
-              key={Math.random()}
-              textSize={10}
-              shadow={1}
-              text={"Coffee"}
-            ></Button>
+            {purchaseType.map((item, i) => {
+              return (
+                <Button
+                  key={Math.random()}
+                  textSize={10}
+                  shadow={1}
+                  text={item[0]}
+                  onClick={() => {
+                    setFilter(item[0]);
+                    setFilterSlide(i);
+                  }}
+                  color={filter === item[0] ? "secondary" : null}
+                ></Button>
+              );
+            })}
           </Carousel>
         </CardTitle>
       </Grid>

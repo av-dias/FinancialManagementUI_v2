@@ -30,7 +30,9 @@ export default function Moviment() {
   const [date, setDate] = useDate(); // Last date
   const [rows, setRows] = useRows(); // Rows with table data
   const [slider, setSlider] = useSlider(); // Slider value
-  const [purchaseType, setPurchaseType] = React.useState([]); //
+  const [purchaseType, setPurchaseType] = React.useState([]); // List of purchase types
+  const [filter, setFilter] = React.useState("overall"); // List of purchase types
+  const [filterSlide, setFilterSlide] = React.useState(0); // List of purchase types
 
   const togglePopup = (type) => {
     setIsOpen(!isOpen);
@@ -91,7 +93,17 @@ export default function Moviment() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showMainTables(rows, togglePopup, setSlider, setlastItem, purchaseType)}
+            {showMainTables(
+              rows,
+              togglePopup,
+              setSlider,
+              setlastItem,
+              purchaseType,
+              filter,
+              setFilter,
+              filterSlide,
+              setFilterSlide
+            )}
           </Grid>
         </Grid>
       </div>
