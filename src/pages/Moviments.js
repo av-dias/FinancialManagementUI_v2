@@ -30,14 +30,33 @@ export default function Moviment() {
   const [date, setDate] = useDate(); // Last date
   const [rows, setRows] = useRows(); // Rows with table data
   const [slider, setSlider] = useSlider(); // Slider value
+  const [purchaseType, setPurchaseType] = React.useState([]); //
 
   const togglePopup = (type) => {
     setIsOpen(!isOpen);
     setIsPopup(type);
   };
 
+  const rowTypesList = (data) => {
+    const output = data.reduce((accum, x) => {
+      let typeName = x.type;
+      if (accum.filter((e) => e[0] === typeName).length === 0) {
+        accum.push([typeName, 1]);
+      } else {
+        let index = accum.findIndex((item) => item[0] === typeName);
+        accum[index][1]++;
+      }
+      return accum;
+    }, []);
+
+    return output.sort(function (a, b) {
+      return b[1] - a[1];
+    });
+  };
+
   useEffect(() => {
     rowsData().then((data) => {
+      setPurchaseType(rowTypesList(data));
       data = sortArray(data);
       setRows(data);
     });
@@ -72,7 +91,7 @@ export default function Moviment() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showMainTables(rows, togglePopup, setSlider, setlastItem)}
+            {showMainTables(rows, togglePopup, setSlider, setlastItem, purchaseType)}
           </Grid>
         </Grid>
       </div>
