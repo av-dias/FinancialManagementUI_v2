@@ -22,4 +22,10 @@ module.exports = {
     TOTAL: 0,
     MINE: 1,
   },
+  FILTER_ITEMS: {
+    LARGE: 6,
+    DESKTOP: 5,
+    TABLET: 2,
+    MOBILE: 1,
+  },
 };
