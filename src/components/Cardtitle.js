@@ -11,7 +11,8 @@ export default function Card(props) {
           <Grid item xs={5} sm={4} md={3} lg={3}>
             <span className="bold">{props.text}</span>
           </Grid>
-          {props.children.length === 2 &&
+          {props.children &&
+          props.children.length === 2 &&
           props.children[0].key === "fixed_button" ? (
             <>
               <Grid key={Math.random()} item xs={1} sm={1} md={1} lg={1}>
