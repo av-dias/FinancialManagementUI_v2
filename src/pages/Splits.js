@@ -113,8 +113,11 @@ export default function Splits() {
             <CardTitle
               color="cardtitle-white"
               key={"title_purchase" + Math.random()}
-              text="Split with Ana Rebelo"
-            />
+            >
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <span className="bold">{"Split with Ana Rebelo"}</span>
+              </Grid>
+            </CardTitle>
           </Grid>
           <Grid item xs={8} sm={8} md={8}>
             <Table

@@ -84,49 +84,58 @@ export const showMainTables = (
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={12} md={12}>
-        <CardTitle key={"msaving"} text="Moviments">
-          <Button
-            key={"fixed_button"}
-            textSize={10}
-            shadow={1}
-            text={filter}
-            color={"secondary"}
-          ></Button>
-          <Carousel
-            key={Math.random()}
-            responsive={responsive}
-            customButtonGroup={<ButtonGroup currentSlide={2} />}
-            arrows={false}
-          >
-            {filter !== "overall" && (
+        <CardTitle key={"msaving"}>
+          <>
+            <Grid item xs={5} sm={4} md={3} lg={3}>
+              <span className="bold">{"Moviments"}</span>
+            </Grid>
+            <Grid key={Math.random()} item xs={1} sm={1} md={1} lg={1}>
               <Button
-                key={Math.random()}
+                key={"fixed_button"}
                 textSize={10}
                 shadow={1}
-                text={"overall"}
-                onClick={() => {
-                  setFilter("overall");
-                }}
-                color={filter === "overall" ? "secondary" : null}
+                text={filter}
+                color={"secondary"}
               ></Button>
-            )}
-            {purchaseType.map((item, i) => {
-              if (item[0] !== filter)
-                return (
+            </Grid>
+            <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
+              <Carousel
+                key={Math.random()}
+                responsive={responsive}
+                customButtonGroup={<ButtonGroup currentSlide={2} />}
+                arrows={false}
+              >
+                {filter !== "overall" && (
                   <Button
                     key={Math.random()}
                     textSize={10}
                     shadow={1}
-                    text={item[0]}
+                    text={"overall"}
                     onClick={() => {
-                      setFilter(item[0]);
+                      setFilter("overall");
                     }}
-                    color={filter === item[0] ? "secondary" : null}
+                    color={filter === "overall" ? "secondary" : null}
                   ></Button>
-                );
-              else return null;
-            })}
-          </Carousel>
+                )}
+                {purchaseType.map((item, i) => {
+                  if (item[0] !== filter)
+                    return (
+                      <Button
+                        key={Math.random()}
+                        textSize={10}
+                        shadow={1}
+                        text={item[0]}
+                        onClick={() => {
+                          setFilter(item[0]);
+                        }}
+                        color={filter === item[0] ? "secondary" : null}
+                      ></Button>
+                    );
+                  else return null;
+                })}
+              </Carousel>
+            </Grid>
+          </>
         </CardTitle>
       </Grid>
 
