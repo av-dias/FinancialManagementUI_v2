@@ -118,10 +118,7 @@ export default function StickyHeadTable(props) {
           </TableHead>
           <TableBody key={Math.random()}>
             {rows.map((row) => {
-              console.log(row.type);
-              console.log(props.filter);
-
-              if (row.type === props.filter || props.filter === "overall")
+              if (row.type === props.filter || props.filter === "overall") {
                 return (
                   <TableRow
                     hover
@@ -189,6 +186,7 @@ export default function StickyHeadTable(props) {
                     })}
                   </TableRow>
                 );
+              } else return null;
             })}
           </TableBody>
         </Table>
