@@ -160,6 +160,10 @@ hr {
   justify-content: center;
 }
 
+.center-vertical {
+  padding-top: 20px;
+}
+
 .login--logo {
   display: flex;
   align-items: center;
