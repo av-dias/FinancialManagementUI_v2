@@ -209,6 +209,12 @@ hr {
   padding-top: 10px;
 }
 
+.carousel-button-rewind {
+  position: absolute;
+  padding-top: 10px;
+  margin-left: 10px;
+}
+
 .item-hidden {
   visibility: hidden;
 }
