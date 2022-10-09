@@ -135,8 +135,8 @@ export default function Splits() {
             <Table rows={[]} columns={columns}></Table>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
-            <Card color="card-yellow" key={"title_purchase" + Math.random()}>
-              <span>{"Value of " + valueDept}</span>
+            <Card color="card-yellow " key={"title_purchase" + Math.random()}>
+              <span className="center-vertical">{"Value of " + valueDept}</span>
             </Card>
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
