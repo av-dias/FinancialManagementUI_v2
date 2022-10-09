@@ -90,7 +90,7 @@ export const showMainTables = (
             textSize={10}
             shadow={1}
             text={filter}
-            type={"contained"}
+            color={"secondary"}
           ></Button>
           <Carousel
             key={Math.random()}
@@ -98,7 +98,7 @@ export const showMainTables = (
             customButtonGroup={<ButtonGroup currentSlide={2} />}
             arrows={false}
           >
-            {
+            {filter !== "overall" && (
               <Button
                 key={Math.random()}
                 textSize={10}
@@ -109,20 +109,22 @@ export const showMainTables = (
                 }}
                 color={filter === "overall" ? "secondary" : null}
               ></Button>
-            }
+            )}
             {purchaseType.map((item, i) => {
-              return (
-                <Button
-                  key={Math.random()}
-                  textSize={10}
-                  shadow={1}
-                  text={item[0]}
-                  onClick={() => {
-                    setFilter(item[0]);
-                  }}
-                  color={filter === item[0] ? "secondary" : null}
-                ></Button>
-              );
+              if (item[0] !== filter)
+                return (
+                  <Button
+                    key={Math.random()}
+                    textSize={10}
+                    shadow={1}
+                    text={item[0]}
+                    onClick={() => {
+                      setFilter(item[0]);
+                    }}
+                    color={filter === item[0] ? "secondary" : null}
+                  ></Button>
+                );
+              else return null;
             })}
           </Carousel>
         </CardTitle>
