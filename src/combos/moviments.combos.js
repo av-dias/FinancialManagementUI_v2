@@ -270,8 +270,8 @@ const handlePurchase = async (e, purchaseDate, setDate) => {
   }
 };
 
-const todayDate = () => {
-  const today = new Date();
+const todayDate = (date) => {
+  const today = new Date(date) || new Date();
   const year = today.getFullYear();
   const month =
     today.getMonth() < 10 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
@@ -402,7 +402,55 @@ export const showPopup = (
         </div>
       );
     case "Edit":
-      return <></>;
+      console.log(lastItem);
+      return (
+        <div className="horizontal-header box">
+          <form
+            onSubmit={async (e) => {
+              /* await incomeHandle(e, date);
+              handleUpdate(setRows); */
+            }}
+          >
+            <Card color="card-yellow" key={"title_income"}>
+              {"Edit"}
+            </Card>
+            <label htmlFor="pname">Type</label>
+            <input
+              type="text"
+              id="edit_type"
+              name="ename"
+              defaultValue={lastItem.type}
+            ></input>
+            <label htmlFor="tname">Name</label>
+            <input
+              type="text"
+              id="edit_subType"
+              name="ename"
+              defaultValue={lastItem.name}
+            ></input>
+            <label htmlFor="pprice">Value</label>
+            <input
+              type="number"
+              id="edit_value"
+              name="evalue"
+              defaultValue={lastItem.value}
+            ></input>
+            <label htmlFor="pprice">Date</label>
+            <input
+              type="date"
+              id="edate"
+              name="edate"
+              defaultValue={lastItem.dop || lastItem.doi}
+              onChange={() => {
+                date = updateDate("idate");
+              }}
+            ></input>
+            <button type="submit" name="save" value="save">
+              Submit Edit
+            </button>
+          </form>
+        </div>
+      );
     case "Split":
       return (
         <div className="horizontal-header box">
