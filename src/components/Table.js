@@ -118,73 +118,77 @@ export default function StickyHeadTable(props) {
           </TableHead>
           <TableBody key={Math.random()}>
             {rows.map((row) => {
-              return (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={"tr" + defineNaming(row) + row.id}
-                >
-                  {columns.map((column) => {
-                    let value = getColValue(row, column);
-                    return (
-                      <TableCell
-                        key={column.id + defineNaming(row) + row.id}
-                        align={column.align}
-                        size="small"
-                        bgcolor={
-                          row.status === STATUS.PURCHASE.INCOME
-                            ? STATUS.COLORS.INCOME
-                            : row.weight === 0
-                            ? STATUS.COLORS.SPLITALL
-                            : row.weight === 100
-                            ? STATUS.COLORS.SPLITNONE
-                            : STATUS.COLORS.NORMAL
-                        }
-                      >
-                        {column.id === "options" &&
-                        row.status === STATUS.PURCHASE.NO_SPLIT ? (
-                          <div className="options-icon">
-                            <IoIosCreate
-                              onClick={() => {
-                                props.setlastItem(row);
-                                props.togglePopup("Edit");
-                              }}
-                            />
-                            <IoIosGitBranch
-                              onClick={() => {
-                                props.setlastItem(row);
-                                props.setSlider(row.split.weight);
-                                props.togglePopup("Split");
-                              }}
-                            />
-                          </div>
-                        ) : column.id === "options" &&
-                          row.status !== STATUS.PURCHASE.NO_SPLIT ? (
-                          <div className="options-icon">
-                            <IoIosCreate
-                              onClick={() => {
-                                props.setlastItem(row);
-                                props.togglePopup("Edit");
-                              }}
-                            />
-                            <span>{row.weight}%</span>
-                            {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
-                              <IoIosGitPullRequest color="red" />
-                            ) : (
-                              ""
-                            )}
-                          </div>
-                        ) : column.format && typeof value === "number" ? (
-                          column.format(value)
-                        ) : (
-                          value
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
+              console.log(row.type);
+              console.log(props.filter);
+
+              if (row.type === props.filter || props.filter === "overall")
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={"tr" + defineNaming(row) + row.id}
+                  >
+                    {columns.map((column) => {
+                      let value = getColValue(row, column);
+                      return (
+                        <TableCell
+                          key={column.id + defineNaming(row) + row.id}
+                          align={column.align}
+                          size="small"
+                          bgcolor={
+                            row.status === STATUS.PURCHASE.INCOME
+                              ? STATUS.COLORS.INCOME
+                              : row.weight === 0
+                              ? STATUS.COLORS.SPLITALL
+                              : row.weight === 100
+                              ? STATUS.COLORS.SPLITNONE
+                              : STATUS.COLORS.NORMAL
+                          }
+                        >
+                          {column.id === "options" &&
+                          row.status === STATUS.PURCHASE.NO_SPLIT ? (
+                            <div className="options-icon">
+                              <IoIosCreate
+                                onClick={() => {
+                                  props.setlastItem(row);
+                                  props.togglePopup("Edit");
+                                }}
+                              />
+                              <IoIosGitBranch
+                                onClick={() => {
+                                  props.setlastItem(row);
+                                  props.setSlider(row.split.weight);
+                                  props.togglePopup("Split");
+                                }}
+                              />
+                            </div>
+                          ) : column.id === "options" &&
+                            row.status !== STATUS.PURCHASE.NO_SPLIT ? (
+                            <div className="options-icon">
+                              <IoIosCreate
+                                onClick={() => {
+                                  props.setlastItem(row);
+                                  props.togglePopup("Edit");
+                                }}
+                              />
+                              <span>{row.weight}%</span>
+                              {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
+                                <IoIosGitPullRequest color="red" />
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                          ) : column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : (
+                            value
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
             })}
           </TableBody>
         </Table>

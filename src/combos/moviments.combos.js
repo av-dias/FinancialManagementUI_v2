@@ -137,6 +137,7 @@ export const showMainTables = (
           togglePopup={togglePopup}
           setSlider={setSlider}
           setlastItem={setlastItem}
+          filter={filter}
         />
       </Grid>
       <Grid item xs={5} sm={5} md={5}>
