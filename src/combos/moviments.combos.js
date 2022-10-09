@@ -13,36 +13,37 @@ import "react-multi-carousel/lib/styles.css";
 
 import "../components/Table.css";
 import ADDRESS from "../utility/address";
+import STATUS from "../utility/status";
 
 import { rowsData, sortArray } from "../api/moviment.api";
 
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 6,
+    items: STATUS.FILTER_ITEMS.LARGE,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 5,
+    items: STATUS.FILTER_ITEMS.DESKTOP,
     partialVisibilityGutter: 40, // this is optional if you are not using partialVisible props
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: STATUS.FILTER_ITEMS.TABLET,
     partialVisibilityGutter: 30, // this is optional if you are not using partialVisible props
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
+    items: STATUS.FILTER_ITEMS.MOBILE,
     partialVisibilityGutter: 30, // this is optional if you are not using partialVisible props
   },
 };
 
 const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
-  goToSlide(rest.filterSlide); // set current selected slide
   const {
     carouselState: { currentSlide },
   } = rest;
+
   return (
     <>
       <div
@@ -55,8 +56,7 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
         <IoIosArrowBack
           className="cursor-pointer"
           onClick={() => {
-            previous();
-            //rest.setFilterSlide(currentSlide + 1);
+            goToSlide(currentSlide - rest.carouselState.slidesToShow - 1);
           }}
         />
       </div>
@@ -64,8 +64,7 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
         <IoIosArrowForward
           className="cursor-pointer"
           onClick={() => {
-            next();
-            //rest.setFilterSlide(currentSlide + 1);
+            goToSlide(currentSlide + rest.carouselState.slidesToShow - 1);
           }}
         />
       </div>
@@ -80,9 +79,7 @@ export const showMainTables = (
   setlastItem,
   purchaseType,
   filter,
-  setFilter,
-  filterSlide,
-  setFilterSlide
+  setFilter
 ) => {
   return (
     <Grid container spacing={1}>
@@ -92,20 +89,27 @@ export const showMainTables = (
             key={"fixed_button"}
             textSize={10}
             shadow={1}
-            text={"Overall"}
-            color={filter === "overall" ? "secondary" : null}
+            text={filter}
+            type={"contained"}
           ></Button>
           <Carousel
             key={Math.random()}
             responsive={responsive}
-            customButtonGroup={
-              <ButtonGroup
-                filterSlide={filterSlide}
-                setFilterSlide={setFilterSlide}
-              />
-            }
+            customButtonGroup={<ButtonGroup currentSlide={2} />}
             arrows={false}
           >
+            {
+              <Button
+                key={Math.random()}
+                textSize={10}
+                shadow={1}
+                text={"overall"}
+                onClick={() => {
+                  setFilter("overall");
+                }}
+                color={filter === "overall" ? "secondary" : null}
+              ></Button>
+            }
             {purchaseType.map((item, i) => {
               return (
                 <Button
@@ -115,7 +119,6 @@ export const showMainTables = (
                   text={item[0]}
                   onClick={() => {
                     setFilter(item[0]);
-                    setFilterSlide(i);
                   }}
                   color={filter === item[0] ? "secondary" : null}
                 ></Button>

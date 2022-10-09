@@ -32,7 +32,6 @@ export default function Moviment() {
   const [slider, setSlider] = useSlider(); // Slider value
   const [purchaseType, setPurchaseType] = React.useState([]); // List of purchase types
   const [filter, setFilter] = React.useState("overall"); // List of purchase types
-  const [filterSlide, setFilterSlide] = React.useState(0); // List of purchase types
 
   const togglePopup = (type) => {
     setIsOpen(!isOpen);
@@ -100,9 +99,7 @@ export default function Moviment() {
               setlastItem,
               purchaseType,
               filter,
-              setFilter,
-              filterSlide,
-              setFilterSlide
+              setFilter
             )}
           </Grid>
         </Grid>
