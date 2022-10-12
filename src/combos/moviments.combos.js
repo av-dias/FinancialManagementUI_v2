@@ -94,9 +94,10 @@ export const showMainTables = (
                 key={"fixed_button"}
                 textSize={10}
                 shadow={1}
-                text={filter}
                 color={"secondary"}
-              ></Button>
+              >
+                {filter}
+              </Button>
             </Grid>
             <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
               <Carousel
@@ -110,12 +111,13 @@ export const showMainTables = (
                     key={Math.random()}
                     textSize={10}
                     shadow={1}
-                    text={"overall"}
                     onClick={() => {
                       setFilter("overall");
                     }}
                     color={filter === "overall" ? "secondary" : null}
-                  ></Button>
+                  >
+                    overall
+                  </Button>
                 )}
                 {purchaseType.map((item, i) => {
                   if (item[0] !== filter)
@@ -124,12 +126,13 @@ export const showMainTables = (
                         key={Math.random()}
                         textSize={10}
                         shadow={1}
-                        text={item[0]}
                         onClick={() => {
                           setFilter(item[0]);
                         }}
                         color={filter === item[0] ? "secondary" : null}
-                      ></Button>
+                      >
+                        {item[0]}
+                      </Button>
                     );
                   else return null;
                 })}
@@ -525,11 +528,12 @@ export const showPopup = (
             )}
             <ButtonOutline
               type="outlined"
-              text="Split 50-50"
               onClick={() => {
                 setSlider(50);
               }}
-            />
+            >
+              Split 50-50
+            </ButtonOutline>
             <div className="">
               <p>{slider}%</p>
               <Slider
@@ -562,10 +566,10 @@ export const showSelectionButtons = () => {
   return (
     <>
       <Grid item xs={1} sm={1} md={1}>
-        <ButtonOutline type="outlined" text="Total" />
+        <ButtonOutline type="outlined">Total</ButtonOutline>
       </Grid>
       <Grid item xs={1} sm={1} md={1}>
-        <ButtonOutline type="outlined" text="iShare" />
+        <ButtonOutline type="outlined">iShare</ButtonOutline>
       </Grid>
     </>
   );

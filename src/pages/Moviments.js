@@ -74,20 +74,22 @@ export default function Moviment() {
           <Grid item xs={1} sm={1} md={1}>
             <Button
               type="contained"
-              text="Purchase"
               onClick={() => {
                 togglePopup("Purchase");
               }}
-            />
+            >
+              Purchase
+            </Button>
           </Grid>
           <Grid item xs={1} sm={1} md={1}>
             <Button
               type="contained"
-              text="Income"
               onClick={() => {
                 togglePopup("Income");
               }}
-            />
+            >
+              Income
+            </Button>
           </Grid>
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />

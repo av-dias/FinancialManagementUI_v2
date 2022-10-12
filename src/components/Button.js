@@ -15,7 +15,7 @@ export default function ButtonOutline(props) {
       fullWidth
       color={props.color || "primary"}
     >
-      {props.text}
+      {props.children}
     </Button>
   );
 }

@@ -174,7 +174,6 @@ export const showSelectionButtons = (
       <Grid item xs={1} sm={1} md={1}>
         <ButtonOutline
           type={mode === STATUS.MODE.TOTAL ? "contained" : "outlined"}
-          text="Total"
           onClick={() => {
             setMode(STATUS.MODE.TOTAL);
             setchartData({
@@ -182,12 +181,13 @@ export const showSelectionButtons = (
               average: dashboardData.total.average,
             });
           }}
-        />
+        >
+          Total
+        </ButtonOutline>
       </Grid>
       <Grid item xs={1} sm={1} md={1}>
         <ButtonOutline
           type={mode === STATUS.MODE.MINE ? "contained" : "outlined"}
-          text="Mine"
           onClick={() => {
             setMode(STATUS.MODE.MINE);
             setchartData({
@@ -195,7 +195,9 @@ export const showSelectionButtons = (
               average: dashboardData.av_purchases_by_type,
             });
           }}
-        />
+        >
+          Mine
+        </ButtonOutline>
       </Grid>
     </Grid>
   );
