@@ -158,6 +158,7 @@ export const showMainTables = (
 
 const editHandle = async (e, editDate, lastItem, setIsOpen) => {
   e.preventDefault();
+
   let _name = document.getElementById("edit_name").value;
   let _type = document.getElementById("edit_type").value;
   let _value = document.getElementById("edit_value").value;
@@ -166,9 +167,10 @@ const editHandle = async (e, editDate, lastItem, setIsOpen) => {
 
   //let user_id = window.sessionStorage.getItem("user_id");
 
-  let Edit = { value: _value, type: _type, name: _name, dop: _dop };
-  try {
-    await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/${lastItem.id}`, {
+  // EDIT INCOME
+  if (lastItem.status === STATUS.PURCHASE.INCOME) {
+    let Edit = { value: _value, type: _name, subType: _type, doi: _dop };
+    await fetch(`http://${ADDRESS.BACKEND}/api/v1/income/${lastItem.id}`, {
       method: "PUT",
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -179,13 +181,30 @@ const editHandle = async (e, editDate, lastItem, setIsOpen) => {
       },
       body: JSON.stringify(Edit),
     });
-    document.getElementById("edit_name").value = "";
-    document.getElementById("edit_type").value = "";
-    document.getElementById("edit_value").value = "";
-    setIsOpen(false);
-  } catch (err) {
-    console.log(err);
+  } else {
+    // EDIT PURCHASE
+    try {
+      let Edit = { value: _value, type: _type, name: _name, dop: _dop };
+
+      await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/${lastItem.id}`, {
+        method: "PUT",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + window.sessionStorage.getItem("access_token"),
+        },
+        body: JSON.stringify(Edit),
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
+  document.getElementById("edit_name").value = "";
+  document.getElementById("edit_type").value = "";
+  document.getElementById("edit_value").value = "";
+  setIsOpen(false);
 };
 
 const incomeHandle = async (e, incomeDate) => {
@@ -472,7 +491,7 @@ export const showPopup = (
               name="edate"
               defaultValue={lastItem.dop || lastItem.doi}
               onChange={() => {
-                date = updateDate("idate");
+                date = updateDate("edate");
               }}
             ></input>
             <button type="submit" name="save" value="save">
