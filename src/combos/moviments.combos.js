@@ -43,7 +43,6 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
   const {
     carouselState: { currentSlide },
   } = rest;
-
   return (
     <>
       <div
@@ -56,15 +55,35 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
         <IoIosArrowBack
           className="cursor-pointer"
           onClick={() => {
-            goToSlide(currentSlide - rest.carouselState.slidesToShow - 1);
+            if (currentSlide - rest.carouselState.slidesToShow - 1 < 0)
+              goToSlide(0);
+            else goToSlide(currentSlide - rest.carouselState.slidesToShow - 1);
           }}
         />
       </div>
-      <div className="carousel-button-right">
+      <div
+        className={
+          currentSlide ===
+          rest.carouselState.totalItems - rest.carouselState.slidesToShow - 1
+            ? "carousel-button-right item-hidden"
+            : "carousel-button-right"
+        }
+      >
         <IoIosArrowForward
           className="cursor-pointer"
           onClick={() => {
-            goToSlide(currentSlide + rest.carouselState.slidesToShow - 1);
+            if (
+              currentSlide + rest.carouselState.slidesToShow - 1 >
+              rest.carouselState.totalItems -
+                rest.carouselState.slidesToShow -
+                1
+            )
+              goToSlide(
+                rest.carouselState.totalItems -
+                  rest.carouselState.slidesToShow -
+                  1
+              );
+            else goToSlide(currentSlide + rest.carouselState.slidesToShow - 1);
           }}
         />
       </div>
@@ -103,7 +122,7 @@ export const showMainTables = (
               <Carousel
                 key={Math.random()}
                 responsive={responsive}
-                customButtonGroup={<ButtonGroup currentSlide={2} />}
+                customButtonGroup={<ButtonGroup />}
                 arrows={false}
               >
                 {filter !== "overall" && (
