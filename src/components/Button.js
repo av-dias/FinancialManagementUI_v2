@@ -8,6 +8,7 @@ export default function ButtonOutline(props) {
       sx={{
         boxShadow: props.shadow || 2,
         fontSize: props.textSize || "small",
+        color: props.textColor,
       }}
       variant={props.type || "text"}
       size="small"
