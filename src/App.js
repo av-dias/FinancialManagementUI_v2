@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -9,6 +9,10 @@ import Splits from "./pages/Splits";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
+  useEffect(() => {
+    document.title = "FManager";
+  });
+
   return (
     <BrowserRouter>
       <Routes>
