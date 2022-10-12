@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "../components/Button";
+import Grid from "@mui/material/Grid";
 
 import { truncateMax } from "../api/moviment.api";
 import STATUS from "../utility/status";
@@ -30,7 +31,7 @@ const columns_bg = [
   { id: "dop", label: "Date", minWidth: 50, align: "center" },
   {
     id: "options",
-    label: "Options",
+    label: "",
     minWidth: 50,
     align: "center",
     format: (value) => value.toLocaleString("en-US"),
@@ -164,38 +165,64 @@ const cellData = (column, row, props, value) => {
   // PURCHASE with NO SPLIT [Edit and Split]
   if (column.id === "options" && row.status === STATUS.PURCHASE.NO_SPLIT) {
     return (
-      <div className="options-icon">
-        <IoIosCreate
-          onClick={() => {
-            props.setlastItem(row);
-            props.togglePopup("Edit");
-          }}
-        />
-        <IoIosGitBranch
-          onClick={() => {
-            props.setlastItem(row);
-            props.setSlider(row.split.weight);
-            props.togglePopup("Split");
-          }}
-        />
-      </div>
+      <Grid container>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              props.setlastItem(row);
+              props.togglePopup("Edit");
+            }}
+          >
+            <IoIosCreate />
+          </Button>
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              props.setlastItem(row);
+              props.setSlider(row.split.weight);
+              props.togglePopup("Split");
+            }}
+          >
+            <IoIosGitBranch />
+          </Button>
+        </ButtonGroup>
+      </Grid>
     );
+
     // INCOME [Edit]
   } else if (column.id === "options" && row.status === STATUS.PURCHASE.INCOME) {
     return (
-      <div className="options-icon">
-        <IoIosCreate
-          onClick={() => {
-            props.setlastItem(row);
-            props.togglePopup("Edit");
-          }}
-        />
-        {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
-          <IoIosGitPullRequest color="red" />
-        ) : (
-          ""
-        )}
-      </div>
+      <Grid container>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              props.setlastItem(row);
+              props.togglePopup("Edit");
+            }}
+          >
+            <IoIosCreate />
+          </Button>
+        </ButtonGroup>
+      </Grid>
     );
     // PURCHASE DIFFERENT THEN NO SPLIT [Edit and Split % and Icon]
   } else if (
@@ -203,23 +230,50 @@ const cellData = (column, row, props, value) => {
     row.status !== STATUS.PURCHASE.NO_SPLIT
   ) {
     return (
-      <div className="options-icon">
-        <IoIosCreate
-          onClick={() => {
-            props.setlastItem(row);
-            props.togglePopup("Edit");
-          }}
-        />
-        <span>{row.weight}%</span>
-        {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
-          <IoIosGitPullRequest color="red" />
-        ) : (
-          ""
-        )}
-      </div>
+      <Grid container>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              props.setlastItem(row);
+              props.togglePopup("Edit");
+            }}
+          >
+            <IoIosCreate />
+          </Button>
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={10}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+          >
+            <span>{row.weight}</span>
+          </Button>
+          {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
+            <Button
+              type="contained"
+              key={Math.random()}
+              textSize={15}
+              textColor={"rgb(0, 0, 0)"}
+              color="error"
+            >
+              <IoIosGitPullRequest />
+            </Button>
+          ) : (
+            ""
+          )}
+        </ButtonGroup>{" "}
+      </Grid>
     );
   } /* else if (column.format && typeof value === "number") {
-    console.log("Ignoring");
     return column.format(value);
   }  */ else {
     return value;
