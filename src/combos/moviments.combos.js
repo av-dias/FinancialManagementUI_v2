@@ -459,6 +459,7 @@ export const showPopup = (
         <div className="horizontal-header box">
           <form
             onSubmit={async (e) => {
+              date = updateDate("edate");
               await editHandle(e, date, lastItem, setIsOpen);
               handleUpdate(setRows);
             }}
