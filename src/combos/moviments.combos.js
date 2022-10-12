@@ -156,6 +156,38 @@ export const showMainTables = (
   );
 };
 
+const editHandle = async (e, editDate, lastItem, setIsOpen) => {
+  e.preventDefault();
+  let _name = document.getElementById("edit_name").value;
+  let _type = document.getElementById("edit_type").value;
+  let _value = document.getElementById("edit_value").value;
+  let _date = new Date(editDate);
+  let _dop = new Date(_date.setTime(_date.getTime() + 1 * 60 * 60 * 1000));
+
+  //let user_id = window.sessionStorage.getItem("user_id");
+
+  let Edit = { value: _value, type: _type, name: _name, dop: _dop };
+  try {
+    await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/${lastItem.id}`, {
+      method: "PUT",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+      body: JSON.stringify(Edit),
+    });
+    document.getElementById("edit_name").value = "";
+    document.getElementById("edit_type").value = "";
+    document.getElementById("edit_value").value = "";
+    setIsOpen(false);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const incomeHandle = async (e, incomeDate) => {
   e.preventDefault();
 
@@ -201,7 +233,6 @@ const splitHandle = async (event, lastItem, slider, setIsOpen) => {
     userEmail: u.value,
   };
 
-  console.log(user_id, split);
   try {
     await fetch(
       `http://${ADDRESS.BACKEND}/api/v1/split/user/${user_id}/purchase/${purchase_id}`,
@@ -402,13 +433,12 @@ export const showPopup = (
         </div>
       );
     case "Edit":
-      console.log(lastItem);
       return (
         <div className="horizontal-header box">
           <form
             onSubmit={async (e) => {
-              /* await incomeHandle(e, date);
-              handleUpdate(setRows); */
+              await editHandle(e, date, lastItem, setIsOpen);
+              handleUpdate(setRows);
             }}
           >
             <Card color="card-yellow" key={"title_income"}>
@@ -424,7 +454,7 @@ export const showPopup = (
             <label htmlFor="tname">Name</label>
             <input
               type="text"
-              id="edit_subType"
+              id="edit_name"
               name="ename"
               defaultValue={lastItem.name}
             ></input>
