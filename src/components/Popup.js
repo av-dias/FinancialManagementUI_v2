@@ -4,7 +4,6 @@ import { IoIosCloseCircle } from "react-icons/io";
 import Grid from "@mui/material/Grid";
 
 const Popup = (props) => {
-  const [purchaseType, setPurchaseType] = React.useState(""); // List of purchase types
   return (
     <>
       <div className="popup-box">

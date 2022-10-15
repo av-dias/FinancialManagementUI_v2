@@ -432,7 +432,7 @@ export const showPopup = (
               name="purchase_type"
             >
               <option key={Math.random()} value={""}>
-                {"Select Product Type"}
+                {"View Existing Types"}
               </option>
               {purchaseType.map((item, i) => {
                 return (
