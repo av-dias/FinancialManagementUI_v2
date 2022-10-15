@@ -262,6 +262,38 @@ const incomeHandle = async (e, incomeDate) => {
   }
 };
 
+const editSplitHandle = async (event, lastItem, slider, setIsOpen) => {
+  event.preventDefault();
+  let w;
+  //let user_id = window.sessionStorage.getItem("user_id");
+  //const u = document.getElementById("email" + purchase_id);
+
+  let split_id = lastItem.split.id;
+  if (lastItem.status === STATUS.PURCHASE.FROM_SPLIT) w = 100 - slider;
+  else w = slider;
+
+  let split = {
+    weight: w.toString(),
+  };
+
+  try {
+    await fetch(`http://${ADDRESS.BACKEND}/api/v1/split/${split_id}`, {
+      method: "PUT",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+      body: JSON.stringify(split),
+    });
+    setIsOpen(false);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const splitHandle = async (event, lastItem, slider, setIsOpen) => {
   event.preventDefault();
   let purchase_id = lastItem.id;
@@ -519,6 +551,61 @@ export const showPopup = (
             ></input>
             <button type="submit" name="save" value="save">
               Submit Edit
+            </button>
+          </form>
+        </div>
+      );
+    case "EditSplit":
+      //console.log(lastItem);
+      return (
+        <div className="horizontal-header box">
+          <form
+            onSubmit={async (e) => {
+              await editSplitHandle(e, lastItem, slider, setIsOpen);
+              handleUpdate(setRows);
+            }}
+          >
+            <Card color="card-yellow" key={"title_split"}>
+              {"Edit Split"}
+            </Card>
+            {window.sessionStorage.getItem("user_id") === "1" ? (
+              <select id={"email" + lastItem.id} name="split_userEmail">
+                <option value="anacatarinarebelo98@gmail.com">
+                  Ana Catarina
+                </option>
+              </select>
+            ) : (
+              <select id={"email" + lastItem.id} name="split_userEmail">
+                <option value="al.vrdias@gmail.com">Álison Dias</option>
+              </select>
+            )}
+            <ButtonOutline
+              type="outlined"
+              onClick={() => {
+                setSlider(50);
+              }}
+            >
+              Split 50-50
+            </ButtonOutline>
+            <div className="">
+              <p>{slider}%</p>
+              <Slider
+                axis="x"
+                x={slider}
+                onChange={(newValue) => {
+                  setSlider(newValue.x);
+                }}
+              />
+              <h3>
+                iShare:{" "}
+                {Math.abs(lastItem.value * (slider / 100 - 1)).toFixed(2)}€
+              </h3>
+              <h3>
+                yShare: {Math.abs((lastItem.value * slider) / 100).toFixed(2)}€
+              </h3>
+            </div>
+            <button type="submit" name="save" value="save">
+              Add Split
             </button>
           </form>
         </div>

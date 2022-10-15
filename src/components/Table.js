@@ -254,6 +254,11 @@ const cellData = (column, row, props, value) => {
             textSize={10}
             shadow={1}
             textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              props.setlastItem(row);
+              props.setSlider(row.weight);
+              props.togglePopup("EditSplit");
+            }}
           >
             <span>{row.weight}</span>
           </Button>
