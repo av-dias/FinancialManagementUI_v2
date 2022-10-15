@@ -178,6 +178,11 @@ export const showMainTables = (
   );
 };
 
+const setProductType = (name) => {
+  document.getElementById("product_service_subtype").value = name;
+  console.log(name);
+};
+
 const editHandle = async (e, editDate, lastItem, setIsOpen) => {
   e.preventDefault();
 
@@ -402,10 +407,14 @@ export const showPopup = (
   setDate,
   slider,
   setSlider,
-  lastItem
+  lastItem,
+  purchaseType,
+  ...rest
 ) => {
+  console.log(rest);
   switch (isPopup) {
     case "Purchase":
+      console.log(purchaseType);
       return (
         <div className="horizontal-header box">
           <form
@@ -417,19 +426,41 @@ export const showPopup = (
             <Card color="card-yellow" key={"title_purchase"}>
               {"Purchase"}
             </Card>
-            <label htmlFor="pname">Product Name</label>
-            <input
-              type="text"
-              id="product_service_name"
-              name="pname"
-              placeholder="Ikea"
-            ></input>
+            <select
+              key={Math.random()}
+              id={"purchase_type"}
+              name="purchase_type"
+            >
+              <option key={Math.random()} value={""}>
+                {"Select Product Type"}
+              </option>
+              {purchaseType.map((item, i) => {
+                return (
+                  <option
+                    key={Math.random()}
+                    value={item[0]}
+                    onClick={() => {
+                      setProductType(item[0]);
+                    }}
+                  >
+                    {item[0]}
+                  </option>
+                );
+              })}
+            </select>
             <label htmlFor="tname">Product Type</label>
             <input
               type="text"
               id="product_service_subtype"
               name="tname"
               placeholder="Home"
+            ></input>
+            <label htmlFor="pname">Product Name</label>
+            <input
+              type="text"
+              id="product_service_name"
+              name="pname"
+              placeholder="Ikea"
             ></input>
             <label htmlFor="pprice">Product Price</label>
             <input

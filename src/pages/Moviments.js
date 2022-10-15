@@ -117,7 +117,8 @@ export default function Moviment() {
               setDate,
               slider,
               setSlider,
-              lastItem
+              lastItem,
+              purchaseType
             )}
             handleClose={togglePopup}
           />
