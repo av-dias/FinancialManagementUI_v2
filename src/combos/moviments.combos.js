@@ -180,7 +180,6 @@ export const showMainTables = (
 
 const setProductType = (name) => {
   document.getElementById("product_service_subtype").value = name;
-  console.log(name);
 };
 
 const editHandle = async (e, editDate, lastItem, setIsOpen) => {
@@ -411,10 +410,8 @@ export const showPopup = (
   purchaseType,
   ...rest
 ) => {
-  console.log(rest);
   switch (isPopup) {
     case "Purchase":
-      console.log(purchaseType);
       return (
         <div className="horizontal-header box">
           <form

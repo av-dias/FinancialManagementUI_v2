@@ -79,7 +79,7 @@ function defineNaming(row) {
   return Math.random();
 }
 
-export default function StickyHeadTable(props) {
+const StickyHeadTable = (props) => {
   let columns = props.size === "bg" ? columns_bg : columns_sm;
   if (props.columns) {
     columns = props.columns;
@@ -159,7 +159,7 @@ export default function StickyHeadTable(props) {
       </TableContainer>
     </Paper>
   );
-}
+};
 
 const cellData = (column, row, props, value) => {
   // PURCHASE with NO SPLIT [Edit and Split]
@@ -284,3 +284,14 @@ const cellData = (column, row, props, value) => {
     return value;
   }
 };
+
+const areEqual = (prevProps, nextProps) => {
+  if (
+    prevProps.rows === nextProps.rows &&
+    prevProps.filter === nextProps.filter
+  )
+    return true;
+  else return false;
+};
+
+export default React.memo(StickyHeadTable, areEqual);
