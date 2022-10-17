@@ -8,7 +8,7 @@ import Button from "../components/Button";
 import {
   showMainTables,
   showPopup,
-  showSelectionButtons,
+  SelectionButtons,
 } from "../combos/moviments.combos";
 
 import {
@@ -69,7 +69,7 @@ export default function Moviment() {
       <Sidebar />
       <div className="blur">
         <Grid container spacing={{ xs: 1, sm: 1, md: 1 }}>
-          {showSelectionButtons()}
+          <SelectionButtons />
           <Grid item xs={8} sm={8} md={8}></Grid>
           <Grid item xs={1} sm={1} md={1}>
             <Button

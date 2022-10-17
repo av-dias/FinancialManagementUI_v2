@@ -697,7 +697,7 @@ export const showPopup = (
   }
 };
 
-export const showSelectionButtons = () => {
+const ShowSelectionButtons = () => {
   return (
     <>
       <Grid item xs={1} sm={1} md={1}>
@@ -709,3 +709,9 @@ export const showSelectionButtons = () => {
     </>
   );
 };
+
+const areEqual = (prevProps, nextProps) => {
+  return true;
+};
+
+export const SelectionButtons = React.memo(ShowSelectionButtons, areEqual);
