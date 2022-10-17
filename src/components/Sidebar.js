@@ -4,7 +4,7 @@ import navLogo from "../images/logo.png";
 import { AiOutlineLogout } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 
-export default function Sidebar(props) {
+function Sidebar(props) {
   const location = useLocation().pathname;
   return (
     <div className="sidebar">
@@ -52,3 +52,9 @@ export default function Sidebar(props) {
     </div>
   );
 }
+
+const areEqual = (prevProps, nextProps) => {
+  return true;
+};
+
+export default React.memo(Sidebar, areEqual);
