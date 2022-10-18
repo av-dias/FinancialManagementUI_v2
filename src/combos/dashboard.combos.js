@@ -114,7 +114,7 @@ const ShowChartGeneral = ({ dashboardData }) => {
   );
 };
 
-export const showChartSpecs = (data) => {
+export const ShowChartSpecs = ({ data }) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={6}>
@@ -137,7 +137,7 @@ export const showChartSpecs = (data) => {
   );
 };
 
-export const showStatsHeader = (data, month, setMonth) => {
+const ShowStatsHeader = ({ data, month, setMonth }) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={3} sm={3} md={3}>
@@ -167,6 +167,8 @@ const areEqual = (prevProps, nextProps) => {
 };
 
 export const ChartGeneral = React.memo(ShowChartGeneral, areEqual);
+export const ChartSpecs = React.memo(ShowChartSpecs, areEqual);
+export const StatsHeader = React.memo(ShowStatsHeader, areEqual);
 
 /* export const showSelectionButtons = (
   dashboardData,

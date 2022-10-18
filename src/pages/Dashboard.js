@@ -6,8 +6,8 @@ import SelectionButtons from "../components/FilterButtons";
 
 import {
   ChartGeneral,
-  showStatsHeader,
-  showChartSpecs,
+  StatsHeader,
+  ChartSpecs,
 } from "../combos/dashboard.combos";
 import STATUS from "../utility/status";
 
@@ -55,14 +55,14 @@ export default function Dashboard() {
       <div className="blur">
         <Grid container spacing={{ xs: 1, md: 1 }}>
           <Grid item xs={12} sm={12} md={12}>
-            {showStatsHeader(
-              {
+            <StatsHeader
+              data={{
                 month_savings: dashboardData.month_savings,
                 month_spendings: dashboardData.month_spendings,
-              },
-              month,
-              setMonth
-            )}
+              }}
+              month={month}
+              setMonth={setMonth}
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
@@ -103,7 +103,7 @@ export default function Dashboard() {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {showChartSpecs(chartData)}
+            <ChartSpecs data={chartData} />
           </Grid>
         </Grid>
       </div>
