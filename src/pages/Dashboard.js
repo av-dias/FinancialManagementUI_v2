@@ -13,6 +13,35 @@ import STATUS from "../utility/status";
 
 import { loadData } from "../api/dashboard.api";
 
+const getFilters = (dashboardData, setchartData, mode, setMode) => {
+  return [
+    {
+      text: "Total",
+      mode: mode,
+      currentMode: STATUS.MODE.TOTAL,
+      onClick: () => {
+        setMode(STATUS.MODE.TOTAL);
+        setchartData({
+          current: dashboardData.total.current,
+          average: dashboardData.total.average,
+        });
+      },
+    },
+    {
+      text: "Mine",
+      mode: mode,
+      currentMode: STATUS.MODE.MINE,
+      onClick: () => {
+        setMode(STATUS.MODE.MINE);
+        setchartData({
+          current: dashboardData.purchases_by_type,
+          average: dashboardData.av_purchases_by_type,
+        });
+      },
+    },
+  ];
+};
+
 export default function Dashboard() {
   let [dashboardData, setdashboardData] = React.useState({
     total_spendings: 0,
@@ -72,32 +101,7 @@ export default function Dashboard() {
           <Grid item xs={12} sm={12} md={12}>
             <Grid container spacing={1}>
               <SelectionButtons
-                filters={[
-                  {
-                    text: "Total",
-                    mode: mode,
-                    currentMode: STATUS.MODE.TOTAL,
-                    onClick: () => {
-                      setMode(STATUS.MODE.TOTAL);
-                      setchartData({
-                        current: dashboardData.total.current,
-                        average: dashboardData.total.average,
-                      });
-                    },
-                  },
-                  {
-                    text: "Mine",
-                    mode: mode,
-                    currentMode: STATUS.MODE.MINE,
-                    onClick: () => {
-                      setMode(STATUS.MODE.MINE);
-                      setchartData({
-                        current: dashboardData.purchases_by_type,
-                        average: dashboardData.av_purchases_by_type,
-                      });
-                    },
-                  },
-                ]}
+                filters={getFilters(dashboardData, setchartData, mode, setMode)}
               />
             </Grid>
           </Grid>

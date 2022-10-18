@@ -165,11 +165,22 @@ const isChartSpecs = (prevProps, nextProps) => {
 };
 
 const isChartGeneral = (prevProps, nextProps) => {
-  return true;
+  if (prevProps.dashboardData === nextProps.dashboardData) return true;
+  else {
+    return false;
+  }
 };
 
 const isStatsHeader = (prevProps, nextProps) => {
-  return true;
+  if (
+    prevProps.month === nextProps.month &&
+    prevProps.data.month_savings === nextProps.data.month_savings &&
+    prevProps.data.month_spendings === nextProps.data.month_spendings
+  )
+    return true;
+  else {
+    return false;
+  }
 };
 
 export const ChartGeneral = React.memo(ShowChartGeneral, isChartGeneral);
