@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 import SelectionButtons from "../components/FilterButtons";
 
 import {
-  showChartGeneral,
+  ChartGeneral,
   showStatsHeader,
   showChartSpecs,
 } from "../combos/dashboard.combos";
@@ -68,7 +68,7 @@ export default function Dashboard() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showChartGeneral(dashboardData)}
+            <ChartGeneral dashboardData={dashboardData} />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <Grid container spacing={1}>

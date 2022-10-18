@@ -1,13 +1,12 @@
+import * as React from "react";
 import Grid from "@mui/material/Grid";
 
 import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
 import CardText from "../components/Cardtext";
 import CardDate from "../components/Carddate";
-import ButtonOutline from "../components/Button";
 
 import date from "../images/date.png";
-import STATUS from "../utility/status";
 
 const options = { maintainAspectRatio: false, responsive: false };
 
@@ -72,7 +71,7 @@ function deviationMonths(data) {
   return newData;
 }
 
-export const showChartGeneral = (dashboardData) => {
+const ShowChartGeneral = ({ dashboardData }) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={3}>
@@ -163,7 +162,13 @@ export const showStatsHeader = (data, month, setMonth) => {
   );
 };
 
-export const showSelectionButtons = (
+const areEqual = (prevProps, nextProps) => {
+  return false;
+};
+
+export const ChartGeneral = React.memo(ShowChartGeneral, areEqual);
+
+/* export const showSelectionButtons = (
   dashboardData,
   setchartData,
   setMode,
@@ -201,4 +206,4 @@ export const showSelectionButtons = (
       </Grid>
     </Grid>
   );
-};
+}; */
