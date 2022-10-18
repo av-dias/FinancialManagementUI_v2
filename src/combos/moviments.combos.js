@@ -2,19 +2,195 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 
 import Table from "../components/Table";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 import Card from "../components/Card";
 import ButtonOutline from "../components/Button";
 import Slider from "react-input-slider";
 import Button from "../components/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 import Carousel from "../components/Carousel";
 import "react-multi-carousel/lib/styles.css";
+import {
+  IoIosCreate,
+  IoIosGitBranch,
+  IoIosGitPullRequest,
+} from "react-icons/io";
 
 import "../components/Table.css";
 import ADDRESS from "../utility/address";
 import STATUS from "../utility/status";
 
-import { rowsData, sortArray } from "../api/moviment.api";
+import { rowsData, sortArray, truncateMax } from "../api/moviment.api";
+
+const columns = [
+  { id: "name", label: "Name", minWidth: 50, align: "center" },
+  {
+    id: "value",
+    label: "Value",
+    minWidth: 50,
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  { id: "dop", label: "Date", minWidth: 50, align: "center" },
+  {
+    id: "options",
+    label: "",
+    minWidth: 50,
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+];
+
+const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
+  // PURCHASE with NO SPLIT [Edit and Split]
+  if (column.id === "options" && row.status === STATUS.PURCHASE.NO_SPLIT) {
+    return (
+      <Grid container>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              setlastItem(row);
+              togglePopup("Edit");
+            }}
+          >
+            <IoIosCreate />
+          </Button>
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              setlastItem(row);
+              setSlider(row.split.weight);
+              togglePopup("Split");
+            }}
+          >
+            <IoIosGitBranch />
+          </Button>
+        </ButtonGroup>
+      </Grid>
+    );
+
+    // INCOME [Edit]
+  } else if (column.id === "options" && row.status === STATUS.PURCHASE.INCOME) {
+    return (
+      <Grid container>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              setlastItem(row);
+              togglePopup("Edit");
+            }}
+          >
+            <IoIosCreate />
+          </Button>
+        </ButtonGroup>
+      </Grid>
+    );
+    // PURCHASE DIFFERENT THEN NO SPLIT [Edit and Split % and Icon]
+  } else if (
+    column.id === "options" &&
+    row.status !== STATUS.PURCHASE.NO_SPLIT
+  ) {
+    return (
+      <Grid container>
+        <ButtonGroup
+          variant="outlined"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={15}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              setlastItem(row);
+              togglePopup("Edit");
+            }}
+          >
+            <IoIosCreate />
+          </Button>
+          <Button
+            type="outlined"
+            key={Math.random()}
+            textSize={10}
+            shadow={1}
+            textColor={"rgb(0, 0, 0)"}
+            onClick={() => {
+              setlastItem(row);
+              setSlider(row.weight);
+              togglePopup("EditSplit");
+            }}
+          >
+            <span>{row.weight}</span>
+          </Button>
+          {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
+            <Button
+              type="contained"
+              key={Math.random()}
+              textSize={15}
+              textColor={"rgb(0, 0, 0)"}
+              color="error"
+            >
+              <IoIosGitPullRequest />
+            </Button>
+          ) : (
+            ""
+          )}
+        </ButtonGroup>{" "}
+      </Grid>
+    );
+  } /* else if (column.format && typeof value === "number") {
+    return column.format(value);
+  }  */ else {
+    return value;
+  }
+};
+
+function defineNaming(row) {
+  if (row.status === STATUS.PURCHASE.NO_SPLIT) {
+    return "ns";
+  } else if (row.status === STATUS.PURCHASE.INCOME) {
+    return "in";
+  } else if (row.status === STATUS.PURCHASE.WITH_SPLIT) {
+    return "ws";
+  } else if (row.status === STATUS.PURCHASE.FROM_SPLIT) {
+    return "fs";
+  }
+  return Math.random();
+}
+
+function getColValue(row, column) {
+  if (row.status === STATUS.PURCHASE.INCOME && column.id === "dop") {
+    return row["doi"];
+  } else {
+    let value = row[column.id];
+    if (column.id === "name") {
+      return truncateMax(value);
+    }
+    return value;
+  }
+}
 
 export const showMainTables = (
   data,
@@ -57,12 +233,55 @@ export const showMainTables = (
       <Grid item xs={7} sm={7} md={7}>
         <Table
           size="bg"
+          columns={columns}
           rows={data}
           togglePopup={togglePopup}
           setSlider={setSlider}
           setlastItem={setlastItem}
           filter={filter}
-        />
+        >
+          {data.map((row) => {
+            if (row.type === filter || filter === "overall") {
+              return (
+                <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  key={"tr" + defineNaming(row) + row.id}
+                >
+                  {columns.map((column) => {
+                    let value = getColValue(row, column);
+                    return (
+                      <TableCell
+                        key={column.id + defineNaming(row) + row.id}
+                        align={column.align}
+                        size="small"
+                        bgcolor={
+                          row.status === STATUS.PURCHASE.INCOME
+                            ? STATUS.COLORS.INCOME
+                            : row.weight === 0
+                            ? STATUS.COLORS.SPLITALL
+                            : row.weight === 100
+                            ? STATUS.COLORS.SPLITNONE
+                            : STATUS.COLORS.NORMAL
+                        }
+                      >
+                        {cellData(
+                          column,
+                          row,
+                          setlastItem,
+                          togglePopup,
+                          setSlider,
+                          value
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            } else return null;
+          })}
+        </Table>
       </Grid>
       <Grid item xs={5} sm={5} md={5}>
         <Card />
