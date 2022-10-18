@@ -7,7 +7,12 @@ const SelectionButtons = ({ filters }) => {
   return (
     <>
       {filters.map((filter) => {
-        if (filter.mode === filter.currentMode) filter.type = "contained";
+        if (
+          filter.mode !== undefined &&
+          filter.currentMode !== undefined &&
+          filter.mode === filter.currentMode
+        )
+          filter.type = "contained";
         else filter.type = "outlined";
 
         return (
