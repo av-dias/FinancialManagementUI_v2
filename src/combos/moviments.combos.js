@@ -6,9 +6,8 @@ import Card from "../components/Card";
 import ButtonOutline from "../components/Button";
 import Slider from "react-input-slider";
 import Button from "../components/Button";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-import Carousel from "react-multi-carousel";
+import Carousel from "../components/Carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import "../components/Table.css";
@@ -16,80 +15,6 @@ import ADDRESS from "../utility/address";
 import STATUS from "../utility/status";
 
 import { rowsData, sortArray } from "../api/moviment.api";
-
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: STATUS.FILTER_ITEMS.LARGE,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: STATUS.FILTER_ITEMS.DESKTOP,
-    partialVisibilityGutter: 40, // this is optional if you are not using partialVisible props
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: STATUS.FILTER_ITEMS.TABLET,
-    partialVisibilityGutter: 30, // this is optional if you are not using partialVisible props
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: STATUS.FILTER_ITEMS.MOBILE,
-    partialVisibilityGutter: 30, // this is optional if you are not using partialVisible props
-  },
-};
-
-const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
-  const {
-    carouselState: { currentSlide },
-  } = rest;
-  return (
-    <>
-      <div
-        className={
-          currentSlide === 0
-            ? "carousel-button-left item-hidden"
-            : "carousel-button-left"
-        }
-      >
-        <IoIosArrowBack
-          className="cursor-pointer"
-          onClick={() => {
-            if (currentSlide - rest.carouselState.slidesToShow - 1 < 0)
-              goToSlide(0);
-            else goToSlide(currentSlide - rest.carouselState.slidesToShow - 1);
-          }}
-        />
-      </div>
-      <div
-        className={
-          currentSlide ===
-          rest.carouselState.totalItems - rest.carouselState.slidesToShow - 1
-            ? "carousel-button-right item-hidden"
-            : "carousel-button-right"
-        }
-      >
-        <IoIosArrowForward
-          className="cursor-pointer"
-          onClick={() => {
-            if (
-              currentSlide + rest.carouselState.slidesToShow - 1 >
-              rest.carouselState.totalItems -
-                rest.carouselState.slidesToShow -
-                1
-            )
-              goToSlide(
-                rest.carouselState.totalItems -
-                  rest.carouselState.slidesToShow -
-                  1
-              );
-            else goToSlide(currentSlide + rest.carouselState.slidesToShow - 1);
-          }}
-        />
-      </div>
-    </>
-  );
-};
 
 export const showMainTables = (
   data,
@@ -121,46 +46,14 @@ export const showMainTables = (
             <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
               <Carousel
                 key={Math.random()}
-                responsive={responsive}
-                customButtonGroup={<ButtonGroup />}
-                arrows={false}
-              >
-                {filter !== "overall" && (
-                  <Button
-                    key={Math.random()}
-                    textSize={10}
-                    shadow={1}
-                    onClick={() => {
-                      setFilter("overall");
-                    }}
-                    color={filter === "overall" ? "secondary" : null}
-                  >
-                    overall
-                  </Button>
-                )}
-                {purchaseType.map((item, i) => {
-                  if (item[0] !== filter)
-                    return (
-                      <Button
-                        key={Math.random()}
-                        textSize={10}
-                        shadow={1}
-                        onClick={() => {
-                          setFilter(item[0]);
-                        }}
-                        color={filter === item[0] ? "secondary" : null}
-                      >
-                        {item[0]}
-                      </Button>
-                    );
-                  else return null;
-                })}
-              </Carousel>
+                purchaseType={purchaseType}
+                setFilter={setFilter}
+                filter={filter}
+              />
             </Grid>
           </>
         </Card>
       </Grid>
-
       <Grid item xs={7} sm={7} md={7}>
         <Table
           size="bg"
@@ -172,7 +65,7 @@ export const showMainTables = (
         />
       </Grid>
       <Grid item xs={5} sm={5} md={5}>
-        <Table size="sm" />
+        <Card />
       </Grid>
     </Grid>
   );
