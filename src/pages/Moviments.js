@@ -66,7 +66,7 @@ export default function Moviment() {
       <Sidebar />
       <div className="blur">
         <Grid container spacing={{ xs: 1, sm: 1, md: 1 }}>
-          <SelectionButtons filters={["Total", "iShare"]} />
+          <SelectionButtons filters={[{ text: "Total" }, { text: "iShare" }]} />
           <Grid item xs={8} sm={8} md={8}></Grid>
           <Grid item xs={1} sm={1} md={1}>
             <Button

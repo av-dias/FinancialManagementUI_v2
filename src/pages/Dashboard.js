@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
+import Grid from "@mui/material/Grid";
 
 import Sidebar from "../components/Sidebar";
+import SelectionButtons from "../components/FilterButtons";
+
 import {
   showChartGeneral,
   showStatsHeader,
   showChartSpecs,
-  showSelectionButtons,
 } from "../combos/dashboard.combos";
-import Grid from "@mui/material/Grid";
 import STATUS from "../utility/status";
 
 import { loadData } from "../api/dashboard.api";
@@ -27,7 +28,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     loadData(month).then((data) => {
-      console.log(data);
+      console.log(mode);
       setdashboardData(data);
       switch (mode) {
         case STATUS.MODE.TOTAL:
@@ -70,7 +71,36 @@ export default function Dashboard() {
             {showChartGeneral(dashboardData)}
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            {showSelectionButtons(dashboardData, setchartData, setMode, mode)}
+            <Grid container spacing={1}>
+              <SelectionButtons
+                filters={[
+                  {
+                    text: "Total",
+                    mode: mode,
+                    currentMode: STATUS.MODE.TOTAL,
+                    onClick: () => {
+                      setMode(STATUS.MODE.TOTAL);
+                      setchartData({
+                        current: dashboardData.total.current,
+                        average: dashboardData.total.average,
+                      });
+                    },
+                  },
+                  {
+                    text: "Mine",
+                    mode: mode,
+                    currentMode: STATUS.MODE.MINE,
+                    onClick: () => {
+                      setMode(STATUS.MODE.MINE);
+                      setchartData({
+                        current: dashboardData.purchases_by_type,
+                        average: dashboardData.av_purchases_by_type,
+                      });
+                    },
+                  },
+                ]}
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             {showChartSpecs(chartData)}
