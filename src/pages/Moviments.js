@@ -4,8 +4,9 @@ import Sidebar from "../components/Sidebar";
 import Popup from "../components/Popup";
 import Button from "../components/Button";
 import PopContent from "../components/PopContent";
+import SelectionButtons from "../components/FilterButtons";
 
-import { showMainTables, SelectionButtons } from "../combos/moviments.combos";
+import { showMainTables } from "../combos/moviments.combos";
 
 import { sortArray } from "../functions/arrays";
 import { rowsData } from "../api/moviment.api";
@@ -65,7 +66,7 @@ export default function Moviment() {
       <Sidebar />
       <div className="blur">
         <Grid container spacing={{ xs: 1, sm: 1, md: 1 }}>
-          <SelectionButtons />
+          <SelectionButtons filters={["Total", "iShare"]} />
           <Grid item xs={8} sm={8} md={8}></Grid>
           <Grid item xs={1} sm={1} md={1}>
             <Button

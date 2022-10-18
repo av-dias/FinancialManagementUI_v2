@@ -12,7 +12,6 @@ import {
 
 import Table from "../components/Table";
 import Card from "../components/Card";
-import ButtonOutline from "../components/Button";
 import Carousel from "../components/Carousel";
 import Button from "../components/Button";
 
@@ -158,29 +157,27 @@ export const showMainTables = (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={12} md={12}>
         <Card key={"msaving"}>
-          <>
-            <Grid item xs={5} sm={4} md={3} lg={3}>
-              <span className="bold">{"Moviments"}</span>
-            </Grid>
-            <Grid key={Math.random()} item xs={1} sm={1} md={1} lg={1}>
-              <Button
-                key={"fixed_button"}
-                textSize={10}
-                shadow={1}
-                color={"secondary"}
-              >
-                {filter}
-              </Button>
-            </Grid>
-            <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
-              <Carousel
-                key={Math.random()}
-                purchaseType={purchaseType}
-                setFilter={setFilter}
-                filter={filter}
-              />
-            </Grid>
-          </>
+          <Grid item xs={5} sm={4} md={3} lg={3}>
+            <span className="bold">{"Moviments"}</span>
+          </Grid>
+          <Grid key={Math.random()} item xs={1} sm={1} md={1} lg={1}>
+            <Button
+              key={"fixed_button"}
+              textSize={10}
+              shadow={1}
+              color={"secondary"}
+            >
+              {filter}
+            </Button>
+          </Grid>
+          <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
+            <Carousel
+              key={Math.random()}
+              purchaseType={purchaseType}
+              setFilter={setFilter}
+              filter={filter}
+            />
+          </Grid>
         </Card>
       </Grid>
       <Grid item xs={7} sm={7} md={7}>
@@ -242,22 +239,3 @@ export const showMainTables = (
     </Grid>
   );
 };
-
-const ShowSelectionButtons = () => {
-  return (
-    <>
-      <Grid item xs={1} sm={1} md={1}>
-        <ButtonOutline type="outlined">Total</ButtonOutline>
-      </Grid>
-      <Grid item xs={1} sm={1} md={1}>
-        <ButtonOutline type="outlined">iShare</ButtonOutline>
-      </Grid>
-    </>
-  );
-};
-
-const areEqual = (prevProps, nextProps) => {
-  return true;
-};
-
-export const SelectionButtons = React.memo(ShowSelectionButtons, areEqual);
