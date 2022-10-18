@@ -38,7 +38,6 @@ function StackedChart(props) {
       },
     },
   };
-  console.log(props.data);
   const labels = [props.data[0].Name, props.data[1].Name] || ["User1", "User2"];
 
   const data = {

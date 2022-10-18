@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 
 import Grid from "@mui/material/Grid";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 
 import Sidebar from "../components/Sidebar";
 import Table from "../components/Table";
@@ -27,10 +29,10 @@ export default function Splits() {
   ]);
 
   const [columns, setColumns] = React.useState([
-    { id: "res_label", label: "NA", minWidth: 100, align: "center" },
-    { id: "res_total", label: "NA", minWidth: 100, align: "center" },
-    { id: "res_iShare", label: "NA", minWidth: 100, align: "center" },
-    { id: "res_yShare", label: "NA", minWidth: 100, align: "center" },
+    { id: "Name", label: "NA", minWidth: 120, align: "center" },
+    { id: "Total", label: "NA", minWidth: 120, align: "center" },
+    { id: "iShare", label: "NA", minWidth: 120, align: "center" },
+    { id: "yShare", label: "NA", minWidth: 120, align: "center" },
   ]);
 
   const [nameDept, setNameDept] = React.useState("NA");
@@ -72,23 +74,23 @@ export default function Splits() {
       },
     ]);
     setColumns([
-      { id: "res_label", label: "TOTAL", minWidth: 100, align: "center" },
+      { id: "Name", label: "TOTAL", minWidth: 120, align: "center" },
       {
-        id: "res_total",
+        id: "Total",
         label: parseFloat(data.Self.total + data.Given.total).toFixed(2),
-        minWidth: 100,
+        minWidth: 120,
         align: "center",
       },
       {
-        id: "res_iShare",
+        id: "iShare",
         label: parseFloat(data.Self.iShare + data.Given.iShare).toFixed(2),
-        minWidth: 100,
+        minWidth: 120,
         align: "center",
       },
       {
-        id: "res_yShare",
+        id: "yShare",
         label: parseFloat(data.Self.yShare + data.Given.yShare).toFixed(2),
-        minWidth: 100,
+        minWidth: 120,
         align: "center",
       },
     ]);
@@ -116,12 +118,25 @@ export default function Splits() {
             </Card>
           </Grid>
           <Grid item xs={8} sm={8} md={8}>
-            <Table
-              static="true"
-              key={Math.random()}
-              rows={rows}
-              columns={COLUMNS}
-            ></Table>
+            <Table static="true" key={Math.random()} columns={COLUMNS}>
+              {rows.map((row) => {
+                return (
+                  <TableRow key={Math.random()}>
+                    {columns.map((column) => {
+                      return (
+                        <TableCell
+                          key={Math.random()}
+                          align={column.align}
+                          style={{ minWidth: column.minWidth }}
+                        >
+                          {row[column.id]}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </Table>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
             <Card color="card-yellow" key={"title_purchase" + Math.random()}>

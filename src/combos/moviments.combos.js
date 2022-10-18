@@ -134,7 +134,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
           ) : (
             ""
           )}
-        </ButtonGroup>{" "}
+        </ButtonGroup>
       </Grid>
     );
   } /* else if (column.format && typeof value === "number") {
