@@ -11,7 +11,7 @@ const Popup = (props) => {
           <Grid container spacing={{ xs: 2, sm: 2, md: 2 }} columns={24}>
             <Grid item xs sm md></Grid>
             <Grid item xs={6} sm={6} md={6}>
-              {props.content}
+              {props.children}
             </Grid>
             <Grid item xs={1} sm={1} md={1}>
               <span className="close-icon" onClick={props.handleClose}>

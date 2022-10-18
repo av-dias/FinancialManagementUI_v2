@@ -3,12 +3,10 @@ import Grid from "@mui/material/Grid";
 import Sidebar from "../components/Sidebar";
 import Popup from "../components/Popup";
 import Button from "../components/Button";
+import PopContent from "../components/PopContent";
 
-import {
-  showMainTables,
-  showPopup,
-  SelectionButtons,
-} from "../combos/moviments.combos";
+import { showMainTables, SelectionButtons } from "../combos/moviments.combos";
+
 import { sortArray } from "../functions/arrays";
 import { rowsData } from "../api/moviment.api";
 
@@ -105,22 +103,19 @@ export default function Moviment() {
         </Grid>
       </div>
       {isOpen && (
-        <>
-          <Popup
-            content={showPopup(
-              isPopup,
-              setIsOpen,
-              date,
-              setRows,
-              setDate,
-              slider,
-              setSlider,
-              lastItem,
-              purchaseType
-            )}
-            handleClose={togglePopup}
+        <Popup handleClose={togglePopup}>
+          <PopContent
+            isPopup={isPopup}
+            setIsOpen={setIsOpen}
+            date={date}
+            setRows={setRows}
+            setDate={setDate}
+            slider={slider}
+            setSlider={setSlider}
+            lastItem={lastItem}
+            purchaseType={purchaseType}
           />
-        </>
+        </Popup>
       )}
     </div>
   );
