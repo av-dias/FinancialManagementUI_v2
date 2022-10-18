@@ -1,8 +1,10 @@
 import Grid from "@mui/material/Grid";
 
 import navLogo from "../images/logo.png";
-import { loginHandle, incorrectLoginHandle } from "../api/login.api";
+import { loginHandle } from "../api/login.api";
 import { useNavigate } from "react-router-dom";
+
+import { clearElementValueById } from "../functions/elements";
 
 export default function Splits() {
   const navigate = useNavigate();
@@ -19,7 +21,8 @@ export default function Splits() {
               if ((await loginHandle()) === 200) {
                 navigate("/Dashboard"); //doing redirect here.
               } else {
-                incorrectLoginHandle();
+                clearElementValueById("email");
+                clearElementValueById("password");
               }
             }}
           >

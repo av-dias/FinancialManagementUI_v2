@@ -2,11 +2,6 @@ import jwt_decode from "jwt-decode";
 
 import ADDRESS from "../utility/address";
 
-export const incorrectLoginHandle = () => {
-  document.getElementById("email").value = "";
-  document.getElementById("password").value = "";
-};
-
 export const loginHandle = async () => {
   var authInfo = {
     username: document.getElementById("email").value,
