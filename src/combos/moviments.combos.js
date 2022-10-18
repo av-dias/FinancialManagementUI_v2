@@ -1,16 +1,9 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-
-import Table from "../components/Table";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import Card from "../components/Card";
-import ButtonOutline from "../components/Button";
 import Slider from "react-input-slider";
-import Button from "../components/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-
-import Carousel from "../components/Carousel";
 import "react-multi-carousel/lib/styles.css";
 import {
   IoIosCreate,
@@ -18,30 +11,37 @@ import {
   IoIosGitPullRequest,
 } from "react-icons/io";
 
+import Card from "../components/Card";
+import Table from "../components/Table";
+import ButtonOutline from "../components/Button";
+import Carousel from "../components/Carousel";
+import Button from "../components/Button";
+
 import "../components/Table.css";
-import ADDRESS from "../utility/address";
 import STATUS from "../utility/status";
 
-import { rowsData, sortArray, truncateMax } from "../api/moviment.api";
+import {
+  rowsData,
+  purchaseHandle,
+  incomeHandle,
+  splitHandle,
+  editHandle,
+  editSplitHandle,
+} from "../api/moviment.api";
+import { columns, defineNaming, getColValue } from "../functions/tables";
+import { sortArray } from "../functions/arrays";
+import {
+  setElementValueById,
+  getElementValueById,
+} from "../functions/elements";
+import { todayDate } from "../functions/string";
 
-const columns = [
-  { id: "name", label: "Name", minWidth: 50, align: "center" },
-  {
-    id: "value",
-    label: "Value",
-    minWidth: 50,
-    align: "center",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  { id: "dop", label: "Date", minWidth: 50, align: "center" },
-  {
-    id: "options",
-    label: "",
-    minWidth: 50,
-    align: "center",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-];
+const handleUpdate = (setRows) => {
+  rowsData().then((data) => {
+    data = sortArray(data);
+    setRows(data);
+  });
+};
 
 const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
   // PURCHASE with NO SPLIT [Edit and Split]
@@ -167,31 +167,6 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
   }
 };
 
-function defineNaming(row) {
-  if (row.status === STATUS.PURCHASE.NO_SPLIT) {
-    return "ns";
-  } else if (row.status === STATUS.PURCHASE.INCOME) {
-    return "in";
-  } else if (row.status === STATUS.PURCHASE.WITH_SPLIT) {
-    return "ws";
-  } else if (row.status === STATUS.PURCHASE.FROM_SPLIT) {
-    return "fs";
-  }
-  return Math.random();
-}
-
-function getColValue(row, column) {
-  if (row.status === STATUS.PURCHASE.INCOME && column.id === "dop") {
-    return row["doi"];
-  } else {
-    let value = row[column.id];
-    if (column.id === "name") {
-      return truncateMax(value);
-    }
-    return value;
-  }
-}
-
 export const showMainTables = (
   data,
   togglePopup,
@@ -290,226 +265,6 @@ export const showMainTables = (
   );
 };
 
-const setProductType = (name) => {
-  document.getElementById("product_service_subtype").value = name;
-};
-
-const editHandle = async (e, editDate, lastItem, setIsOpen) => {
-  e.preventDefault();
-
-  let _name = document.getElementById("edit_name").value;
-  let _type = document.getElementById("edit_type").value;
-  let _value = document.getElementById("edit_value").value;
-  let _date = new Date(editDate);
-  let _dop = new Date(_date.setTime(_date.getTime() + 1 * 60 * 60 * 1000));
-
-  //let user_id = window.sessionStorage.getItem("user_id");
-
-  // EDIT INCOME
-  if (lastItem.status === STATUS.PURCHASE.INCOME) {
-    let Edit = { value: _value, type: _name, subType: _type, doi: _dop };
-    await fetch(`http://${ADDRESS.BACKEND}/api/v1/income/${lastItem.id}`, {
-      method: "PUT",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
-      },
-      body: JSON.stringify(Edit),
-    });
-  } else {
-    // EDIT PURCHASE
-    try {
-      let Edit = { value: _value, type: _type, name: _name, dop: _dop };
-
-      await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/${lastItem.id}`, {
-        method: "PUT",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
-        },
-        body: JSON.stringify(Edit),
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  document.getElementById("edit_name").value = "";
-  document.getElementById("edit_type").value = "";
-  document.getElementById("edit_value").value = "";
-  setIsOpen(false);
-};
-
-const incomeHandle = async (e, incomeDate) => {
-  e.preventDefault();
-
-  let _type = document.getElementById("income_type").value;
-  let _subtype = document.getElementById("income_subType").value;
-  let _value = document.getElementById("income_value").value;
-  let _date = new Date(incomeDate);
-  let _doi = new Date(_date.setTime(_date.getTime() + 1 * 60 * 60 * 1000));
-  //let _dop = purchaseDate;
-
-  let user_id = window.sessionStorage.getItem("user_id");
-
-  let Income = { value: _value, type: _type, subType: _subtype, doi: _doi };
-  try {
-    await fetch(`http://${ADDRESS.BACKEND}/api/v1/income/user/${user_id}`, {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
-      },
-      body: JSON.stringify(Income),
-    });
-    document.getElementById("income_type").value = "";
-    document.getElementById("income_subType").value = "";
-    document.getElementById("income_value").value = "";
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const editSplitHandle = async (event, lastItem, slider, setIsOpen) => {
-  event.preventDefault();
-  let w;
-  //let user_id = window.sessionStorage.getItem("user_id");
-  //const u = document.getElementById("email" + purchase_id);
-
-  let split_id = lastItem.split.id;
-  if (lastItem.status === STATUS.PURCHASE.FROM_SPLIT) w = 100 - slider;
-  else w = slider;
-
-  let split = {
-    weight: w.toString(),
-  };
-
-  try {
-    await fetch(`http://${ADDRESS.BACKEND}/api/v1/split/${split_id}`, {
-      method: "PUT",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
-      },
-      body: JSON.stringify(split),
-    });
-    setIsOpen(false);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const splitHandle = async (event, lastItem, slider, setIsOpen) => {
-  event.preventDefault();
-  let purchase_id = lastItem.id;
-
-  let user_id = window.sessionStorage.getItem("user_id");
-  const w = slider;
-  const u = document.getElementById("email" + purchase_id);
-  let split = {
-    weight: w.toString(),
-    userEmail: u.value,
-  };
-
-  try {
-    await fetch(
-      `http://${ADDRESS.BACKEND}/api/v1/split/user/${user_id}/purchase/${purchase_id}`,
-      {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
-        },
-        body: JSON.stringify(split),
-      }
-    );
-    setIsOpen(false);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const handlePurchase = async (e, purchaseDate, setDate) => {
-  e.preventDefault();
-
-  let _name = document.getElementById("product_service_name").value;
-  let _value = document.getElementById("product_service_price").value;
-  let _type = document.getElementById("product_service_subtype").value;
-  let date = new Date(purchaseDate);
-  let _dop = new Date(date.setTime(date.getTime() + 1 * 60 * 60 * 1000));
-
-  let user_id = window.sessionStorage.getItem("user_id");
-  let Purchase = { value: _value, name: _name, type: _type, dop: _dop };
-
-  if (
-    _name === undefined ||
-    _name === "" ||
-    _value === undefined ||
-    _value === "" ||
-    _type === undefined ||
-    _type === "" ||
-    _dop === undefined ||
-    _dop === "" ||
-    user_id === undefined ||
-    user_id === ""
-  )
-    return null;
-
-  try {
-    await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/user/${user_id}`, {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
-      },
-      body: JSON.stringify(Purchase),
-    });
-    document.getElementById("product_service_name").value = "";
-    document.getElementById("product_service_price").value = "";
-    document.getElementById("product_service_subtype").value = "";
-    setDate(date);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const todayDate = (date) => {
-  const today = new Date(date) || new Date();
-  const year = today.getFullYear();
-  const month =
-    today.getMonth() < 10 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
-  const day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
-  return year + "-" + month + "-" + day;
-};
-
-const updateDate = (id) => {
-  return document.getElementById(id).value;
-};
-
-const handleUpdate = (setRows) => {
-  rowsData().then((data) => {
-    data = sortArray(data);
-    setRows(data);
-  });
-};
-
 export const showPopup = (
   isPopup,
   setIsOpen,
@@ -528,7 +283,7 @@ export const showPopup = (
         <div className="horizontal-header box">
           <form
             onSubmit={async (e) => {
-              await handlePurchase(e, date, setDate);
+              await purchaseHandle(e, date, setDate);
               handleUpdate(setRows);
             }}
           >
@@ -549,7 +304,7 @@ export const showPopup = (
                     key={Math.random()}
                     value={item[0]}
                     onClick={() => {
-                      setProductType(item[0]);
+                      setElementValueById("product_service_subtype", item[0]);
                     }}
                   >
                     {item[0]}
@@ -587,7 +342,7 @@ export const showPopup = (
               name="pdate"
               defaultValue={todayDate()}
               onChange={() => {
-                date = updateDate("pdate");
+                date = getElementValueById("pdate");
               }}
             ></input>
             <button type="submit" name="purchase" value="purchase">
@@ -636,7 +391,7 @@ export const showPopup = (
               name="idate"
               defaultValue={todayDate()}
               onChange={() => {
-                date = updateDate("idate");
+                date = getElementValueById("idate");
               }}
             ></input>
             <button type="submit" name="save" value="save">
@@ -650,7 +405,7 @@ export const showPopup = (
         <div className="horizontal-header box">
           <form
             onSubmit={async (e) => {
-              date = updateDate("edate");
+              date = getElementValueById("edate");
               await editHandle(e, date, lastItem, setIsOpen);
               handleUpdate(setRows);
             }}
@@ -686,7 +441,7 @@ export const showPopup = (
               name="edate"
               defaultValue={lastItem.dop || lastItem.doi}
               onChange={() => {
-                date = updateDate("edate");
+                date = getElementValueById("edate");
               }}
             ></input>
             <button type="submit" name="save" value="save">

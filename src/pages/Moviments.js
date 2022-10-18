@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
-
 import Sidebar from "../components/Sidebar";
 import Popup from "../components/Popup";
 import Button from "../components/Button";
@@ -10,18 +9,17 @@ import {
   showPopup,
   SelectionButtons,
 } from "../combos/moviments.combos";
+import { sortArray } from "../functions/arrays";
+import { rowsData } from "../api/moviment.api";
 
 import {
   usePopUp,
   useOpen,
   useItem,
-  /* useItemPos, */
   useDate,
   useRows,
   useSlider,
 } from "../hooks/moviments.hook";
-import { rowsData, sortArray /* , truncateMax */ } from "../api/moviment.api";
-//import STATUS from "../utility/status";
 
 export default function Moviment() {
   const [isPopup, setIsPopup] = usePopUp(); // Popup type
