@@ -28,7 +28,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     loadData(month).then((data) => {
-      console.log(mode);
       setdashboardData(data);
       switch (mode) {
         case STATUS.MODE.TOTAL:

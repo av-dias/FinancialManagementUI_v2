@@ -52,9 +52,7 @@ function cumulatesMonths(data) {
   for (let i = 0; i < newData.values.length; i++) {
     cumulative += newData.values[i];
     newData.values[i] = cumulative;
-    //console.log(cumulative);
   }
-  //console.log(newData);
   return newData;
 }
 
@@ -162,13 +160,21 @@ const ShowStatsHeader = ({ data, month, setMonth }) => {
   );
 };
 
-const areEqual = (prevProps, nextProps) => {
+const isChartSpecs = (prevProps, nextProps) => {
   return false;
 };
 
-export const ChartGeneral = React.memo(ShowChartGeneral, areEqual);
-export const ChartSpecs = React.memo(ShowChartSpecs, areEqual);
-export const StatsHeader = React.memo(ShowStatsHeader, areEqual);
+const isChartGeneral = (prevProps, nextProps) => {
+  return true;
+};
+
+const isStatsHeader = (prevProps, nextProps) => {
+  return true;
+};
+
+export const ChartGeneral = React.memo(ShowChartGeneral, isChartGeneral);
+export const ChartSpecs = React.memo(ShowChartSpecs, isChartSpecs);
+export const StatsHeader = React.memo(ShowStatsHeader, isStatsHeader);
 
 /* export const showSelectionButtons = (
   dashboardData,
