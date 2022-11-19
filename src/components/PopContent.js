@@ -144,6 +144,7 @@ const PopContent = ({
               id="income_value"
               name="ivalue"
               placeholder="0"
+              step=".01"
             ></input>
             <label htmlFor="pprice">Income Date</label>
             <input
