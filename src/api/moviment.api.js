@@ -147,7 +147,22 @@ export const incomeHandle = async (e, incomeDate) => {
 
   let user_id = window.sessionStorage.getItem("user_id");
 
+  if (
+    _value === undefined ||
+    _value === "" ||
+    _type === undefined ||
+    _type === "" ||
+    _subtype === undefined ||
+    _subtype === "" ||
+    _doi === undefined ||
+    _doi === "" ||
+    user_id === undefined ||
+    user_id === ""
+  )
+    return null;
+
   let Income = { value: _value, type: _type, subType: _subtype, doi: _doi };
+
   try {
     await fetch(`http://${ADDRESS.BACKEND}/api/v1/income/user/${user_id}`, {
       method: "POST",
@@ -243,7 +258,6 @@ export const purchaseHandle = async (e, purchaseDate, setDate) => {
   let _dop = new Date(date.setTime(date.getTime() + 1 * 60 * 60 * 1000));
 
   let user_id = window.sessionStorage.getItem("user_id");
-  let Purchase = { value: _value, name: _name, type: _type, dop: _dop };
 
   if (
     _name === undefined ||
@@ -258,6 +272,8 @@ export const purchaseHandle = async (e, purchaseDate, setDate) => {
     user_id === ""
   )
     return null;
+
+  let Purchase = { value: _value, name: _name, type: _type, dop: _dop };
 
   try {
     await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/user/${user_id}`, {
