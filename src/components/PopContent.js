@@ -19,6 +19,7 @@ import {
   getElementValueById,
 } from "../functions/elements";
 import { todayDate } from "../functions/string";
+import { PURCHASE } from "../utility/status";
 
 const handleUpdate = (setRows) => {
   rowsData().then((data) => {
@@ -60,17 +61,19 @@ const PopContent = ({
                 {"View Existing Types"}
               </option>
               {purchaseType.map((item, i) => {
-                return (
-                  <option
-                    key={Math.random()}
-                    value={item[0]}
-                    onClick={() => {
-                      setElementValueById("product_service_subtype", item[0]);
-                    }}
-                  >
-                    {item[0]}
-                  </option>
-                );
+                if (item[2] !== PURCHASE.INCOME) {
+                  return (
+                    <option
+                      key={Math.random()}
+                      value={item[0]}
+                      onClick={() => {
+                        setElementValueById("product_service_subtype", item[0]);
+                      }}
+                    >
+                      {item[0]}
+                    </option>
+                  );
+                } else return null;
               })}
             </select>
             <label htmlFor="tname">Product Type</label>
@@ -124,6 +127,30 @@ const PopContent = ({
             <Card color="card-yellow" key={"title_income"}>
               {"Income"}
             </Card>
+            <select
+              key={Math.random()}
+              id={"purchase_type"}
+              name="purchase_type"
+            >
+              <option key={Math.random()} value={""}>
+                {"View Existing Types"}
+              </option>
+              {purchaseType.map((item, i) => {
+                if (item[2] === PURCHASE.INCOME) {
+                  return (
+                    <option
+                      key={Math.random()}
+                      value={item[0]}
+                      onClick={() => {
+                        setElementValueById("income_type", item[0]);
+                      }}
+                    >
+                      {item[0]}
+                    </option>
+                  );
+                } else return null;
+              })}
+            </select>
             <label htmlFor="pname">Income Type</label>
             <input
               type="text"

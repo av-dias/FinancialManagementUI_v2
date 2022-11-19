@@ -38,15 +38,15 @@ export default function Moviment() {
   const rowTypesList = (data) => {
     const output = data.reduce((accum, x) => {
       let typeName = x.type;
+      let status = x.status;
       if (accum.filter((e) => e[0] === typeName).length === 0) {
-        accum.push([typeName, 1]);
+        accum.push([typeName, 1, status]);
       } else {
         let index = accum.findIndex((item) => item[0] === typeName);
         accum[index][1]++;
       }
       return accum;
     }, []);
-
     return output.sort(function (a, b) {
       return b[1] - a[1];
     });
