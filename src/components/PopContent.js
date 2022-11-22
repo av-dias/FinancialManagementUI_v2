@@ -9,6 +9,7 @@ import {
   purchaseHandle,
   incomeHandle,
   splitHandle,
+  transactionHandle,
   editHandle,
   editSplitHandle,
 } from "../api/moviment.api";
@@ -344,6 +345,60 @@ const PopContent = ({
             </div>
             <button type="submit" name="save" value="save">
               Add Split
+            </button>
+          </form>
+        </div>
+      );
+    case "Transaction":
+      return (
+        <div className="horizontal-header box">
+          <form
+            onSubmit={async (e) => {
+              await transactionHandle(e, date);
+              handleUpdate(setRows);
+            }}
+          >
+            <Card color="card-yellow" key={"title_transfer"}>
+              {"Transaction"}
+            </Card>
+            {window.sessionStorage.getItem("user_id") === "1" ? (
+              <select id={"email_transfer"} name="transfer_userEmail">
+                <option value="anacatarinarebelo98@gmail.com">
+                  Ana Catarina
+                </option>
+              </select>
+            ) : (
+              <select id={"email_transfer"} name="transfer_userEmail">
+                <option value="al.vrdias@gmail.com">Álison Dias</option>
+              </select>
+            )}
+            <label htmlFor="t_amount">Transfer amount</label>
+            <input
+              type="number"
+              id="transaction_amount"
+              name="transaction_amount"
+              placeholder="0"
+              step=".01"
+            ></input>
+            <label htmlFor="tmessage">Description</label>
+            <input
+              type="text"
+              id="transaction_description"
+              name="transaction_description"
+              placeholder="Direct Adjustment"
+            ></input>
+            <label htmlFor="pprice">Transfer Date</label>
+            <input
+              type="date"
+              id="tdate"
+              name="tdate"
+              defaultValue={todayDate()}
+              onChange={() => {
+                date = getElementValueById("tdate");
+              }}
+            ></input>
+            <button type="submit" name="save" value="save">
+              Confirm Transfer
             </button>
           </form>
         </div>

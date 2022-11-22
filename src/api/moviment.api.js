@@ -295,3 +295,58 @@ export const purchaseHandle = async (e, purchaseDate, setDate) => {
     console.log(err);
   }
 };
+
+export const transactionHandle = async (e, transactionDate, setDate) => {
+  e.preventDefault();
+
+  let _destination = document.getElementById("email_transfer").value;
+  let _amount = document.getElementById("transaction_amount").value;
+  let _description = document.getElementById("transaction_description").value;
+  let date = new Date(transactionDate);
+  let _dot = new Date(date.setTime(date.getTime() + 1 * 60 * 60 * 1000));
+
+  let user_id = window.sessionStorage.getItem("user_id");
+
+  if (
+    _destination === undefined ||
+    _destination === "" ||
+    _amount === undefined ||
+    _amount === "" ||
+    _description === undefined ||
+    _description === "" ||
+    _dot === undefined ||
+    _dot === "" ||
+    user_id === undefined ||
+    user_id === ""
+  )
+    return null;
+
+  let Transaction = {
+    user_origin_id: user_id,
+    amount: _amount,
+    description: _description,
+    dot: _dot,
+  };
+
+  try {
+    await fetch(
+      `http://${ADDRESS.BACKEND}/api/v1/transactions/user/${user_id}?destination_email=${_destination}`,
+      {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + window.sessionStorage.getItem("access_token"),
+        },
+        body: JSON.stringify(Transaction),
+      }
+    );
+    document.getElementById("email_transfer").value = "";
+    document.getElementById("transaction_amount").value = "";
+    document.getElementById("transaction_description").value = "";
+  } catch (err) {
+    console.log(err);
+  }
+};

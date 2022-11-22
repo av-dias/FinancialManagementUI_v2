@@ -67,7 +67,7 @@ export default function Moviment() {
       <div className="blur">
         <Grid container spacing={{ xs: 1, sm: 1, md: 1 }}>
           <SelectionButtons filters={[{ text: "Total" }, { text: "iShare" }]} />
-          <Grid item xs={8} sm={8} md={8}></Grid>
+          <Grid item xs={7} sm={7} md={7}></Grid>
           <Grid item xs={1} sm={1} md={1}>
             <Button
               type="contained"
@@ -86,6 +86,16 @@ export default function Moviment() {
               }}
             >
               Income
+            </Button>
+          </Grid>
+          <Grid item xs={1} sm={1} md={1}>
+            <Button
+              type="contained"
+              onClick={() => {
+                togglePopup("Transaction");
+              }}
+            >
+              Transaction
             </Button>
           </Grid>
           <Grid item xs={12} sm={12} md={12} />

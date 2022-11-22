@@ -32,8 +32,24 @@ export async function loadData(month) {
       }
     );
 
+    let resTransactions = await fetch(
+      `http://${ADDRESS.BACKEND}/api/v1/transactions/user/${user_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + window.sessionStorage.getItem("access_token"),
+        },
+      }
+    );
+
     const dataSplit = await resSplit.json();
+    const dataTransactions = await resTransactions.json();
     const data = await response.json();
+    console.log(dataTransactions);
     data["total"] = dataSplit;
     return data;
   } catch (e) {
