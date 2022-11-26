@@ -49,8 +49,9 @@ export async function loadData(month) {
     const dataSplit = await resSplit.json();
     const dataTransactions = await resTransactions.json();
     const data = await response.json();
-    console.log(dataTransactions);
     data["total"] = dataSplit;
+    data["transactions"] = dataTransactions;
+    console.log(data);
     return data;
   } catch (e) {
     console.log(e.message);
