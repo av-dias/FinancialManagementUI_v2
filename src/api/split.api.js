@@ -19,7 +19,25 @@ export async function loadData() {
       }
     );
 
+    // This fetch needs work as it is required a
+    // transactions calculation between specific origin and destination
+    let resTransactions = await fetch(
+      `http://${ADDRESS.BACKEND}/api/v1/transactions/user/${user_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer " + window.sessionStorage.getItem("access_token"),
+        },
+      }
+    );
+
     const data = await response.json();
+    const dataTransactions = await resTransactions.json();
+
     let json = {};
     data.Self.forEach((item) => {
       //let id = item.substring(0, item.indexOf("="));
@@ -34,6 +52,8 @@ export async function loadData() {
       json.Given.id = id;
       json.Given.name = data.Names[id];
     });
+
+    json.transactions = dataTransactions.total;
 
     return json;
   } catch (e) {

@@ -101,7 +101,7 @@ export default function Splits() {
       setTableData(data);
       const result = checkDept(data);
       setNameDept(result.name);
-      setValueDept(result.value);
+      setValueDept((result.value - data.transactions).toFixed(2));
     });
   }, []);
 
