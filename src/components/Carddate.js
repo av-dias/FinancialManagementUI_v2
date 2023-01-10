@@ -2,29 +2,15 @@ import React from "react";
 import "./Carddate.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-const monthNames = [
-  "None",
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+const monthNames = ["None", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function increaseMonth(month) {
-  if (month === 12) return 12;
+  if (month === 12) return 1;
   else return month + 1;
 }
 
 function decreaseMonth(month) {
-  if (month === 1) return 1;
+  if (month === 1) return 12;
   else return month - 1;
 }
 
@@ -43,9 +29,7 @@ export default function Card(props) {
             <img src={props.icon} alt="logo" className="carddate--icon" />
           </>
         )}
-        {props.month && (
-          <span className="bold m-text">{monthNames[props.month]}</span>
-        )}
+        {props.month && <span className="bold m-text">{monthNames[props.month]}</span>}
         {props.icon && (
           <>
             <IoIosArrowForward
