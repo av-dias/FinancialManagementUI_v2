@@ -101,7 +101,7 @@ export default function Splits() {
       setTableData(data);
       const result = checkDept(data);
       setNameDept(result.name);
-      setValueDept((result.value - data.transactions).toFixed(2));
+      setValueDept((parseFloat(result.value) - data.transactions).toFixed(2));
     });
   }, []);
 
@@ -124,11 +124,7 @@ export default function Splits() {
                   <TableRow key={Math.random()}>
                     {columns.map((column) => {
                       return (
-                        <TableCell
-                          key={Math.random()}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth }}
-                        >
+                        <TableCell key={Math.random()} align={column.align} style={{ minWidth: column.minWidth }}>
                           {row[column.id]}
                         </TableCell>
                       );
@@ -155,10 +151,7 @@ export default function Splits() {
             </Card>
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
-            <StackedChart
-              data={rows}
-              title={"Total spendings and corresponding split"}
-            />
+            <StackedChart data={rows} title={"Total spendings and corresponding split"} />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
             <PolarChart data={rows} title={"Dept chart in € from each"} />
