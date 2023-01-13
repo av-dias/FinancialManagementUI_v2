@@ -2,16 +2,39 @@ import React from "react";
 import "./Carddate.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-const monthNames = ["None", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-function increaseMonth(month) {
-  if (month === 12) return 1;
-  else return month + 1;
+function formatDate(date) {
+  return monthNames[getCurrentMonth(date)[1] - 1] + "" + getCurrentMonth(date)[0];
 }
 
-function decreaseMonth(month) {
-  if (month === 1) return 12;
-  else return month - 1;
+// [year, month]
+function getCurrentMonth(currentDate) {
+  return [parseInt(currentDate.substring(0, 4)), parseInt(currentDate.substring(4))];
+}
+
+function increaseMonth(currentDate) {
+  let [year, month] = getCurrentMonth(currentDate.toString());
+
+  if (++month === 13) {
+    month = 1;
+    year = ++year;
+  }
+  if (month < 10) month = "0" + month;
+
+  return year + "" + month;
+}
+
+function decreaseMonth(currentDate) {
+  let [year, month] = getCurrentMonth(currentDate.toString());
+
+  if (--month === 0) {
+    month = 12;
+    year = --year;
+  }
+  if (month < 10) month = "0" + month;
+
+  return year + "" + month;
 }
 
 export default function Card(props) {
@@ -23,19 +46,20 @@ export default function Card(props) {
             <IoIosArrowBack
               className="cursor-pointer"
               onClick={() => {
-                props.setMonth(decreaseMonth(props.month));
+                props.setCurrentDate(decreaseMonth(props.currentDate));
               }}
             />
             <img src={props.icon} alt="logo" className="carddate--icon" />
           </>
         )}
-        {props.month && <span className="bold m-text">{monthNames[props.month]}</span>}
+
+        {props.currentDate && <span className="bold m-text">{formatDate(props.currentDate)}</span>}
         {props.icon && (
           <>
             <IoIosArrowForward
               className="cursor-pointer"
               onClick={() => {
-                props.setMonth(increaseMonth(props.month));
+                props.setCurrentDate(increaseMonth(props.currentDate));
               }}
             />
           </>

@@ -4,11 +4,7 @@ import Grid from "@mui/material/Grid";
 import Sidebar from "../components/Sidebar";
 import SelectionButtons from "../components/FilterButtons";
 
-import {
-  ChartGeneral,
-  StatsHeader,
-  ChartSpecs,
-} from "../combos/dashboard.combos";
+import { ChartGeneral, StatsHeader, ChartSpecs } from "../combos/dashboard.combos";
 import STATUS from "../utility/status";
 
 import { loadData } from "../api/dashboard.api";
@@ -52,11 +48,11 @@ export default function Dashboard() {
     savings_by_month: {},
   });
   let [chartData, setchartData] = React.useState({});
-  let [month, setMonth] = React.useState(new Date().getMonth() + 1);
+  let [currentDate, setCurrentDate] = React.useState(new Date().getFullYear() + "" + new Date().getMonth() + 1); // 2022-09
   let [mode, setMode] = React.useState(1);
 
   useEffect(() => {
-    loadData(month).then((data) => {
+    loadData(currentDate).then((data) => {
       setdashboardData(data);
       switch (mode) {
         case STATUS.MODE.TOTAL:
@@ -75,7 +71,7 @@ export default function Dashboard() {
           break;
       }
     });
-  }, [month, mode]);
+  }, [currentDate, mode]);
 
   return (
     <div className="background-page">
@@ -88,8 +84,8 @@ export default function Dashboard() {
                 month_savings: dashboardData.month_savings,
                 month_spendings: dashboardData.month_spendings,
               }}
-              month={month}
-              setMonth={setMonth}
+              currentDate={currentDate}
+              setCurrentDate={setCurrentDate}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12} />
@@ -100,9 +96,7 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <Grid container spacing={1}>
-              <SelectionButtons
-                filters={getFilters(dashboardData, setchartData, mode, setMode)}
-              />
+              <SelectionButtons filters={getFilters(dashboardData, setchartData, mode, setMode)} />
             </Grid>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
