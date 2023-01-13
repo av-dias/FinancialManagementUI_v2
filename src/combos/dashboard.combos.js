@@ -56,19 +56,6 @@ function cumulatesMonths(data) {
   return newData;
 }
 
-function deviationMonths(data) {
-  let newData = nonZeroMonths(data);
-  if (!newData) return [];
-  const sum = newData.values.reduce((partialSum, a) => partialSum + a, 0);
-  const average = sum / newData.months.length;
-
-  for (let i = 0; i < newData.values.length; i++) {
-    newData.values[i] -= average;
-  }
-
-  return newData;
-}
-
 const ShowChartGeneral = ({ dashboardData }) => {
   return (
     <Grid container spacing={1}>
@@ -77,7 +64,7 @@ const ShowChartGeneral = ({ dashboardData }) => {
           options={options}
           chartData={{
             label: "Monthly Balance",
-            data: nonZeroMonths(dashboardData.savings_by_month),
+            data: [],
           }}
         />
       </Grid>
@@ -86,7 +73,7 @@ const ShowChartGeneral = ({ dashboardData }) => {
           options={options}
           chartData={{
             label: "Monthly Spendings",
-            data: nonZeroMonths(dashboardData.purchases_by_month),
+            data: [],
           }}
         />
       </Grid>
@@ -95,7 +82,7 @@ const ShowChartGeneral = ({ dashboardData }) => {
           options={options}
           chartData={{
             label: "Total Balance",
-            data: cumulatesMonths(dashboardData.savings_by_month),
+            data: [],
           }}
         />
       </Grid>
@@ -104,7 +91,7 @@ const ShowChartGeneral = ({ dashboardData }) => {
           options={options}
           chartData={{
             label: "Av. Spendings Deviation",
-            data: deviationMonths(dashboardData.purchases_by_month),
+            data: [],
           }}
         />
       </Grid>
@@ -116,10 +103,7 @@ export const ShowChartSpecs = ({ data }) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={6}>
-        <BarChart
-          options={options}
-          chartData={{ label: "Spendings by Type", data: data.current }}
-        />
+        <BarChart options={options} chartData={{ label: "Spendings by Type", data: data.current }} />
       </Grid>
       <Grid item xs={6}>
         <BarChart
@@ -135,26 +119,18 @@ export const ShowChartSpecs = ({ data }) => {
   );
 };
 
-const ShowStatsHeader = ({ data, month, setMonth }) => {
+const ShowStatsHeader = ({ data, currentDate, setCurrentDate }) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={3} sm={3} md={3}>
-        <CardText
-          key={"msaving"}
-          text="Month Balance"
-          value={data.month_savings.toFixed(2)}
-        />
+        <CardText key={"msaving"} text="Month Balance" value={0} />
       </Grid>
       <Grid item xs={3} sm={3} md={3}>
-        <CardText
-          key={"mspend"}
-          text="Month Spendings"
-          value={data.month_spendings.toFixed(2)}
-        />
+        <CardText key={"mspend"} text="Month Spendings" value={0} />
       </Grid>
       <Grid item xs={3} sm={3} md={3}></Grid>
       <Grid item xs={3} sm={3} md={3}>
-        <CardDate key={"month"} icon={date} month={month} setMonth={setMonth} />
+        <CardDate key={"month"} icon={date} currentDate={currentDate} setCurrentDate={setCurrentDate} />
       </Grid>
     </Grid>
   );
@@ -173,7 +149,7 @@ const isChartGeneral = (prevProps, nextProps) => {
 
 const isStatsHeader = (prevProps, nextProps) => {
   if (
-    prevProps.month === nextProps.month &&
+    prevProps.currentDate === nextProps.currentDate &&
     prevProps.data.month_savings === nextProps.data.month_savings &&
     prevProps.data.month_spendings === nextProps.data.month_spendings
   )
