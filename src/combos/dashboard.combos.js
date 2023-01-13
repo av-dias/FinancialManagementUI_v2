@@ -10,52 +10,6 @@ import date from "../images/date.png";
 
 const options = { maintainAspectRatio: false, responsive: false };
 
-function nonZeroMonths(data) {
-  let startIndex = 0,
-    endIndex = 0,
-    foundFirst = false,
-    foundLast = 0;
-  for (let i = 0; i < 12; i++) {
-    if (!data || data[i] === "undefined") {
-      return [];
-    }
-
-    if (data[i] === 0 && !foundFirst) {
-      startIndex++;
-    } else if (data[i] !== 0 && !foundFirst) {
-      foundFirst = true;
-    } else if (foundLast !== 2 && foundFirst) {
-      if (data[i] === 0) {
-        foundLast++;
-        if (foundLast === 2) {
-          endIndex = i - 1;
-          break;
-        }
-      }
-    } else {
-      endIndex = i - foundLast;
-      break;
-    }
-    endIndex = i;
-  }
-
-  return {
-    months: Object.keys(data).slice(startIndex, endIndex),
-    values: Object.values(data).slice(startIndex, endIndex),
-  };
-}
-
-function cumulatesMonths(data) {
-  let newData = nonZeroMonths(data);
-  if (!newData) return [];
-  let cumulative = 0;
-  for (let i = 0; i < newData.values.length; i++) {
-    cumulative += newData.values[i];
-    newData.values[i] = cumulative;
-  }
-  return newData;
-}
-
 const ShowChartGeneral = ({ dashboardData }) => {
   return (
     <Grid container spacing={1}>
