@@ -17,7 +17,7 @@ export async function loadData(currentDate) {
 
     console.log(stats);
 
-    let data = { purchases_by_type: 0, av_purchases_by_type: 0 };
+    let data = {};
 
     // IMPROVE LATER
     data["purchases_by_type"] = stats.purchaseTypeByMonthMine[currentDate];
