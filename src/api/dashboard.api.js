@@ -17,13 +17,7 @@ export async function loadData(currentDate) {
 
     console.log(stats);
 
-    let data = {};
-
-    // IMPROVE LATER
-    data["purchases_by_type"] = stats.purchaseTypeByMonthMine[currentDate];
-    data["av_purchases_by_type"] = stats.purchaseTypeByAvgCouple;
-
-    //console.log(data);
+    let data = stats;
     return data;
   } catch (e) {
     console.log(e.message);

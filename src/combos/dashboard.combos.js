@@ -11,14 +11,16 @@ import date from "../images/date.png";
 const options = { maintainAspectRatio: false, responsive: false };
 
 const ShowChartGeneral = ({ dashboardData }) => {
+  if (dashboardData === undefined || dashboardData.cumulativeMonthlyEarningMine === undefined) return;
   return (
     <Grid container spacing={1}>
       <Grid item xs={3}>
         <LineChart
           options={options}
           chartData={{
-            label: "Monthly Balance",
-            data: [],
+            title: "Monthly Balance",
+            data: Object.values(dashboardData.cumulativeMonthlyEarningMine),
+            lable: Object.keys(dashboardData.cumulativeMonthlyEarningMine),
           }}
         />
       </Grid>
@@ -26,8 +28,9 @@ const ShowChartGeneral = ({ dashboardData }) => {
         <LineChart
           options={options}
           chartData={{
-            label: "Monthly Spendings",
-            data: [],
+            title: "Monthly Spendings",
+            data: Object.values(dashboardData.spendingsMonthlyMine),
+            lable: Object.keys(dashboardData.spendingsMonthlyMine),
           }}
         />
       </Grid>
@@ -35,8 +38,9 @@ const ShowChartGeneral = ({ dashboardData }) => {
         <LineChart
           options={options}
           chartData={{
-            label: "Total Balance",
-            data: [],
+            title: "Total Balance",
+            data: Object.values(dashboardData.cumulativeMonthlyEarningMine),
+            lable: Object.keys(dashboardData.cumulativeMonthlyEarningMine),
           }}
         />
       </Grid>
@@ -44,8 +48,9 @@ const ShowChartGeneral = ({ dashboardData }) => {
         <LineChart
           options={options}
           chartData={{
-            label: "Av. Spendings Deviation",
-            data: [],
+            title: "Av. Spendings Deviation",
+            data: Object.values(dashboardData.spendingsMonthlyMine),
+            lable: Object.keys(dashboardData.spendingsMonthlyMine),
           }}
         />
       </Grid>
@@ -53,11 +58,12 @@ const ShowChartGeneral = ({ dashboardData }) => {
   );
 };
 
-export const ShowChartSpecs = ({ data }) => {
+export const ShowChartSpecs = ({ data, currentDate }) => {
+  if (!currentDate || !data.purchaseTypeByMonthMine) return;
   return (
     <Grid container spacing={1}>
       <Grid item xs={6}>
-        <BarChart options={options} chartData={{ label: "Spendings by Type", data: data.current }} />
+        <BarChart options={options} chartData={{ label: "Purchase by Type", data: data.purchaseTypeByMonthMine[currentDate] }} />
       </Grid>
       <Grid item xs={6}>
         <BarChart
@@ -65,7 +71,7 @@ export const ShowChartSpecs = ({ data }) => {
           options={options}
           chartData={{
             label: "Average of Spendings by Type",
-            data: data.average,
+            data: data.purchaseTypeByAvgMine,
           }}
         />
       </Grid>
@@ -77,10 +83,10 @@ const ShowStatsHeader = ({ data, currentDate, setCurrentDate }) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={3} sm={3} md={3}>
-        <CardText key={"msaving"} text="Month Balance" value={0} />
+        <CardText key={"msaving"} text="Month Balance" value={data.month_savings || 0} />
       </Grid>
       <Grid item xs={3} sm={3} md={3}>
-        <CardText key={"mspend"} text="Month Spendings" value={0} />
+        <CardText key={"mspend"} text="Month Spendings" value={data.month_spendings || 0} />
       </Grid>
       <Grid item xs={3} sm={3} md={3}></Grid>
       <Grid item xs={3} sm={3} md={3}>

@@ -1,47 +1,17 @@
 import React from "react";
-import {
-  Chart as ChartJS,
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip,
-} from "chart.js";
+import { Chart as ChartJS, LinearScale, CategoryScale, BarElement, PointElement, LineElement, Legend, Tooltip } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
 import "./LineChart.css";
 
-ChartJS.register(
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip
-);
+ChartJS.register(LinearScale, CategoryScale, BarElement, PointElement, LineElement, Legend, Tooltip);
 
-var Months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+/* var Months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function getMonths(names) {
   if (names === null || names === undefined || names === []) return [];
   return Months.slice(names[0] - 1, names[names.length - 1]);
-}
+} */
 
 function LineChart(props) {
   const options = {
@@ -53,22 +23,25 @@ function LineChart(props) {
       y: {
         beginAtZero: true,
       },
+      x: {
+        ticks: {
+          font: {
+            size: 10, //this change the font size
+          },
+        },
+      },
     },
   };
 
-  const labels = getMonths(props.chartData.data.months) || [
-    "January",
-    "February",
-    "March",
-  ];
+  const labels = props.chartData.lable;
 
   const data = {
     labels,
     datasets: [
       {
         type: "line",
-        label: props.chartData.label,
-        data: props.chartData.data.values,
+        label: props.chartData.title,
+        data: props.chartData.data,
         borderColor: "rgb(40, 67, 135, 0.5)",
         backgroundColor: "rgba(40, 67, 135, 0.7)",
       },
