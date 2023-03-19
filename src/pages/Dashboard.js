@@ -9,33 +9,154 @@ import STATUS from "../utility/status";
 
 import { loadData } from "../api/dashboard.api";
 
-const getFilters = (dashboardData, setchartData, mode, setMode) => {
+const getFilters = (mode, setMode) => {
   return [
     {
-      text: "Total",
+      text: "Relative",
       mode: mode,
-      currentMode: STATUS.MODE.TOTAL,
+      currentMode: STATUS.MODE.RELATIVE,
       onClick: () => {
-        setMode(STATUS.MODE.TOTAL);
-        setchartData({
-          current: dashboardData.total.current,
-          average: dashboardData.total.average,
-        });
+        setMode(STATUS.MODE.RELATIVE);
       },
     },
     {
-      text: "Mine",
+      text: "Real",
       mode: mode,
-      currentMode: STATUS.MODE.MINE,
+      currentMode: STATUS.MODE.REAL,
       onClick: () => {
-        setMode(STATUS.MODE.MINE);
-        setchartData({
-          current: dashboardData.purchases_by_type,
-          average: dashboardData.av_purchases_by_type,
-        });
+        setMode(STATUS.MODE.REAL);
+      },
+    },
+    {
+      text: "Couple",
+      mode: mode,
+      currentMode: STATUS.MODE.COUPLE,
+      onClick: () => {
+        setMode(STATUS.MODE.COUPLE);
       },
     },
   ];
+};
+
+const getYear = (date) => {
+  return date.substring(0, 4);
+};
+
+const getMonth = (date) => {
+  return date.substring(4);
+};
+
+const chekcMissingMonths = (data) => {
+  let dates = Object.keys(data);
+
+  let lastMonth;
+  let lastYear;
+
+  dates.forEach((date) => {
+    let year = getYear(date);
+    let month = getMonth(date);
+    let checkMonth = month - lastMonth;
+    let checkYear = year - lastYear;
+
+    if (checkMonth > 1 || checkYear > 0) {
+      while (checkMonth > 1 && checkYear < 1) {
+        if (--month === 0) {
+          month = 12;
+          year--;
+          checkYear--;
+          checkMonth = month - lastMonth;
+        }
+        if (month < 10) month = "0" + month;
+        data[year + month] = data[lastYear + lastMonth];
+
+        checkMonth--;
+      }
+    }
+
+    lastYear = getYear(date);
+    lastMonth = getMonth(date);
+  });
+
+  return data;
+};
+
+const calcCumulative = (data) => {
+  let newData = {};
+  let labels = Object.keys(data);
+  let array = Object.values(data);
+
+  array.reduce(function (a, b, i) {
+    return (newData[labels[i]] = Number(a) + Number(b));
+  }, 0);
+
+  newData = chekcMissingMonths(newData);
+
+  return newData;
+};
+
+const calcTotalBalance = (balance, spendings) => {
+  let totalBalance = {};
+  spendings = calcCumulative(spendings);
+  let balanceDates = Object.keys(balance);
+  let spendingDates = Object.keys(spendings);
+
+  while (balanceDates.length) {
+    let date = balanceDates.pop();
+    totalBalance[date] = Number(balance[date]);
+  }
+
+  while (spendingDates.length) {
+    let date = spendingDates.pop();
+    if (!totalBalance[date]) totalBalance[date] = 0 - Number(spendings[date]);
+    else totalBalance[date] = totalBalance[date] - Number(spendings[date]);
+  }
+
+  return totalBalance;
+};
+
+const calcPurchaseTypeHistory = (purchase, type) => {
+  let data = {};
+  Object.keys(purchase).forEach((date) => {
+    data[date] = purchase[date][type];
+  });
+
+  return data;
+};
+
+const getDataByMode = (dashboardData, currentDate, mode) => {
+  let cumulativeEarnings = calcCumulative(dashboardData.monthlyEarning);
+  let data = { cumulativeBalance: cumulativeEarnings };
+  switch (mode) {
+    case STATUS.MODE.RELATIVE:
+      data["monthlySpendings"] = dashboardData.spendingsMonthlyRelative;
+      data["monthlyTotalBalance"] = dashboardData.monthlyEarning;
+      data["purchaseByType"] = dashboardData.purchaseTypeByMonthRelative[currentDate];
+      data["purchaseByTypeAll"] = dashboardData.purchaseTypeByMonthRelative;
+      data["purchaseTypeByAvg"] = dashboardData.purchaseTypeByAvgRelative;
+      break;
+    case STATUS.MODE.REAL:
+      data["monthlySpendings"] = dashboardData.spendingsMonthlyReal;
+      data["monthlyTotalBalance"] = dashboardData.monthlyEarning;
+      data["purchaseByType"] = dashboardData.purchaseTypeByMonthReal[currentDate];
+      data["purchaseByTypeAll"] = dashboardData.purchaseTypeByMonthReal;
+      data["purchaseTypeByAvg"] = dashboardData.purchaseTypeByAvgReal;
+
+      break;
+    case STATUS.MODE.COUPLE:
+      data["monthlySpendings"] = dashboardData.spendingsMonthlyCouple;
+      data["monthlyTotalBalance"] = dashboardData.monthlyEarning;
+      data["purchaseByType"] = dashboardData.purchaseTypeByMonthCouple[currentDate];
+      data["purchaseByTypeAll"] = dashboardData.purchaseTypeByMonthCouple;
+      data["purchaseTypeByAvg"] = dashboardData.purchaseTypeByAvgCouple;
+      break;
+    default:
+      break;
+  }
+  data["totalBalance"] = calcTotalBalance(data["cumulativeBalance"], data["monthlySpendings"]);
+  data["purchaseTypeHistory"] = calcPurchaseTypeHistory(data["purchaseByTypeAll"], "Supermarket");
+
+  console.log(data);
+  return data;
 };
 
 export default function Dashboard() {
@@ -57,7 +178,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     loadData(currentDate).then((data) => {
-      setdashboardData(data);
+      setdashboardData(getDataByMode(data, currentDate, mode));
     });
   }, [currentDate, mode]);
 
@@ -70,8 +191,8 @@ export default function Dashboard() {
             <Grid item xs={12} sm={12} md={12}>
               <StatsHeader
                 data={{
-                  month_savings: dashboardData.cumulativeMonthlyEarningMine[currentDate],
-                  month_spendings: dashboardData.spendingsMonthlyMine[currentDate],
+                  month_savings: dashboardData.monthlyTotalBalance[currentDate],
+                  month_spendings: dashboardData.monthlySpendings[currentDate],
                 }}
                 currentDate={currentDate}
                 setCurrentDate={setCurrentDate}
@@ -85,11 +206,11 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12} sm={12} md={12}>
               <Grid container spacing={1}>
-                <SelectionButtons filters={getFilters(dashboardData, setdashboardData, mode, setMode)} />
+                <SelectionButtons filters={getFilters(mode, setMode)} />
               </Grid>
             </Grid>
             <Grid item xs={12} sm={12} md={12}>
-              <ChartSpecs data={dashboardData} currentDate={currentDate} />
+              <ChartSpecs dashboardData={dashboardData} currentDate={currentDate} mode={mode} />
             </Grid>
           </Grid>
         </div>

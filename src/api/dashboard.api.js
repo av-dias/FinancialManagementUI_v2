@@ -15,7 +15,7 @@ export async function loadData(currentDate) {
     });
     const stats = await resStats.json();
 
-    console.log(stats);
+    //console.log(stats);
 
     let data = stats;
     return data;

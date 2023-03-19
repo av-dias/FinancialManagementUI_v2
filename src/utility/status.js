@@ -19,8 +19,9 @@ module.exports = {
   },
   NAME_MAX_LENGTH: 13,
   MODE: {
-    TOTAL: 0,
-    MINE: 1,
+    RELATIVE: 0,
+    REAL: 1,
+    COUPLE: 2,
   },
   FILTER_ITEMS: {
     LARGE: 6,
