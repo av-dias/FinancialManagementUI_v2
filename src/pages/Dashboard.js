@@ -130,14 +130,14 @@ const getDataByMode = (dashboardData, currentDate, mode) => {
     case STATUS.MODE.RELATIVE:
       data["monthlySpendings"] = dashboardData.spendingsMonthlyRelative;
       data["monthlyTotalBalance"] = dashboardData.monthlyEarning;
-      data["purchaseByType"] = dashboardData.purchaseTypeByMonthRelative[currentDate];
+      data["purchaseByType"] = dashboardData.purchaseTypeByMonthRelative[currentDate] || {};
       data["purchaseByTypeAll"] = dashboardData.purchaseTypeByMonthRelative;
       data["purchaseTypeByAvg"] = dashboardData.purchaseTypeByAvgRelative;
       break;
     case STATUS.MODE.REAL:
       data["monthlySpendings"] = dashboardData.spendingsMonthlyReal;
       data["monthlyTotalBalance"] = dashboardData.monthlyEarning;
-      data["purchaseByType"] = dashboardData.purchaseTypeByMonthReal[currentDate];
+      data["purchaseByType"] = dashboardData.purchaseTypeByMonthReal[currentDate] || {};
       data["purchaseByTypeAll"] = dashboardData.purchaseTypeByMonthReal;
       data["purchaseTypeByAvg"] = dashboardData.purchaseTypeByAvgReal;
 
@@ -145,7 +145,7 @@ const getDataByMode = (dashboardData, currentDate, mode) => {
     case STATUS.MODE.COUPLE:
       data["monthlySpendings"] = dashboardData.spendingsMonthlyCouple;
       data["monthlyTotalBalance"] = dashboardData.monthlyEarning;
-      data["purchaseByType"] = dashboardData.purchaseTypeByMonthCouple[currentDate];
+      data["purchaseByType"] = dashboardData.purchaseTypeByMonthCouple[currentDate] || {};
       data["purchaseByTypeAll"] = dashboardData.purchaseTypeByMonthCouple;
       data["purchaseTypeByAvg"] = dashboardData.purchaseTypeByAvgCouple;
       break;
@@ -191,8 +191,8 @@ export default function Dashboard() {
             <Grid item xs={12} sm={12} md={12}>
               <StatsHeader
                 data={{
-                  month_savings: dashboardData.monthlyTotalBalance[currentDate],
-                  month_spendings: dashboardData.monthlySpendings[currentDate],
+                  month_savings: dashboardData.monthlyTotalBalance[currentDate] || 0,
+                  month_spendings: dashboardData.monthlySpendings[currentDate] || 0,
                 }}
                 currentDate={currentDate}
                 setCurrentDate={setCurrentDate}

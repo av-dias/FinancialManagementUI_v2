@@ -33,15 +33,15 @@ function LineChart(props) {
     },
   };
 
-  const labels = props.chartData.lable;
+  const labels = props.chartData.lable || ["January", "February", "March"];
 
   const data = {
     labels,
     datasets: [
       {
         type: "line",
-        label: props.chartData.title,
-        data: props.chartData.data,
+        label: props.chartData.title || "Loading...",
+        data: props.chartData.data || [0, 0, 0],
         borderColor: "rgb(40, 67, 135, 0.5)",
         backgroundColor: "rgba(40, 67, 135, 0.7)",
       },

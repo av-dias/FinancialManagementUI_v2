@@ -1,27 +1,10 @@
 import React from "react";
-import {
-  Chart as ChartJS,
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip,
-} from "chart.js";
+import { Chart as ChartJS, LinearScale, CategoryScale, BarElement, PointElement, LineElement, Legend, Tooltip } from "chart.js";
 import { Chart } from "react-chartjs-2";
 
 import "./BarChart.css";
 
-ChartJS.register(
-  LinearScale,
-  CategoryScale,
-  BarElement,
-  PointElement,
-  LineElement,
-  Legend,
-  Tooltip
-);
+ChartJS.register(LinearScale, CategoryScale, BarElement, PointElement, LineElement, Legend, Tooltip);
 
 function BarChart(props) {
   const options = {
@@ -35,7 +18,7 @@ function BarChart(props) {
     },
   };
 
-  const labels = props.labels || [];
+  const labels = props.labels;
   if (props.chartData.data && Object.keys(props.chartData.data).length === 0) {
     props.chartData.data = { Restaurant: 0, Supermarket: 0, Clothes: 0 };
   }
