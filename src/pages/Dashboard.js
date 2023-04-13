@@ -6,7 +6,7 @@ import SelectionButtons from "../components/FilterButtons";
 
 import { ChartGeneral, StatsHeader, ChartSpecs } from "../combos/dashboard.combos";
 import STATUS from "../utility/status";
-import { getYear, getMonth } from "../functions/date";
+import { checkMissingMonths, decreaseMonth } from "../functions/date";
 
 import { loadData } from "../api/dashboard.api";
 
@@ -39,40 +39,6 @@ const getFilters = (mode, setMode) => {
   ];
 };
 
-const chekcMissingMonths = (data) => {
-  let dates = Object.keys(data);
-
-  let lastMonth;
-  let lastYear;
-
-  dates.forEach((date) => {
-    let year = getYear(date);
-    let month = getMonth(date);
-    let checkMonth = month - lastMonth;
-    let checkYear = year - lastYear;
-
-    if (checkMonth > 1 || checkYear > 0) {
-      while (checkMonth > 1 && checkYear < 1) {
-        if (--month === 0) {
-          month = 12;
-          year--;
-          checkYear--;
-          checkMonth = month - lastMonth;
-        }
-        if (month < 10) month = "0" + month;
-        data[year + month] = data[lastYear + lastMonth];
-
-        checkMonth--;
-      }
-    }
-
-    lastYear = getYear(date);
-    lastMonth = getMonth(date);
-  });
-
-  return data;
-};
-
 const calcCumulative = (data) => {
   let newData = {};
   let labels = Object.keys(data);
@@ -82,7 +48,7 @@ const calcCumulative = (data) => {
     return (newData[labels[i]] = Number(a) + Number(b));
   }, 0);
 
-  newData = chekcMissingMonths(newData);
+  newData = checkMissingMonths(newData);
 
   return newData;
 };
@@ -99,10 +65,23 @@ const calcTotalBalance = (balance, spendings) => {
   }
 
   while (spendingDates.length) {
+    let dateList = Object.keys(totalBalance);
+    let noPreviousValue = true;
     let date = spendingDates.pop();
-    console.log(date);
-    if (!totalBalance[date]) totalBalance[date] = 0 - Number(spendings[date]);
-    else totalBalance[date] = totalBalance[date] - Number(spendings[date]);
+    if (!totalBalance[date]) {
+      let prevDate = decreaseMonth(date);
+      console.log(prevDate);
+      while (Number(dateList[0]) < Number(prevDate)) {
+        if (dateList.includes(prevDate)) {
+          totalBalance[date] = totalBalance[prevDate] - Number(spendings[date]);
+          noPreviousValue = false;
+          break;
+        } else {
+          prevDate = decreaseMonth(date);
+        }
+      }
+      if (noPreviousValue) totalBalance[date] = 0 - Number(spendings[date]);
+    } else totalBalance[date] = totalBalance[date] - Number(spendings[date]);
   }
 
   return totalBalance;

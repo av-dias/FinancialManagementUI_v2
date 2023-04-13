@@ -40,3 +40,37 @@ export const getYear = (date) => {
 export const getMonth = (date) => {
   return date.substring(4);
 };
+
+export const checkMissingMonths = (data) => {
+  let dates = Object.keys(data);
+
+  let lastMonth;
+  let lastYear;
+
+  dates.forEach((date) => {
+    let year = getYear(date);
+    let month = getMonth(date);
+    let checkMonth = month - lastMonth;
+    let checkYear = year - lastYear;
+
+    if (checkMonth > 1 || checkYear > 0) {
+      while (checkMonth > 1 && checkYear < 1) {
+        if (--month === 0) {
+          month = 12;
+          year--;
+          checkYear--;
+          checkMonth = month - lastMonth;
+        }
+        if (month < 10) month = "0" + month;
+        data[year + month] = data[lastYear + lastMonth];
+
+        checkMonth--;
+      }
+    }
+
+    lastYear = getYear(date);
+    lastMonth = getMonth(date);
+  });
+
+  return data;
+};
