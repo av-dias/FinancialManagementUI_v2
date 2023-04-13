@@ -15,6 +15,12 @@ function BarChart(props) {
       y: {
         beginAtZero: true,
       },
+      x: {
+        ticks: {
+          maxRotation: 90,
+          minRotation: 90,
+        },
+      },
     },
   };
 
