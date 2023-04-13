@@ -6,6 +6,7 @@ import SelectionButtons from "../components/FilterButtons";
 
 import { ChartGeneral, StatsHeader, ChartSpecs } from "../combos/dashboard.combos";
 import STATUS from "../utility/status";
+import { getYear, getMonth } from "../functions/date";
 
 import { loadData } from "../api/dashboard.api";
 
@@ -36,14 +37,6 @@ const getFilters = (mode, setMode) => {
       },
     },
   ];
-};
-
-const getYear = (date) => {
-  return date.substring(0, 4);
-};
-
-const getMonth = (date) => {
-  return date.substring(4);
 };
 
 const chekcMissingMonths = (data) => {
@@ -107,6 +100,7 @@ const calcTotalBalance = (balance, spendings) => {
 
   while (spendingDates.length) {
     let date = spendingDates.pop();
+    console.log(date);
     if (!totalBalance[date]) totalBalance[date] = 0 - Number(spendings[date]);
     else totalBalance[date] = totalBalance[date] - Number(spendings[date]);
   }
@@ -165,7 +159,9 @@ export default function Dashboard() {
     total_savings: 0,
     month_spendings: 0,
     month_savings: 0,
+    monthlyTotalBalance: 0,
     spendingsMonthlyMine: 0,
+    monthlySpendings: 0,
     purchases_by_month: {},
     savings_by_month: {},
   });
