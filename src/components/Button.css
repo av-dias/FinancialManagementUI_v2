@@ -3,3 +3,29 @@
   margin: 0;
   padding: 0;
 }
+
+[btn-title] {
+  position: relative;
+}
+
+[btn-title]:after {
+  content: attr(btn-title);
+  background-color: #f4da7ddd;
+  color: #111;
+  font-size: 100%;
+  position: absolute;
+  padding: 5px 10px 5px 10px;
+  top: 120%;
+  left: 80%;
+  white-space: nowrap;
+  opacity: 0;
+  border: 1px #11111100;
+  z-index: 99999;
+  visibility: hidden;
+}
+
+[btn-title]:hover:after {
+  opacity: 1;
+  transition: all 0.1s ease 0.5s;
+  visibility: visible;
+}

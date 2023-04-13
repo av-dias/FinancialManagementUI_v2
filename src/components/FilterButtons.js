@@ -7,21 +7,12 @@ const SelectionButtons = ({ filters }) => {
   return (
     <>
       {filters.map((filter) => {
-        if (
-          filter.mode !== undefined &&
-          filter.currentMode !== undefined &&
-          filter.mode === filter.currentMode
-        )
-          filter.type = "contained";
+        if (filter.mode !== undefined && filter.currentMode !== undefined && filter.mode === filter.currentMode) filter.type = "contained";
         else filter.type = "outlined";
 
         return (
           <Grid key={Math.random()} item xs={1} sm={1} md={1}>
-            <ButtonOutline
-              type={filter.type}
-              onClick={filter.onClick}
-              key={Math.random()}
-            >
+            <ButtonOutline type={filter.type} onClick={filter.onClick} key={Math.random()} title={filter.title}>
               {filter.text}
             </ButtonOutline>
           </Grid>

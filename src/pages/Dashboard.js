@@ -19,6 +19,7 @@ const getFilters = (mode, setMode) => {
       onClick: () => {
         setMode(STATUS.MODE.RELATIVE);
       },
+      title: "Only your pocket.",
     },
     {
       text: "Real",
@@ -27,6 +28,7 @@ const getFilters = (mode, setMode) => {
       onClick: () => {
         setMode(STATUS.MODE.REAL);
       },
+      title: "Considers the couple's split.",
     },
     {
       text: "Couple",
@@ -35,6 +37,7 @@ const getFilters = (mode, setMode) => {
       onClick: () => {
         setMode(STATUS.MODE.COUPLE);
       },
+      title: "Prespective as a couple.",
     },
   ];
 };

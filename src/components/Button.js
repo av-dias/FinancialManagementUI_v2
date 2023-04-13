@@ -15,6 +15,7 @@ export default function ButtonOutline(props) {
       onClick={props.onClick}
       fullWidth
       color={props.color || "primary"}
+      btn-title={props.title}
     >
       {props.children}
     </Button>
