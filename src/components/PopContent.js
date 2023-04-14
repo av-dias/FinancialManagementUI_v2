@@ -4,21 +4,10 @@ import Slider from "react-input-slider";
 import Card from "../components/Card";
 import ButtonOutline from "../components/Button";
 
-import {
-  rowsData,
-  purchaseHandle,
-  incomeHandle,
-  splitHandle,
-  transactionHandle,
-  editHandle,
-  editSplitHandle,
-} from "../api/moviment.api";
+import { rowsData, purchaseHandle, incomeHandle, splitHandle, transactionHandle, editHandle, editSplitHandle } from "../api/moviment.api";
 
 import { sortArray } from "../functions/arrays";
-import {
-  setElementValueById,
-  getElementValueById,
-} from "../functions/elements";
+import { setElementValueById, getElementValueById } from "../functions/elements";
 import { todayDate } from "../functions/string";
 import { PURCHASE } from "../utility/status";
 
@@ -29,17 +18,7 @@ const handleUpdate = (setRows) => {
   });
 };
 
-const PopContent = ({
-  isPopup,
-  setIsOpen,
-  date,
-  setRows,
-  setDate,
-  slider,
-  setSlider,
-  lastItem,
-  purchaseType,
-}) => {
+const PopContent = ({ isPopup, setIsOpen, date, setRows, setDate, slider, setSlider, lastItem, purchaseType }) => {
   switch (isPopup) {
     case "Purchase":
       return (
@@ -53,11 +32,7 @@ const PopContent = ({
             <Card color="card-yellow" key={"title_purchase"}>
               {"Purchase"}
             </Card>
-            <select
-              key={Math.random()}
-              id={"purchase_type"}
-              name="purchase_type"
-            >
+            <select key={Math.random()} id={"purchase_type"} name="purchase_type">
               <option key={Math.random()} value={""}>
                 {"View Existing Types"}
               </option>
@@ -78,27 +53,11 @@ const PopContent = ({
               })}
             </select>
             <label htmlFor="tname">Product Type</label>
-            <input
-              type="text"
-              id="product_service_subtype"
-              name="tname"
-              placeholder="Home"
-            ></input>
+            <input type="text" id="product_service_subtype" name="tname" placeholder="Home"></input>
             <label htmlFor="pname">Product Name</label>
-            <input
-              type="text"
-              id="product_service_name"
-              name="pname"
-              placeholder="Ikea"
-            ></input>
+            <input type="text" id="product_service_name" name="pname" placeholder="Ikea"></input>
             <label htmlFor="pprice">Product Price</label>
-            <input
-              type="number"
-              id="product_service_price"
-              name="pprice"
-              placeholder="0"
-              step=".01"
-            ></input>
+            <input type="number" id="product_service_price" name="pprice" placeholder="0" step=".01"></input>
             <label htmlFor="pprice">Purchase Date</label>
             <input
               className="center"
@@ -128,11 +87,7 @@ const PopContent = ({
             <Card color="card-yellow" key={"title_income"}>
               {"Income"}
             </Card>
-            <select
-              key={Math.random()}
-              id={"purchase_type"}
-              name="purchase_type"
-            >
+            <select key={Math.random()} id={"purchase_type"} name="purchase_type">
               <option key={Math.random()} value={""}>
                 {"View Existing Types"}
               </option>
@@ -153,27 +108,11 @@ const PopContent = ({
               })}
             </select>
             <label htmlFor="pname">Income Type</label>
-            <input
-              type="text"
-              id="income_type"
-              name="iname"
-              placeholder="Salary"
-            ></input>
+            <input type="text" id="income_type" name="iname" placeholder="Salary"></input>
             <label htmlFor="tname">Income Origin</label>
-            <input
-              type="text"
-              id="income_subType"
-              name="iname"
-              placeholder="Primark"
-            ></input>
+            <input type="text" id="income_subType" name="iname" placeholder="Primark"></input>
             <label htmlFor="pprice">Income Value</label>
-            <input
-              type="number"
-              id="income_value"
-              name="ivalue"
-              placeholder="0"
-              step=".01"
-            ></input>
+            <input type="number" id="income_value" name="ivalue" placeholder="0" step=".01"></input>
             <label htmlFor="pprice">Income Date</label>
             <input
               type="date"
@@ -204,26 +143,11 @@ const PopContent = ({
               {"Edit"}
             </Card>
             <label htmlFor="pname">Type</label>
-            <input
-              type="text"
-              id="edit_type"
-              name="ename"
-              defaultValue={lastItem.type}
-            ></input>
+            <input type="text" id="edit_type" name="ename" defaultValue={lastItem.type}></input>
             <label htmlFor="tname">Name</label>
-            <input
-              type="text"
-              id="edit_name"
-              name="ename"
-              defaultValue={lastItem.name}
-            ></input>
+            <input type="text" id="edit_name" name="ename" defaultValue={lastItem.name}></input>
             <label htmlFor="pprice">Value</label>
-            <input
-              type="number"
-              id="edit_value"
-              name="evalue"
-              defaultValue={lastItem.value}
-            ></input>
+            <input type="number" id="edit_value" name="evalue" defaultValue={lastItem.value} step=".01"></input>
             <label htmlFor="pprice">Date</label>
             <input
               type="date"
@@ -255,9 +179,7 @@ const PopContent = ({
             </Card>
             {window.sessionStorage.getItem("user_id") === "1" ? (
               <select id={"email" + lastItem.id} name="split_userEmail">
-                <option value="anacatarinarebelo98@gmail.com">
-                  Ana Catarina
-                </option>
+                <option value="anacatarinarebelo98@gmail.com">Ana Catarina</option>
               </select>
             ) : (
               <select id={"email" + lastItem.id} name="split_userEmail">
@@ -281,13 +203,8 @@ const PopContent = ({
                   setSlider(newValue.x);
                 }}
               />
-              <h3>
-                iShare:{" "}
-                {Math.abs(lastItem.value * (slider / 100 - 1)).toFixed(2)}€
-              </h3>
-              <h3>
-                yShare: {Math.abs((lastItem.value * slider) / 100).toFixed(2)}€
-              </h3>
+              <h3>iShare: {Math.abs(lastItem.value * (slider / 100 - 1)).toFixed(2)}€</h3>
+              <h3>yShare: {Math.abs((lastItem.value * slider) / 100).toFixed(2)}€</h3>
             </div>
             <button type="submit" name="save" value="save">
               Add Split
@@ -309,9 +226,7 @@ const PopContent = ({
             </Card>
             {window.sessionStorage.getItem("user_id") === "1" ? (
               <select id={"email" + lastItem.id} name="split_userEmail">
-                <option value="anacatarinarebelo98@gmail.com">
-                  Ana Catarina
-                </option>
+                <option value="anacatarinarebelo98@gmail.com">Ana Catarina</option>
               </select>
             ) : (
               <select id={"email" + lastItem.id} name="split_userEmail">
@@ -335,13 +250,8 @@ const PopContent = ({
                   setSlider(newValue.x);
                 }}
               />
-              <h3>
-                iShare:{" "}
-                {Math.abs(lastItem.value * (slider / 100 - 1)).toFixed(2)}€
-              </h3>
-              <h3>
-                yShare: {Math.abs((lastItem.value * slider) / 100).toFixed(2)}€
-              </h3>
+              <h3>iShare: {Math.abs(lastItem.value * (slider / 100 - 1)).toFixed(2)}€</h3>
+              <h3>yShare: {Math.abs((lastItem.value * slider) / 100).toFixed(2)}€</h3>
             </div>
             <button type="submit" name="save" value="save">
               Add Split
@@ -363,9 +273,7 @@ const PopContent = ({
             </Card>
             {window.sessionStorage.getItem("user_id") === "1" ? (
               <select id={"email_transfer"} name="transfer_userEmail">
-                <option value="anacatarinarebelo98@gmail.com">
-                  Ana Catarina
-                </option>
+                <option value="anacatarinarebelo98@gmail.com">Ana Catarina</option>
               </select>
             ) : (
               <select id={"email_transfer"} name="transfer_userEmail">
@@ -373,20 +281,9 @@ const PopContent = ({
               </select>
             )}
             <label htmlFor="t_amount">Transfer amount</label>
-            <input
-              type="number"
-              id="transaction_amount"
-              name="transaction_amount"
-              placeholder="0"
-              step=".01"
-            ></input>
+            <input type="number" id="transaction_amount" name="transaction_amount" placeholder="0" step=".01"></input>
             <label htmlFor="tmessage">Description</label>
-            <input
-              type="text"
-              id="transaction_description"
-              name="transaction_description"
-              placeholder="Direct Adjustment"
-            ></input>
+            <input type="text" id="transaction_description" name="transaction_description" placeholder="Direct Adjustment"></input>
             <label htmlFor="pprice">Transfer Date</label>
             <input
               type="date"
