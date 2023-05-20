@@ -29,7 +29,6 @@ export function decreaseMonth(currentDate) {
     year = --year;
   }
   if (month < 10) month = "0" + month;
-
   return year + "" + month;
 }
 

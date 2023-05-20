@@ -73,14 +73,14 @@ const calcTotalBalance = (balance, spendings) => {
     let date = spendingDates.pop();
     if (!totalBalance[date]) {
       let prevDate = decreaseMonth(date);
-      console.log(prevDate);
+      console.log(Number(prevDate));
       while (Number(dateList[0]) < Number(prevDate)) {
         if (dateList.includes(prevDate)) {
           totalBalance[date] = totalBalance[prevDate] - Number(spendings[date]);
           noPreviousValue = false;
           break;
         } else {
-          prevDate = decreaseMonth(date);
+          prevDate = decreaseMonth(prevDate);
         }
       }
       if (noPreviousValue) totalBalance[date] = 0 - Number(spendings[date]);
