@@ -5,47 +5,35 @@ export async function rowsData() {
   try {
     let user_id = window.sessionStorage.getItem("user_id");
 
-    let response_purchase = await fetch(
-      `http://localhost:8080/api/v1/purchase/user/${user_id}`,
-      {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
-        },
-      }
-    );
+    let response_purchase = await fetch(`http://${ADDRESS.BACKEND}/api/v1/purchase/user/${user_id}`, {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+    });
 
-    let response_income = await fetch(
-      `http://localhost:8080/api/v1/income/user/${user_id}`,
-      {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
-        },
-      }
-    );
+    let response_income = await fetch(`http://${ADDRESS.BACKEND}/api/v1/income/user/${user_id}`, {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+    });
 
-    let response_split = await fetch(
-      `http://localhost:8080/api/v1/split/user/${user_id}`,
-      {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
-        },
-      }
-    );
+    let response_split = await fetch(`http://${ADDRESS.BACKEND}/api/v1/split/user/${user_id}`, {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+    });
 
     const data_purchase = await response_purchase.json();
     const data_income = await response_income.json();
@@ -59,10 +47,7 @@ export async function rowsData() {
         element.split = { weight: 0 };
       } else {
         element.status = STATUS.PURCHASE.WITH_SPLIT;
-        element.iShare = (
-          ((100 - element.split.weight) / 100) *
-          element.value
-        ).toFixed(2);
+        element.iShare = (((100 - element.split.weight) / 100) * element.value).toFixed(2);
         element.weight = element.split.weight;
       }
     }
@@ -72,9 +57,7 @@ export async function rowsData() {
     }
     for (const element of data_split) {
       element.status = STATUS.PURCHASE.FROM_SPLIT;
-      element.iShare = ((element.split.weight / 100) * element.value).toFixed(
-        2
-      );
+      element.iShare = ((element.split.weight / 100) * element.value).toFixed(2);
       element.weight = 100 - element.split.weight;
     }
 
@@ -104,8 +87,7 @@ export const editHandle = async (e, editDate, lastItem, setIsOpen) => {
         "Access-Control-Allow-Origin": "*",
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
       },
       body: JSON.stringify(Edit),
     });
@@ -120,8 +102,7 @@ export const editHandle = async (e, editDate, lastItem, setIsOpen) => {
           "Access-Control-Allow-Origin": "*",
           Accept: "application/json",
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
+          Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
         },
         body: JSON.stringify(Edit),
       });
@@ -170,8 +151,7 @@ export const incomeHandle = async (e, incomeDate) => {
         "Access-Control-Allow-Origin": "*",
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
       },
       body: JSON.stringify(Income),
     });
@@ -204,8 +184,7 @@ export const editSplitHandle = async (event, lastItem, slider, setIsOpen) => {
         "Access-Control-Allow-Origin": "*",
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
       },
       body: JSON.stringify(split),
     });
@@ -228,20 +207,16 @@ export const splitHandle = async (event, lastItem, slider, setIsOpen) => {
   };
 
   try {
-    await fetch(
-      `http://${ADDRESS.BACKEND}/api/v1/split/user/${user_id}/purchase/${purchase_id}`,
-      {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
-        },
-        body: JSON.stringify(split),
-      }
-    );
+    await fetch(`http://${ADDRESS.BACKEND}/api/v1/split/user/${user_id}/purchase/${purchase_id}`, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+      body: JSON.stringify(split),
+    });
     setIsOpen(false);
   } catch (e) {
     console.log(e);
@@ -282,8 +257,7 @@ export const purchaseHandle = async (e, purchaseDate, setDate) => {
         "Access-Control-Allow-Origin": "*",
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer " + window.sessionStorage.getItem("access_token"),
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
       },
       body: JSON.stringify(Purchase),
     });
@@ -329,20 +303,16 @@ export const transactionHandle = async (e, transactionDate, setDate) => {
   };
 
   try {
-    await fetch(
-      `http://${ADDRESS.BACKEND}/api/v1/transactions/user/${user_id}?destination_email=${_destination}`,
-      {
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + window.sessionStorage.getItem("access_token"),
-        },
-        body: JSON.stringify(Transaction),
-      }
-    );
+    await fetch(`http://${ADDRESS.BACKEND}/api/v1/transactions/user/${user_id}?destination_email=${_destination}`, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+      body: JSON.stringify(Transaction),
+    });
     document.getElementById("email_transfer").value = "";
     document.getElementById("transaction_amount").value = "";
     document.getElementById("transaction_description").value = "";
