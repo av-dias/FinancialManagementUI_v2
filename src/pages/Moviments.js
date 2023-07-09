@@ -9,16 +9,9 @@ import SelectionButtons from "../components/FilterButtons";
 import { showMainTables } from "../combos/moviments.combos";
 
 import { sortArray } from "../functions/arrays";
-import { rowsData } from "../api/moviment.api";
+import { rowsData, getTransactionData } from "../api/moviment.api";
 
-import {
-  usePopUp,
-  useOpen,
-  useItem,
-  useDate,
-  useRows,
-  useSlider,
-} from "../hooks/moviments.hook";
+import { usePopUp, useOpen, useItem, useDate, useRows, useSlider } from "../hooks/moviments.hook";
 
 export default function Moviment() {
   const [isPopup, setIsPopup] = usePopUp(); // Popup type
@@ -26,6 +19,7 @@ export default function Moviment() {
   const [lastItem, setlastItem] = useItem(); // Last clicked row data
   const [date, setDate] = useDate(); // Last date
   const [rows, setRows] = useRows(); // Rows with table data
+  const [rowsTransaction, setRowsTransaction] = useRows(); // Rows with transaction table data
   const [slider, setSlider] = useSlider(); // Slider value
   const [purchaseType, setPurchaseType] = React.useState([]); // List of purchase types
   const [filter, setFilter] = React.useState("overall"); // List of purchase types
@@ -57,6 +51,9 @@ export default function Moviment() {
       setPurchaseType(rowTypesList(data));
       data = sortArray(data);
       setRows(data);
+    });
+    getTransactionData().then((transactionData) => {
+      setRowsTransaction(transactionData);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -101,15 +98,7 @@ export default function Moviment() {
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12} />
           <Grid item xs={12} sm={12} md={12}>
-            {showMainTables(
-              rows,
-              togglePopup,
-              setSlider,
-              setlastItem,
-              purchaseType,
-              filter,
-              setFilter
-            )}
+            {showMainTables(rows, rowsTransaction, togglePopup, setSlider, setlastItem, purchaseType, filter, setFilter)}
           </Grid>
         </Grid>
       </div>

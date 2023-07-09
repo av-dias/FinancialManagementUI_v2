@@ -4,11 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import "react-multi-carousel/lib/styles.css";
-import {
-  IoIosCreate,
-  IoIosGitBranch,
-  IoIosGitPullRequest,
-} from "react-icons/io";
+import { IoIosCreate, IoIosGitBranch, IoIosGitPullRequest } from "react-icons/io";
 
 import Table from "../components/Table";
 import Card from "../components/Card";
@@ -18,17 +14,14 @@ import Button from "../components/Button";
 import "../components/Table.css";
 import STATUS from "../utility/status";
 
-import { columns, defineNaming, getColValue } from "../functions/tables";
+import { columns, defineNaming, getColValue, transactionCol, getColValueTransaction } from "../functions/tables";
 
 const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
   // PURCHASE with NO SPLIT [Edit and Split]
   if (column.id === "options" && row.status === STATUS.PURCHASE.NO_SPLIT) {
     return (
       <Grid container>
-        <ButtonGroup
-          variant="outlined"
-          aria-label="outlined primary button group"
-        >
+        <ButtonGroup variant="outlined" aria-label="outlined primary button group">
           <Button
             type="outlined"
             key={Math.random()}
@@ -63,10 +56,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
   } else if (column.id === "options" && row.status === STATUS.PURCHASE.INCOME) {
     return (
       <Grid container>
-        <ButtonGroup
-          variant="outlined"
-          aria-label="outlined primary button group"
-        >
+        <ButtonGroup variant="outlined" aria-label="outlined primary button group">
           <Button
             type="outlined"
             key={Math.random()}
@@ -84,16 +74,10 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
       </Grid>
     );
     // PURCHASE DIFFERENT THEN NO SPLIT [Edit and Split % and Icon]
-  } else if (
-    column.id === "options" &&
-    row.status !== STATUS.PURCHASE.NO_SPLIT
-  ) {
+  } else if (column.id === "options" && row.status !== STATUS.PURCHASE.NO_SPLIT) {
     return (
       <Grid container>
-        <ButtonGroup
-          variant="outlined"
-          aria-label="outlined primary button group"
-        >
+        <ButtonGroup variant="outlined" aria-label="outlined primary button group">
           <Button
             type="outlined"
             key={Math.random()}
@@ -122,13 +106,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
             <span>{row.weight}</span>
           </Button>
           {row.status === STATUS.PURCHASE.FROM_SPLIT ? (
-            <Button
-              type="contained"
-              key={Math.random()}
-              textSize={15}
-              textColor={"rgb(0, 0, 0)"}
-              color="error"
-            >
+            <Button type="contained" key={Math.random()} textSize={15} textColor={"rgb(0, 0, 0)"} color="error">
               <IoIosGitPullRequest />
             </Button>
           ) : (
@@ -144,15 +122,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
   }
 };
 
-export const showMainTables = (
-  data,
-  togglePopup,
-  setSlider,
-  setlastItem,
-  purchaseType,
-  filter,
-  setFilter
-) => {
+export const showMainTables = (data, dataTransaction, togglePopup, setSlider, setlastItem, purchaseType, filter, setFilter) => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} sm={12} md={12}>
@@ -161,44 +131,21 @@ export const showMainTables = (
             <span className="bold">{"Moviments"}</span>
           </Grid>
           <Grid key={Math.random()} item xs={1} sm={1} md={1} lg={1}>
-            <Button
-              key={"fixed_button"}
-              textSize={10}
-              shadow={1}
-              color={"secondary"}
-            >
+            <Button key={"fixed_button"} textSize={10} shadow={1} color={"secondary"}>
               {filter}
             </Button>
           </Grid>
           <Grid key={Math.random()} item xs={6} sm={6} md={6} lg={6}>
-            <Carousel
-              key={Math.random()}
-              purchaseType={purchaseType}
-              setFilter={setFilter}
-              filter={filter}
-            />
+            <Carousel key={Math.random()} purchaseType={purchaseType} setFilter={setFilter} filter={filter} />
           </Grid>
         </Card>
       </Grid>
       <Grid item xs={7} sm={7} md={7}>
-        <Table
-          size="bg"
-          columns={columns}
-          rows={data}
-          togglePopup={togglePopup}
-          setSlider={setSlider}
-          setlastItem={setlastItem}
-          filter={filter}
-        >
+        <Table size="bg" columns={columns} rows={data} togglePopup={togglePopup} setSlider={setSlider} setlastItem={setlastItem} filter={filter}>
           {data.map((row) => {
             if (row.type === filter || filter === "overall") {
               return (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={"tr" + defineNaming(row) + row.id}
-                >
+                <TableRow hover role="checkbox" tabIndex={-1} key={"tr" + defineNaming(row) + row.id}>
                   {columns.map((column) => {
                     let value = getColValue(row, column);
                     return (
@@ -216,14 +163,7 @@ export const showMainTables = (
                             : STATUS.COLORS.NORMAL
                         }
                       >
-                        {cellData(
-                          column,
-                          row,
-                          setlastItem,
-                          togglePopup,
-                          setSlider,
-                          value
-                        )}
+                        {cellData(column, row, setlastItem, togglePopup, setSlider, value)}
                       </TableCell>
                     );
                   })}
@@ -234,7 +174,23 @@ export const showMainTables = (
         </Table>
       </Grid>
       <Grid item xs={5} sm={5} md={5}>
-        <Card />
+        <Table size="bg" columns={transactionCol} rows={dataTransaction} setlastItem={setlastItem} filter={filter}>
+          {dataTransaction.map((rowTransaction) => {
+            console.log(rowTransaction);
+            return (
+              <TableRow hover role="checkbox" tabIndex={-1} key={"tran" + defineNaming(rowTransaction) + rowTransaction.id}>
+                {transactionCol.map((column) => {
+                  let value = getColValueTransaction(rowTransaction, column);
+                  return (
+                    <TableCell key={"tran" + column.id + defineNaming(rowTransaction) + rowTransaction.id} align={column.align} size="small">
+                      {value}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })}
+        </Table>
       </Grid>
     </Grid>
   );

@@ -5,6 +5,10 @@ module.exports = {
     FROM_SPLIT: 2,
     WITH_SPLIT: 3,
   },
+  TRANSACTION: {
+    RECEIVED: 99,
+    SENT: 98,
+  },
   TABLE: {
     TOTAL: 0,
     SPLIT: 1,

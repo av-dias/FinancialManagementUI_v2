@@ -320,3 +320,37 @@ export const transactionHandle = async (e, transactionDate, setDate) => {
     console.log(err);
   }
 };
+
+export const getTransactionData = async () => {
+  let user_id = window.sessionStorage.getItem("user_id");
+  let response_transaction;
+  let transactionData = [];
+
+  try {
+    response_transaction = await fetch(`http://${ADDRESS.BACKEND}/api/v1/transactions/list/user/${user_id}`, {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + window.sessionStorage.getItem("access_token"),
+      },
+    });
+
+    let tData = await response_transaction.json();
+
+    tData.received.forEach((data) => {
+      data.status = STATUS.TRANSACTION.RECEIVED;
+      transactionData.push(data);
+    });
+
+    tData.sent.forEach((data) => {
+      data.status = STATUS.TRANSACTION.SENT;
+      transactionData.push(data);
+    });
+
+    return transactionData;
+  } catch (err) {
+    console.log(err);
+  }
+};
