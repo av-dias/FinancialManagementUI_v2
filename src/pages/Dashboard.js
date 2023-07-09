@@ -147,10 +147,10 @@ export default function Dashboard() {
     purchases_by_month: {},
     savings_by_month: {},
   });
-  //let month = new Date().getMonth() + 1;
-  //let yerar = new Date().getFullYear();
-  let month = 9;
-  let year = 2022;
+  let month = new Date().getMonth() + 1;
+  let year = new Date().getFullYear();
+  //let month = 9;
+  //let year = 2022;
   let [currentDate, setCurrentDate] = React.useState(year + "" + (month < 10 ? "0" + month : month)); // 2022-09
   let [mode, setMode] = React.useState(1);
 
