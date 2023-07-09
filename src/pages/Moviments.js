@@ -24,8 +24,9 @@ export default function Moviment() {
   const [purchaseType, setPurchaseType] = React.useState([]); // List of purchase types
   const [filter, setFilter] = React.useState("overall"); // List of purchase types
 
-  const togglePopup = (type) => {
-    setIsOpen(!isOpen);
+  const togglePopup = (mode, type) => {
+    console.log(mode, type);
+    setIsOpen(mode);
     setIsPopup(type);
   };
 
@@ -69,7 +70,7 @@ export default function Moviment() {
             <Button
               type="contained"
               onClick={() => {
-                togglePopup("Purchase");
+                togglePopup(true, "Purchase");
               }}
             >
               Purchase
@@ -79,7 +80,7 @@ export default function Moviment() {
             <Button
               type="contained"
               onClick={() => {
-                togglePopup("Income");
+                togglePopup(true, "Income");
               }}
             >
               Income
@@ -89,7 +90,7 @@ export default function Moviment() {
             <Button
               type="contained"
               onClick={() => {
-                togglePopup("Transaction");
+                togglePopup(true, "Transaction");
               }}
             >
               Transaction

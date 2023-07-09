@@ -14,7 +14,12 @@ const Popup = (props) => {
               {props.children}
             </Grid>
             <Grid item xs={1} sm={1} md={1}>
-              <span className="close-icon" onClick={props.handleClose}>
+              <span
+                className="close-icon"
+                onClick={() => {
+                  props.handleClose(false);
+                }}
+              >
                 <IoIosCloseCircle size={30} />
               </span>
             </Grid>

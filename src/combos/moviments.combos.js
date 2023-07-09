@@ -30,7 +30,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
             textColor={"rgb(0, 0, 0)"}
             onClick={() => {
               setlastItem(row);
-              togglePopup("Edit");
+              togglePopup(true, "Edit");
             }}
           >
             <IoIosCreate />
@@ -43,7 +43,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
             onClick={() => {
               setlastItem(row);
               setSlider(row.split.weight);
-              togglePopup("Split");
+              togglePopup(true, "Split");
             }}
           >
             <IoIosGitBranch />
@@ -65,7 +65,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
             textColor={"rgb(0, 0, 0)"}
             onClick={() => {
               setlastItem(row);
-              togglePopup("Edit");
+              togglePopup(true, "Edit");
             }}
           >
             <IoIosCreate />
@@ -86,7 +86,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
             textColor={"rgb(0, 0, 0)"}
             onClick={() => {
               setlastItem(row);
-              togglePopup("Edit");
+              togglePopup(true, "Edit");
             }}
           >
             <IoIosCreate />
@@ -100,7 +100,7 @@ const cellData = (column, row, setlastItem, togglePopup, setSlider, value) => {
             onClick={() => {
               setlastItem(row);
               setSlider(row.weight);
-              togglePopup("EditSplit");
+              togglePopup(true, "EditSplit");
             }}
           >
             <span>{row.weight}</span>
@@ -176,7 +176,7 @@ export const showMainTables = (data, dataTransaction, togglePopup, setSlider, se
       <Grid item xs={5} sm={5} md={5}>
         <Table size="bg" columns={transactionCol} rows={dataTransaction} setlastItem={setlastItem} filter={filter}>
           {dataTransaction.map((rowTransaction) => {
-            console.log(rowTransaction);
+            //console.log(rowTransaction);
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={"tran" + defineNaming(rowTransaction) + rowTransaction.id}>
                 {transactionCol.map((column) => {
